@@ -317,7 +317,28 @@ INSERT INTO nomenc.pj_type VALUES
 	(DEFAULT, 'ref_sensi', 'Référentiel de sensibilité'),
 	(DEFAULT, 'autre', 'Autre document');	
 
-																																		 
+CREATE TABLE nomenc.fct_outil_desc(id_nmc serial NOT NULL,lib_nmc character varying NOT NULL,	val_nmc character varying NOT NULL, PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
+ALTER TABLE nomenc.fct_outil_desc OWNER to postgres;
+INSERT INTO nomenc.fct_outil_desc VALUES
+	(DEFAULT,'fct_outil_1','Saisie de données'),
+	(DEFAULT,'fct_outil_2','Standardisation/transformation de format'),
+	(DEFAULT,'fct_outil_3','Gestion des métadonnées'),
+	(DEFAULT,'fct_outil_4','Contrôles de conformité'),
+	(DEFAULT,'fct_outil_5','Contrôles de cohérence'),
+	(DEFAULT,'fct_outil_6','Gestion de l''identifiant permanent'),
+	(DEFAULT,'fct_outil_7','Rattachement aux entités géo-administratives'),
+	(DEFAULT,'fct_outil_8','Gestion d’un annuaire des organismes'),
+	(DEFAULT,'fct_outil_9','Attribution et gestion de la sensibilité'),
+	(DEFAULT,'fct_outil_10','Floutage des données'),
+	(DEFAULT,'fct_outil_11','Gestion des doublons'),
+	(DEFAULT,'fct_outil_12','Gestion des permissions et droits utilisateurs'),
+	(DEFAULT,'fct_outil_13','Gestion de la validation scientifique'),
+	(DEFAULT,'fct_outil_14','Visualisation des données'),
+	(DEFAULT,'fct_outil_15','Visualisation de métadonnées'),
+	(DEFAULT,'fct_outil_16','Téléchargement des données'),
+	(DEFAULT,'fct_outil_17','Téléchargement de métadonnées'),
+	(DEFAULT,'fct_outil_18','Gestion des demandes de communication'),
+	(DEFAULT,'fct_outil_19','Partage avec la plateforme nationale');
 ----------------Schema temporaire -------------
 
 DROP SCHEMA IF EXISTS temp CASCADE;
@@ -486,8 +507,10 @@ WITH (OIDS = FALSE);
 ALTER TABLE temp.interface OWNER to postgres;
 RETURN 1;
 END; $BODY$ LANGUAGE plpgsql;	
-																																		 
-																																		
+																															
+																
+------------------------------ FUNCTIONs-------------------------
+																														
 ---habilitation_refresh_shema
 CREATE OR REPLACE FUNCTION hab.truncate_shema(nomSchema varchar) RETURNS integer AS 
 $BODY$ 
@@ -555,10 +578,7 @@ EXECUTE 'INSERT INTO hab.outil (id_ptf, outil_nom, outil_dynq, outil_url, outil_
 
 -- interface
 EXECUTE 'INSERT INTO hab.interface (id_ptf, interf_outil, interf_org, interf_contact_org, interf_contact_mail, interf_contact_tel, interf_teleservice, interf_ptf_nat) SELECT '||ptf||',  interf_outil, interf_org, interf_contact_org, interf_contact_mail, interf_contact_tel, interf_teleservice, interf_ptf_nat FROM temp.interface;';
-																																		 
-																																		 
+
 PERFORM hab.truncate_shema('temp');
 RETURN 1;
 END; $BODY$ LANGUAGE plpgsql;
-
-																																		 

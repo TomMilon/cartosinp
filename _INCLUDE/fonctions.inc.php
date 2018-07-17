@@ -93,15 +93,21 @@ if ($theme == "plateforme") {
 	
 	}
 elseif ($theme == "organisme") {
-	$reqSql = "
-	
+	$reqSql[0] = "
+
 	;";
+
 	}
 elseif ($theme == "outil") {
-	$reqSql = "
+	$reqSql[0] = "
+	SELECT a.*, z.nom_region FROM hab.outil a
+	JOIN hab.plateforme z ON a.id_ptf = z.id_ptf
+	WHERE id_outil = $idObjet
+	;";
 	
-	;
-	";
+	$reqSql[1] = "
+	SELECT * FROM nomenc.fct_outil_desc
+	;";
 	}
 elseif ($theme == "jdd") {
 	$reqSql = "
