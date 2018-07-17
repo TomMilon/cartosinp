@@ -1,0 +1,1177 @@
+﻿/* -----------------------------------------------------------------------------*/
+/*    _INCLUDE/css/atlas.css                                                    */
+/*                                                                              */
+/*    CSS principal                                                             */
+/*                                                                              */
+/*  Application WEB 'EVAL'                                                      */
+/*  Outil d'aide à l'évaluation de la flore                                     */
+/*                                                                              */
+/*  Version 1.00  10/08/14 - DariaNet                                           */
+/*  Version 1.01  15/08/14 - Aj 'titre2'                                        */
+/*  Version 1.02  20/08/14 - Aj Couleurs cotations UICN                         */
+/* -----------------------------------------------------------------------------*/
+                                                                          
+
+body{
+/*    background-color:#585858; 
+    font-family: Arial, Helvetica, sans-serif; */
+    font:12px arial,sans-serif;    
+    margin:10px;
+    padding:0;
+    color:#333333;
+    background-color:#E8E2D1;
+}         
+
+/* --------------------------------------------------*/
+/* Styles globaux                                    */
+/* --------------------------------------------------*/
+
+h1 {
+	color: #008C8E;
+	font-size: 25px;
+	font-weight: normal;
+    text-align: center; 
+}
+
+h2 {
+	text-transform: uppercase;
+	font-size: 22px;
+	font-weight: normal;
+/*	color: #5baab8; */
+    text-align:center;
+}
+
+h3 {
+    font-size: 14px;
+	color: #008C8E;
+	text-align: center;
+    background-color: #fff;
+}
+
+h4 {
+    font-size: 14px;
+	color: #008C8E;
+    text-align: left;
+    background-color: #fff;
+}
+
+h5 {
+	color: #008C8E;
+	font-size: 25px;
+	font-weight: normal;
+    text-align: center; 
+    font-style: italic;
+}
+
+/* --------------------------------------------------*/
+/* Mise en page HOME                                 */
+/* --------------------------------------------------*/
+
+#page {
+    width:900px;
+    margin:auto;
+    /*padding:auto;*/
+    /*background-color: #fff;*/
+	/* clear:both;*/
+	background-image: url("../../_GRAPH/theme/f2.png");
+/*    background-image:url(../../_GRAPH/template_v3/page.png); */      
+}
+
+#page2 {
+    width:900px;
+    margin:auto;
+    /*padding:auto;*/
+/*    background-image:url(../../_GRArgb(114,114,114)rgb(114,114,114)rgb(114,114,114)rgb(114,114,114)rgb(114,114,114)PH/template_v3/pagetop.png);       */
+    background-repeat:no-repeat;
+/* 	background: url(../../_GRAPH/theme/content_bg.gif) repeat-y top center; */ 
+}
+
+#header {
+    clear:both;
+    height:20px;
+    /*background-image:url(../../_GRAPH/theme/fl.png);  */
+    padding:0px;
+}
+
+#header2 {
+    height:35px;
+    background-image:url(../../_GRAPH/theme/header.png);
+    padding:0px;
+    text-align:center; 
+}
+
+.titre{
+	font-size: 30px;
+	font-weight: normal;
+ /*    text-align:center; */
+}
+
+#titre2 {
+    float:left;
+    color: #008C8E;
+	font-size: 24px;
+}
+
+/* --------------------------------------------------*/
+/* Liens                                             */
+/* --------------------------------------------------*/
+
+/* --------------------------------------------------*/
+/* MISE EN PAGE GLOBALE                              */
+/* --------------------------------------------------*/
+
+#container{
+	margin: 0 auto;
+	width: 980px;
+	vertical-align: top;
+}
+
+#page_main{
+	padding: 10px 10px 0 10px;
+    background-color:rgb(255,153,51);
+/*
+    height:auso;
+    min-height:800px; */
+}
+
+.page_consult{
+
+/*    width:1200px;  */
+    min-width:1000px;
+
+    height:auto;
+    min-height:500px;
+
+    margin:0;
+    padding:0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size:12px;
+/*    background-color:#E6E6E6; */
+}
+
+.page_liste{
+    min-width:1000px;
+    height:auto;
+	margin-top: 2px;
+    background-color:#fff;
+	padding: 10px;
+}
+
+.page_fiche{
+    width:500px;
+    min-width:1000px;
+    height:auto;
+    background-color:#fff;
+	padding: 10px;
+}
+
+.whidecolumn{
+	float: left;
+	margin-bottom: 10px;
+	padding: 10px 10px 10px 80px;
+	width: 830px;
+}
+
+.whidecolumn a{
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #111;
+}
+
+.narrowcolumn{
+	float: left;
+	width: 680px;
+	vertical-align: top;
+/*    background-color:rgb(255,255,51); */
+}
+
+.post{
+	margin-bottom: 10px;
+	padding: 10px 10px 10px 30px;
+}
+/*
+.fiche{
+	margin-bottom: 10px;
+	padding: 20px;
+}
+*/
+#sidebar{
+	float: left;
+	margin-left: 0;
+	margin-top: 130px;
+	width: 200px;
+    font-size:10pt;
+    background-color:#D0C5AA; 
+}
+
+#sidebar a{
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #111;
+}
+
+/* --------------------------------------------------*/
+/* Fiche taxon                                       */
+/* --------------------------------------------------*/
+
+.bloc_txt {
+/*    width:500px; */
+    overflow: auto;
+/*    float:left;                       
+    text-align: left;
+*/
+
+    text-align: justify;
+    color:black;
+    font-size: 10pt;
+    padding:0 10px 0 0;
+
+/*    border:1px dotted #63417B; 
+    padding:10px;
+    border:1px dotted #DEDEDE;
+*/
+}
+
+.bloc_txt cite{
+    display:block;
+    font-style:normal;
+    font-size: 10pt;
+    margin:0 0 0px 0;
+    border-bottom:5px solid #ABCED0;
+}
+
+.bloc_img {
+    float:right;
+/*    background-color:olive;
+    border:1px dotted #63417B; */
+}
+
+div#bloc_img2 {
+    float:right;
+    width:350px;
+    height:350px;
+    background-color:#FF3300;
+}
+
+/* --------------------------------------------------*/
+/* Tableaux de données v3                            */
+/* --------------------------------------------------*/
+table,td.data{
+    border-collapse:collapse;
+    padding:0.2em;
+    font-size:9pt;
+}
+
+table tr.odd th,
+table tr.odd {
+    background-color:#f6f6f6;
+}
+
+table tr.even th,
+table tr.even {
+    background-color:#E6E6E6;
+}
+
+table tr.odd th,
+table tr.odd,
+table tr.even th,
+table tr.even {
+    text-align:left;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+
+table tr.odd:hover,
+table tr.even:hover,
+table tr.odd:hover th,
+table tr.even:hover th,
+table tr.hover th,
+table tr.hover {
+    background-color:#E7F3FD;
+}
+
+table.admin {
+    border:0px solid #a2c2e1;
+    margin-top:1em;
+    font-size:10pt;
+}
+
+td.admin {
+    border-collapse:collapse;
+/*    text-align: center; */
+    border:0px;
+    padding:0.2em;
+    font-size:10pt;
+}
+
+td.admin2 {
+    border-collapse:collapse;
+    border:0px;
+    padding:0.2em;
+    font-size:10pt;
+    text-align:center;
+}
+
+table td#eee {
+    text-align:right;
+}
+/* --------------------------------------------------*/
+/* Listes                                            */
+/* --------------------------------------------------*/
+
+table.list {
+    border:4px solid #a2c2e1;
+    margin-top:0;
+    font-size:12px;
+    text-align: left;
+	width: 100%; 
+}
+
+tr.list {
+    border-collapse:collapse;
+/*    text-align: left; */
+    border:2px;
+    padding:0;
+}
+
+td.list {
+    border:1px;
+	color: #5baab8;
+    background:#D5E9ED;
+}
+
+select.search_init {
+	width: 100%;
+	box-sizing: border-box;
+}
+/* --------------------------------------------------*/
+/* Fiches taxons                                     */
+/*---------------------------------------------------*/
+
+table.fiche {
+    border: 3px solid #CFCFCF;  
+}
+
+tr.fiche,td.fiche {
+    background-color:#E8E2D1;
+}
+
+/* --------------------------------------------------*/
+/* Tableau infos taxons                              */
+/* --------------------------------------------------*/
+
+table.infos {
+    border:2px solid rgb(152,152,152);
+    font-size:10pt;
+    padding:2px;
+}
+
+/* --------------------------------------------------*/
+/* Tableau photos taxons                             */
+/* --------------------------------------------------*/
+
+table.photos {
+    border:0px solid rgb(152,152,152);
+    padding:0;
+    width:100%;
+}
+
+/* --------------------------------------------------*/
+/* FORMULAIRES                                       */
+/* --------------------------------------------------*/
+
+fieldset {
+    overflow: auto;
+    margin: 0px;
+    padding-top:0px;
+/*    padding-bottom:10px; */
+    padding-right:10px;
+    padding-left:10px;
+/*    background-color:#FAFAFA; 
+    border: 3px solid #C1C1C1;
+    background: #D1E5E7; */
+
+    background-color:#FAFAFA;
+    border: 3px solid #D0C5AA;
+}
+
+legend {
+    padding: 2px 5px;
+    color: #888;
+    font-size: 14px;
+	font-weight: bold;
+/*    background: white; */
+}
+
+.inlineSection {
+  overflow: auto;
+  width: 100%;  
+}
+
+label, form .label {  
+    color: #333;
+    margin: 0px;
+/*    display: block;
+    margin: 2px 4px 0px 0px;    */ 
+    padding: 5px;
+	font-size: 14px;
+    text-align: left;
+}
+
+label.preField {
+    display: -moz-inline-box;
+    display: inline-block;  
+    margin: 2px 4px 0 0px;
+    padding: 2px;
+    width: 13em;
+    min-width: 13em;
+    background-color: #EFEFEF;                                                  /* Coul du label */
+/*    background-color: #EDEDDC;                                                  /* Coul du label */
+    font-size:12px;
+
+/*    color: #466A73; */
+    text-align: right;
+}
+
+label.preField_calc {
+    display: -moz-inline-box;
+    display: inline-block;  
+    margin: 2px 4px 0 0px;
+    padding: 2px;
+    width: 13em;
+    min-width: 13em;
+    background-color: #CFCFCF;                                                  /* Coul du label */
+    font-size:12px;
+	color: #757474;
+    text-align: right;
+}
+
+
+label.preField2 {
+    display: -moz-inline-box;
+    display: inline-block;  
+    margin: 2px 4px 0 0px;
+    padding: 2px;
+/*    width: 13em; */
+    min-width: 13em;
+    background-color: #E6E6E6;                                                  /* Coul du label */
+/*    background-color: #EDEDDC;                                                  /* Coul du label */
+    font-size:12px;
+    text-align: left;
+}
+
+label.postField  {
+    margin-left: 15em;
+    padding: 0px;
+    font-size:12px;
+    color:rgb(112,112,112);
+    font-style: italic;
+}
+
+.majuscule {
+    text-transform: uppercase;
+}
+
+fieldset.meta {
+    margin: 0px;
+    padding-top:0px;
+    padding-bottom:10px;
+    padding-right:10px;
+    padding-left:10px;
+    background: rgb(233,235,245); /* Old browsers */
+    border: 3px solid #C1C1C1;
+    overflow: auto;
+}
+
+/* --------------------------------------------------*/
+/* Formulaire                                        */
+/* --------------------------------------------------*/
+
+#form1 input,#form2 input{
+	padding: 3px;
+	font-size: 12px;
+	background: white;
+    border: 3px solid #CFCFCF;  
+}
+
+#form1 input.error,#form2 input.error{
+	padding: 3px;
+	font-size: 12px;
+	background: #f8dbdb;
+	border: 2px solid #e77776;
+}
+
+#form1 input.bloque,#form2 input.bloque{
+	padding: 3px;
+	font-size: 12px;
+	background: #EFEFEF;
+    border: 3px solid #CFCFCF; 
+}
+
+#form1 select,#form2 select{
+	padding: 2px;
+	font-size: 12px;
+	font-size: 13px;
+    border: 3px solid #CFCFCF;  
+}
+
+#form1 select.error,#form2 select.error{
+	background: #f8dbdb;
+	font-size: 13px;
+	border: 2px solid #e77776;
+}
+
+#form1 textarea,#form2 textarea{
+    vertical-align: top;
+	padding: 3px;
+	font-size: 12px;
+	background: white;
+    border: 3px solid #CFCFCF;  
+}
+
+#form1 textarea.error,#form2 textarea.error {
+	background: #f8dbdb;
+	font-size: 13px;
+	border: 2px solid #e77776;
+}
+
+#form1 div span.error,#form2 div span.error{
+	color: #e46c6e;
+}
+
+#form1 label.error,#form2 label.error {
+    float: right; 
+    color: red; 
+}
+
+/* --------------------------------------------------*/
+/* Bugs & Reùarques                                  */
+/* --------------------------------------------------*/
+
+.phase_1 { background-color: #FFC8C8; }
+.phase_2 { background-color: #F4CAD6; }
+.phase_3 { background-color: #FFA8FF; }
+.phase_4 { background-color: #EFCDF8; }
+.phase_5 { background-color: #C6C6FF; }
+.phase_6 { background-color: #C0E7F3; }
+.phase_7 { background-color: #DCEDEA; }
+
+.bug_new { background-color: #FCBDBD; }
+.bug_confirmed { background-color: #FFF494; }
+.bug_resolved { background-color: #D2F5B0; }
+.bug_closed { background-color: #C9CCC4; }
+.bug_concert { background-color: #D1E7EF; }
+
+/* --------------------------------------------------*/
+/* INIT Page                                         */
+/* --------------------------------------------------*/
+
+#init_page {
+    width:1200px;
+    min-width:500px;
+    height:auto;
+    min-height:1000px;
+    border:0px;
+    margin:0px;
+    margin:0;
+    padding:0;
+	font-size: 14px;
+/*
+    background-image:url(../../_GRAPH/gris_05.gif);
+/*
+    background-image:url(../../_GRAPH/geoportail-waiting.gif);
+    background-position:center center;
+    background-repeat:no-repeat;
+*/
+}
+
+/* --------------------------------------------------*/
+/* Mise en page                                      */
+/* --------------------------------------------------*/
+
+.export {
+  float: right;
+  width: 210px;
+  margin: 0;
+}
+
+/* --------------------------------------------------*/
+/* Menus Rubriques                                   */
+/* --------------------------------------------------*/
+
+#rubriques {
+    margin-left:auto;
+    margin-right:auto;
+    padding:0;
+	vertical-align:center;
+}
+
+#rubriques ul {
+    list-style:none;
+    padding:0;
+    list-style:none;
+}
+
+#rubriques ul li {
+    width:410px;
+    padding:5px;
+    margin:1px;
+    border:1px solid #ccc;
+    
+background: #ffffff;
+background: -moz-linear-gradient(top,  #ffffff 0%, #f1f1f1 50%, #e1e1e1 51%, #f6f6f6 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#f1f1f1), color-stop(51%,#e1e1e1), color-stop(100%,#f6f6f6));
+background: -webkit-linear-gradient(top,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%);
+background: -o-linear-gradient(top,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%);
+background: -ms-linear-gradient(top,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%);
+background: linear-gradient(to bottom,  #ffffff 0%,#f1f1f1 50%,#e1e1e1 51%,#f6f6f6 100%);
+/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0 );*/
+}
+
+#rubriques ul li a {
+    display:block;
+    font-size:0.8em;
+    height:50px;
+    color:#777777;
+    background:#777777;
+    padding:1em;
+    font-size:1.2em;
+    line-height:1.4em;
+    text-decoration:none;
+background: #f6f8f9;
+background: -moz-linear-gradient(top,  #f6f8f9 0%, #e5ebee 50%, #d7dee3 51%, #f5f7f9 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f6f8f9), color-stop(50%,#e5ebee), color-stop(51%,#d7dee3), color-stop(100%,#f5f7f9));
+background: -webkit-linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%);
+background: -o-linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%);
+background: -ms-linear-gradient(top,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%);
+background: linear-gradient(to bottom,  #f6f8f9 0%,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%);
+/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6f8f9', endColorstr='#f5f7f9',GradientType=0 );*/
+}
+
+#rubriques ul li a:hover {
+    text-decoration:underline;
+}
+
+#rubriques ul li a strong {
+    display:block;
+    font-size:1.3em;
+    text-decoration:none;
+    padding-bottom:10px;
+    color:#777777;
+}
+
+.icon {
+    margin-left: 10px;
+    margin-right: 10px;
+    width:50px;
+    float:left;
+}
+
+/* --------------------------------------------------*/
+/* Boutons mail menu CSS 3                           */
+/*---------------------------------------------------*/
+
+.main_menu { 
+    width:410px;
+    margin-left: auto;
+    margin-right: auto;
+    padding:0;
+
+    color:#343434;
+    -moz-box-shadow: 0px 0px 10px #343434;
+    -webkit-box-shadow: 0px 0px 10px #343434;
+    -o-box-shadow: 0px 0px 10px #343434;
+    box-shadow: 0px 0px 10px #343434;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid #656565;
+    background:#ffffff;
+    /*filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff", endColorstr="#c0c0c0");*/ /* Pour IE seulement et mode gradient à linear */
+    background: -webkit-gradient(radial,center center,0,center center,100, from(#ffffff), to(#c0c0c0));
+    background: -moz-radial-gradient(center center, circle contain, #ffffff, #c0c0c0);
+    background: -o-radial-gradient(#ffffff, #c0c0c0);
+    background: -ms-radial-gradient(#ffffff, #c0c0c0);
+    background: radial-gradient(#ffffff, #c0c0c0);
+	
+    text-align: center;
+   	font-family: Verdana, Arial;
+	font-size: 12px;
+
+} 
+/* --------------------------------------------------*/
+/* Cartes*/
+/* --------------------------------------------------*/
+
+a.carte_popup span {
+   display: none;
+}
+
+a.carte_popup:hover span{
+    border: 1px solid rgb(0, 136, 90);
+    display: block;
+    position: absolute;
+
+}
+
+
+/* --------------------------------------------------*/
+/* Suivi					                           */
+/* --------------------------------------------------*/
+
+.change_ajout {
+    color:white; 
+    background-color:#6DC05E;  
+}
+.change_suppr {
+    color:white; 
+    background-color:#DA1C23;  
+}
+
+.change_modif {
+    background-color:#FFF108;  
+}
+
+
+
+/* --------------------------------------------------*/
+/* Liste rouge                                       */
+/* --------------------------------------------------*/
+
+.uicn {
+	text-align: center;
+	font-weight: bold;
+}
+
+.nom_taxon {
+	font-weight: bold;
+}
+
+/* --------------------------------------------------*/
+/* Couleurs cotations UICN                           */
+/* --------------------------------------------------*/
+
+option.DD,  select.DD{
+    background-color:#CCCDCF;  
+}
+option.LC,  select.LC {
+color:white;
+    background-color:#6DC05E;  
+}
+option.NT,  select.NT {
+    background-color:#F7F1C6;  
+}
+option.VU,  select.VU {
+    background-color:#FFF108;  
+}
+option.EN,  select.EN {
+    background-color:#FEBD0E;  
+}
+option.CR,  select.CR {
+    color:white;  
+    background-color:#DA1C23;  
+}
+.CR\*, select.CR\* {
+    color:white;  
+    background-color:#BF181E;  
+}
+option.RE,  select.RE {
+    color:white;  
+    background-color:#591B6A;  
+}
+option.EW,  select.EW {
+    color:white;  
+    background-color:#3E1354;  
+}
+option.EX,  select.EX {
+    color:white;  
+    background-color:#231F20;  
+}
+option.NA,  select.NA {
+    background-color:#B4C5DF;  
+}
+
+option.NE,  select.NE {
+    background-color:#D5DBE5;  
+}
+
+/*
+select.DD{
+    background-color:#CCCDCF;  
+}
+select.LC {
+color:white;
+    background-color:#6DC05E;  
+}
+select.NT {
+    background-color:#F7F1C6;  
+}
+select.VU {
+    background-color:#FFF108;  
+}
+select.EN {
+    background-color:#FEBD0E;  
+}
+select.CR {
+    color:white;  
+    background-color:#DA1C23;  
+}
+select.CR* {
+    color:white;  
+    background-color:#BF181E;  
+}
+select.RE {
+    color:white;  
+    background-color:#591B6A;  
+}
+select.EW {
+    color:white;  
+    background-color:#3E1354;  
+}
+select.EX {
+    color:white;  
+    background-color:#231F20;  
+}
+select.NA {
+    background-color:#B4C5DF;  
+}
+*/
+
+.Indigène, option.Indigène,  select.Indigène, option.I,  select.I {
+    color:white; 
+    background-color:#305F2F;  
+}
+.Cryptogène, option.Cryptogène,  select.Cryptogène{
+    color:white; 
+    background-color:#FEA400;  
+}
+.Exotique, option.Exotique,  select.Exotique,option.E,  select.E {
+    color:white; 
+    background-color:#CC0066;  
+}
+
+option.ref_non, select.ref_non , td.ref_non {
+    color:black;  
+    background-color:#e8dbdd;  
+}
+option.ref_oui, select.ref_oui, td.ref_oui  {
+    color:black;  
+    background-color:#dbe8e0;  
+}
+option.non, select.non , td.non {
+    color:white;  
+    background-color:#DA1C23;  
+}
+option.oui, select.oui, td.oui  {
+    color:white;  
+    background-color:#4ACC83;  
+}
+option.ouisi, select.ouisi, td.ouisi  {
+    color:white;  
+    background-color:#E99C01;  
+}
+option.Pr,  select.Pr {
+    color:white;  
+    background-color:#4ACC83;  
+}
+option.Nr,  select.Nr {
+    color:white;  
+    background-color:#FEA400;  
+}
+option.Ab,  select.Ab {
+    color:white;  
+    background-color:#DA1C23;  
+}
+Option.D,  select.D {
+    color:white; 
+    background-color:#23904E;  
+}
+
+.UICN_DD {
+    background-color:#CCCDCF;  
+}
+.UICN_LC {
+    background-color:#6DC05E;  
+}
+.UICN_NT {
+    background-color:#F7F1C6;  
+}
+.UICN_VU {
+    background-color:#FFF108;  
+}
+.UICN_EN {
+    background-color:#FEBD0E;  
+}
+.UICN_CR {
+    color:white;  
+    background-color:#DA1C23;  
+}
+.UICN_RE {
+    color:white;  
+    background-color:#591B6A;  
+}
+.UICN_EW {
+    color:white;  
+    background-color:#3E1354;  
+}
+.UICN_EX {
+    color:white;  
+    background-color:#231F20;  
+}
+.UICN_NA {
+    background-color:#B4C5DF;  
+}
+
+.UICN_NE {
+    background-color:#D5DBE5;  
+}
+
+.UICN_DD_text {
+    background-color:#CCCDCF;  
+}
+.UICN_LC_text {
+    background-color:#6DC05E;  
+}
+.UICN_NT_text {
+    background-color:#F7F1C6;  
+}
+.UICN_VU_text {
+    background-color:#FFF108;  
+}
+.UICN_EN_text {
+    background-color:#FEBD0E;  
+}
+.UICN_CR_text {
+    color:white;  
+    background-color:#DA1C23;  
+}
+.UICN_RE_text {
+    color:white;  
+    background-color:#591B6A;  
+}
+.UICN_EW_text {
+    color:white;  
+    background-color:#3E1354;  
+}
+.UICN_EX_text {
+    color:white;  
+    background-color:#231F20;  
+}
+.UICN_NA_text {
+    background-color:#B4C5DF;  
+}
+
+
+.avancement_1 {
+    color:white; 
+    background-color:#DA1C23;   
+}
+.avancement_2 {
+    color:white; 
+    background-color:#F2C43C;  
+}
+
+.avancement_3 {
+    color:white; 
+    background-color:#6DC05E;
+}
+
+.avancement_4 {
+    color:white; 
+    background-color:#30871F;
+}
+
+.avancement_5 {
+    color:white; 
+    background-color:#D150D3;
+}
+
+.hyb_oui {
+    color:white; 
+    background-color:#5DB7A5;  
+}
+.hyb_non {
+    color:white; 
+    background-color:#3E8380;  
+}
+
+.end_oui {
+    color:white; 
+    background-color:#5DB7A5;  
+}
+.end_non {
+    color:white; 
+    background-color:#3E8380;  
+}
+
+a.ind_oui {
+    color:white; 
+    background-color:#305F2F;  
+}
+a.ind_pt {
+    color:white; 
+    background-color:#FEA400;  
+}
+a.ind_non {
+    color:white; 
+    background-color:#23904E;  
+}
+
+
+/* --------------------------------------------------*/
+/* Couleurs cotations EEE                           */
+/* --------------------------------------------------*/
+
+.eval {
+	text-align: center;
+	font-weight: bold;
+}
+.eval_FAIBLE {
+    background-color:#F7F1C6;  
+}
+.eval_INTER {
+    background-color:#FEBD0E;  
+}
+.eval_FORT {
+    color:white;  
+    background-color:#DA1C23;  
+}
+.eval_NE {
+    color:white;  
+    background-color:#A3A3A3;  
+}
+
+
+/* --------------------------------------------------*/
+/* Refnat                        */
+/* --------------------------------------------------*/
+
+.taxref_true {
+    color:white; 
+    background-color:#305F2F;  
+}
+.taxref_false {
+    color:white;  
+    background-color:#DA1C23;  
+}
+
+
+/* --------------------------------------------------*/
+/* Couleurs LSI                          */
+/* --------------------------------------------------*/
+
+
+.SUJET_1 {
+    background-color:#4AACC5;  
+}
+.SUJET_2 {
+    background-color:#9BBA58;  
+}
+.SUJET_3 {
+    background-color:#C0504D;  
+}
+.SUJET_4 {
+    background-color:#4F81BC;  
+}
+.SUJET_5 {
+    background-color:#8063A1;  
+}
+
+/*http://www.csstablegenerator.com/*/
+
+.basic_table {
+	margin:0px;padding:0px;
+	width:100%;
+	box-shadow: 10px 10px 5px #888888;
+	border:1px solid #000000;
+	
+	-moz-border-radius-bottomleft:0px;
+	-webkit-border-bottom-left-radius:0px;
+	border-bottom-left-radius:0px;
+	
+	-moz-border-radius-bottomright:0px;
+	-webkit-border-bottom-right-radius:0px;
+	border-bottom-right-radius:0px;
+	
+	-moz-border-radius-topright:0px;
+	-webkit-border-top-right-radius:0px;
+	border-top-right-radius:0px;
+	
+	-moz-border-radius-topleft:0px;
+	-webkit-border-top-left-radius:0px;
+	border-top-left-radius:0px;
+}.basic_table table{
+    border-collapse: collapse;
+        border-spacing: 0;
+	width:100%;
+	height:100%;
+	margin:0px;padding:0px;
+}.basic_table tr:last-child td:last-child {
+	-moz-border-radius-bottomright:0px;
+	-webkit-border-bottom-right-radius:0px;
+	border-bottom-right-radius:0px;
+}
+.basic_table table tr:first-child td:first-child {
+	-moz-border-radius-topleft:0px;
+	-webkit-border-top-left-radius:0px;
+	border-top-left-radius:0px;
+}
+.basic_table table tr:first-child td:last-child {
+	-moz-border-radius-topright:0px;
+	-webkit-border-top-right-radius:0px;
+	border-top-right-radius:0px;
+}.basic_table tr:last-child td:first-child{
+	-moz-border-radius-bottomleft:0px;
+	-webkit-border-bottom-left-radius:0px;
+	border-bottom-left-radius:0px;
+}.basic_table tr:hover td{
+	
+}
+.basic_table tr:nth-child(odd){ background-color:#e5e5e5; }
+.basic_table tr:nth-child(even)    { background-color:#ffffff; }.basic_table td{
+	vertical-align:middle;
+	
+	
+	border:1px solid #000000;
+	border-width:0px 1px 1px 0px;
+	text-align:center;
+	padding:7px;
+	font-size:10px;
+	font-family:Arial;
+	font-weight:normal;
+	color:#000000;
+}.basic_table tr:last-child td{
+	border-width:0px 1px 0px 0px;
+}.basic_table tr td:last-child{
+	border-width:0px 0px 1px 0px;
+}.basic_table tr:last-child td:last-child{
+	border-width:0px 0px 0px 0px;
+}
+.basic_table tr:first-child td{
+		background:-o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) );
+	background:-moz-linear-gradient( center top, #cccccc 5%, #b2b2b2 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#cccccc", endColorstr="#b2b2b2");	background: -o-linear-gradient(top,#cccccc,b2b2b2);
+
+	background-color:#cccccc;
+	border:0px solid #000000;
+	text-align:center;
+	border-width:0px 0px 1px 1px;
+	font-size:14px;
+	font-family:Arial;
+	font-weight:bold;
+	color:#000000;
+}
+.basic_table tr:first-child:hover td{
+	background:-o-linear-gradient(bottom, #cccccc 5%, #b2b2b2 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #cccccc), color-stop(1, #b2b2b2) );
+	background:-moz-linear-gradient( center top, #cccccc 5%, #b2b2b2 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#cccccc", endColorstr="#b2b2b2");	background: -o-linear-gradient(top,#cccccc,b2b2b2);
+
+	background-color:#cccccc;
+}
+.basic_table tr:first-child td:first-child{
+	border-width:0px 0px 1px 0px;
+}
+.basic_table tr:first-child td:last-child{
+	border-width:0px 0px 1px 1px;
+}
