@@ -20,35 +20,11 @@ if (!$db) fatal_error ("Impossible de se connecter au serveur PostgreSQL ".SQL_s
 //------------------------------------------------------------------------------ MAIN
 html_header ("utf-8","","");
 
-// ------------Introduction
-Echo "Ce site propose une expérimentation en terme de visualisation de la cartographie du SINP";
-
-//------------------------------------------------------------------------Test première entrée
-// ---Liste des plateformes
-$sqlList["plateforme"] = "
-SELECT '<a href=\"plateforme.php?id='||id_ptf||'\">'||nom_region||'</a>'
-FROM hab.plateforme 
-ORDER BY nom_region
-;
-";
-
-Echo "<h2>Les plateforme régionales du SINP</h2>";
-$result=pg_query ($db,$sqlList["plateforme"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
-while ($row = pg_fetch_row($result))
-	echo $row[0]."<BR>";
-
-// ---Liste des outils
-$sqlList["outil"] = "
-SELECT '<a href=\"outil.php?id='||id_outil||'\">'||outil_nom||'</a>'
-FROM hab.outil 
-ORDER BY outil_nom
-;
-";
-
-Echo "<h2>Les outils</h2>";
-$result=pg_query ($db,$sqlList["outil"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
-while ($row = pg_fetch_row($result))
-	echo $row[0]."<BR>";
+//Récupération des données
+// $pgresult=pg_query ($db,sqlConst ("plateforme",$_GET["id"])) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
+// $tab = pg_fetch_all($pgresult);
+// $result = $tab[0];
+// var_dump($result);
 
 ?>
-
+Affaire à suivre

@@ -36,6 +36,8 @@ function html_header ($charset,$css) {
 
     if ($css != "") echo ("<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"../_INCLUDE/css/".$css."\"  />");
     echo ("</head>");
+	Echo "<a href=\"index.php\"><h1>Cartographie du SINP - expérimentation</h1></a>";
+	Echo "<BR>";
 }
 
 
