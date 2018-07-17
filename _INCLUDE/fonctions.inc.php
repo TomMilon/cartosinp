@@ -26,7 +26,7 @@ function sql_connect_admin ($base) {
 
 function html_header ($charset,$css) {
     echo ("<head><title>Cartographie du SINP - Expérimentation</title>");
-    echo ("<link rel=\"shortcut icon\" href=\"../_GRAPH/SINP.png\" type=\"image/x-icon\" />");
+    echo ("<link rel=\"shortcut icon\" href=\"../_GRAPH/icones/sinp_ico.png\" type=\"image/x-icon\" />");
     echo ("<meta http-equiv=\"Content-type\" content=\"text/html; charset=".$charset."\" />");
     echo ("<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\" />");
     echo ("<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />");
