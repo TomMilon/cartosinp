@@ -34,7 +34,7 @@ ORDER BY nom_region
 ;
 ";
 
-Echo "<h1>Les plateforme régionales du SINP</h1>";
+Echo "<h2>Les plateforme régionales du SINP</h2>";
 $result=pg_query ($db,$sqlList["plateforme"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
 while ($row = pg_fetch_row($result))
 	echo $row[0]."<BR>";
@@ -47,7 +47,7 @@ ORDER BY outil_nom
 ;
 ";
 
-Echo "<h1>Les outils</h1>";
+Echo "<h2>Les outils</h2>";
 $result=pg_query ($db,$sqlList["outil"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
 while ($row = pg_fetch_row($result))
 	echo $row[0]."<BR>";
