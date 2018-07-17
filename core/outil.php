@@ -36,9 +36,17 @@ for ($i = 1; $i <= 19; $i++) {
     echo "<li>".$fct_outil["fct_outil_".$i]." = ".$result["fct_outil_".$i]."<BR></li>";
 	}
 ?>
+<BR><BR>
+
 <b>Liste des plateformes</b><BR>
 <?php echo "<li><a href=\"plateforme.php?id=".$result["id_ptf"]."\">".$result["nom_region"]."</a></li>";?>
+<BR><BR>
 
+<b>Liste des organismes</b><BR>
+affaire à suivre<BR><BR>
+
+<b>Liste des jeux de données</b><BR>
+affaire à suivre<BR><BR>
 
 
 

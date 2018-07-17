@@ -38,11 +38,17 @@ $pgresult=pg_query ($db,$req[2]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 <?php echo $ptf["echange_desc"];?><BR><BR>
 <b><a href="./question.php?id=7">validation scientifique des données?</a></b> : <?php echo $ptf["validation"];?><BR>
 <?php echo $ptf["validation_desc"];?><BR><BR>
-<b><a href="./question.php?id=8">Référentiel de sensibilité</a></b> : <?php echo $ptf["ref_sensibilité"];?><BR><BR>
-<b>liste des jeux de données échangés</b> travaux en cours
+<b><a href="./question.php?id=8">Référentiel de sensibilité</a></b> : <?php echo $ptf["ref_sensibilité"];?>
+
 <BR><BR>
+
+<b>Liste des jeux de données</b><BR>
+affaire à suivre<BR><BR>
+
 <b>Liste des outils</b><BR>
 <?php foreach ($tool as $unit) echo "<li><a href=\"outil.php?id=".$unit["id_outil"]."\">".$unit["outil_nom"]."</a></li>";?>
+<BR><BR>
+
 <b>Liste des organismes</b><BR>
 <?php foreach ($org as $unit) echo "<li><a href=\"organisme.php?id=".$unit["nom"]."\">".$unit["nom"]." (".$unit["role"].")</a></li>";?>
 

@@ -38,10 +38,9 @@ echo "<div id=\"outil\">";
 echo "</div>";
 
 // -------------------
-// ---Liste des orgnismes
+// ---Liste des organismes
 echo "<div id=\"organisme\">";
 	echo "<h2>Les organismes</h2>";
-	$URLAPI_organisme = "https://odata-inpn.mnhn.fr/solr-ws/organismes/records?wt=json";
 	$json = file_get_contents($URLAPI_organisme);
 	$jsondec = json_decode($json, true);
 	foreach ($jsondec["response"]["docs"] as $unit)
