@@ -15,44 +15,56 @@ if (!$db) fatal_error ("Impossible de se connecter au serveur PostgreSQL ".SQL_s
 html_header ("utf-8","","");
 
 // ------------Introduction
-Echo "Ce site propose une expérimentation en terme de visualisation de la cartographie du SINP";
+echo "Ce site propose une expérimentation en terme de visualisation de la cartographie du SINP";
 
-//------------------------------------------------------------------------Test première entrée
+// -------------------
 // ---Liste des plateformes
-$sqlList["plateforme"] = "
-SELECT '<a href=\"plateforme.php?id='||id_ptf||'\">'||nom_region||'</a>'
-FROM hab.plateforme 
-ORDER BY nom_region
-;";
+$sqlList["plateforme"] = " SELECT '<a href=\"plateforme.php?id='||id_ptf||'\">'||nom_region||'</a>' FROM hab.plateforme ORDER BY nom_region;";
+echo "<div id=\"ptf\">";
+	echo "<h2>Les plateforme régionales du SINP</h2>";
+	$result=pg_query ($db,$sqlList["plateforme"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
+	while ($row = pg_fetch_row($result))
+		echo "<li>".$row[0]."</li>";
+echo "</div>";
 
-Echo "<h2>Les plateforme régionales du SINP</h2>";
-$result=pg_query ($db,$sqlList["plateforme"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
-while ($row = pg_fetch_row($result))
-	echo "<li>".$row[0]."</li>";
-
+// -------------------
 // ---Liste des outils
-$sqlList["outil"] = "
-SELECT '<a href=\"outil.php?id='||id_outil||'\">'||outil_nom||'</a>'
-FROM hab.outil 
-ORDER BY outil_nom
-;";
+$sqlList["outil"] = "SELECT '<a href=\"outil.php?id='||id_outil||'\">'||outil_nom||'</a>' FROM hab.outil ORDER BY outil_nom;";
+echo "<div id=\"outil\">";
+	echo "<h2>Les outils</h2>";
+	$result=pg_query ($db,$sqlList["outil"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
+	while ($row = pg_fetch_row($result))
+		echo "<li>".$row[0]."</li>";
+echo "</div>";
 
-Echo "<h2>Les outils</h2>";
-$result=pg_query ($db,$sqlList["outil"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
-while ($row = pg_fetch_row($result))
-	echo "<li>".$row[0]."</li>";
+// -------------------
+// ---Liste des orgnismes
+echo "<div id=\"organisme\">";
+	echo "<h2>Les organismes</h2>";
+	$URLAPI_organisme = "https://odata-inpn.mnhn.fr/solr-ws/organismes/records?wt=json";
+	$json = file_get_contents($URLAPI_organisme);
+	$jsondec = json_decode($json, true);
+	foreach ($jsondec["response"]["docs"] as $unit)
+		{
+		$libelleLong[$unit["codeOrganisme"]] = $unit["libelleLong"];
+		$libelleCourt[$unit["codeOrganisme"]] = $unit["libelleCourt"];
+	}
+	asort($libelleCourt);asort($libelleLong);
+	for ($i = 1; $i < 10; $i++)
+		{
+		echo "<li><a href=\"organisme.php?id=".key($libelleLong)."\">".current($libelleLong)."<a></li>";
+		next($libelleLong);
+		}
+	echo "<li>...</li>";
+echo "</div>";
 
+// -------------------
 // ---Liste des questions
-$sqlList["question"] = "
-SELECT '<a href=\"question.php?id='||lib_nmc||'\">'||val_nmc||'</a>'
-FROM nomenc.carto_question
-ORDER BY lib_nmc
-;";
-
-Echo "<h2>Les questions</h2>";
-$result=pg_query ($db,$sqlList["question"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
-while ($row = pg_fetch_row($result))
-	echo "<li>".$row[0]."</li>";
-
+echo "<div id=\"organisme\">";
+	$sqlList["question"] = "SELECT '<a href=\"question.php?id='||lib_nmc||'\">'||val_nmc||'</a>' FROM nomenc.carto_question ORDER BY lib_nmc;";
+	echo "<h2>Les questions</h2>";
+	$result=pg_query ($db,$sqlList["question"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
+	while ($row = pg_fetch_row($result))
+		echo "<li>".$row[0]."</li>";
+echo "</div>";
 ?>
-
