@@ -94,7 +94,6 @@ if ($theme == "plateforme") {
 	}
 elseif ($theme == "organisme") {
 	$reqSql[0] = "
-
 	;";
 
 	}

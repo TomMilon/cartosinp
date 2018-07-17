@@ -1,10 +1,4 @@
 <?php
-//------------------------------------------------------------------------------//
-//  /index.php                                                                  //
-//                                                                              //
-//  Version 1.00  13/07/12 - OlGa (CBNMED)                                      //
-//------------------------------------------------------------------------------//
-
 include ("../_INCLUDE/config_sql.inc.php");
 include ("../_INCLUDE/fonctions.inc.php");
 include ("../_INCLUDE/constants.inc.php");
