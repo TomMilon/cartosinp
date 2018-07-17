@@ -116,23 +116,110 @@ elseif ($theme == "jdd") {
 	";
 	}
 elseif ($theme == "question") {
-	$reqSql[0] = "
+// Quelles sont les plateformes en cours d’habilitation/habilitées SINP?
+	$Sql[1] = "
 	SELECT
-		nom_region as \"Nom de la région\",
-		CASE WHEN hab_decision IS NULL THEN 'Habilitation en cours' ELSE hab_decision END as \"Statut de la plateforme\"
+		a.id_ptf,
+		nom_region,
+		CASE WHEN hab_decision IS NULL THEN 'Habilitation en cours' ELSE hab_decision END as \"statut\"
 	FROM hab.plateforme a
 	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
-	;
-	";
-	$reqSql[1] = "
+	;";
+// Quelles sont les dynamiques des plateformes ainsi que leur pérennité ?
+	$Sql[2] = "
 	SELECT
-		nom_region as \"Nom de la région\",
-		c3.val_nmc as \"Plateforme pérène?\"
+		a.id_ptf,
+		nom_region,
+		e.val_nmc as \"dynamique\",
+		c3.val_nmc \"perenne\"
 	FROM hab.plateforme a
 	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	JOIN nomenc.dynq_general e ON a.dynq_general = e.lib_nmc
 	JOIN nomenc.crit_rea c3 ON z.crit3_rea = c3.lib_nmc
-	;
-	";
+	;";
+// Quelles sont les plateformes qui possèdent une charte SINP compatible avec le protocole SINP?
+	$Sql[3] = "
+	SELECT
+		a.id_ptf,
+		nom_region,
+		c2.val_nmc \"charte\",
+		crit2_desc \"charte_desc\",
+		CASE WHEN charte.pj_nom IS NOT NULL THEN charte.pj_nom||' : '||charte.pj_ressource ELSE 'Pas de lien vers la charte disponible' END as \"charte_pj\"
+	FROM hab.plateforme a
+	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	JOIN nomenc.crit_rea c2 ON z.crit2_rea = c2.lib_nmc
+	LEFT JOIN hab.piece_jointe charte ON a.id_ptf = charte.id_ptf AND charte.pj_type = 'charte'
+	;";
+// Quelles sont les plateformes qui possèdent un standard de données régional? 
+	$Sql[4] = "
+	SELECT
+		a.id_ptf,
+		nom_region,
+		CASE WHEN std.pj_nom IS NOT NULL THEN std.pj_nom||' : '||std.pj_ressource ELSE 'Pas standard régional' END as \"standard\"
+	FROM hab.plateforme a
+	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	LEFT JOIN hab.piece_jointe std ON a.id_ptf = std.id_ptf AND std.pj_type = 'std'
+	;";
+// Quelles sont les plateformes qui échangent leurs données avec la plateforme nationale?
+	$Sql[5] = "
+	SELECT
+		a.id_ptf,
+		nom_region,
+		c8.val_nmc \"echange\",
+		crit8_desc \"echange_desc\"
+	FROM hab.plateforme a
+	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	JOIN nomenc.crit_rea c8 ON z.crit8_rea = c8.lib_nmc
+	;";
+// Quelles sont les plateformes qui organisent la validation scientifique des données?
+	$Sql[6] = "
+	SELECT
+		a.id_ptf,
+		nom_region,
+		c11.val_nmc \"validation\",
+		crit11_desc\"validation_desc\"
+	FROM hab.plateforme a
+	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	JOIN nomenc.crit_rea c11 ON z.crit11_rea = c11.lib_nmc
+	;";
+// Quelles sont les plateformes qui possèdent un référentiel régional de sensibilité?
+	$Sql[7] = "
+	SELECT
+		a.id_ptf,
+		nom_region,
+		CASE WHEN ref_sensi.pj_nom IS NOT NULL THEN ref_sensi.pj_nom||' : '||ref_sensi.pj_ressource ELSE 'Pas de réféentiel de sensibilité SINP' END as \"ref_sensibilité\"
+	FROM hab.plateforme a
+	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	LEFT JOIN hab.piece_jointe ref_sensi ON a.id_ptf = ref_sensi.id_ptf AND ref_sensi.pj_type = 'ref_sensi'
+	;";
+// Quels sont les organismes qui participent au SINP? Quel est le rôle de ces organismes dans le SINP?
+	$Sql[8] = "SELECT 'affaire à suivre';";
+	
+// Quels sont les organismes adhérents au protocole SINP?
+	$Sql[9] = "SELECT 'affaire à suivre';";
+	
+// Quelles sont les données produites/gérées/financées par ces organismes?
+	$Sql[10] = "SELECT 'affaire à suivre';";
+	
+// Quels sont les outils utilisés  par les plateformes dans le cadre du SINP? Quelle plateforme utilise/gère ces outils? 
+	$Sql[11] = "SELECT 'affaire à suivre';";
+	
+// Quelles sont les fonctionnalités remplies par ces outils?
+	$Sql[12] = "SELECT 'affaire à suivre';";
+	
+// Quels sont les jeux de données disponibles dans le SINP ? Dans l’INPN ?
+	$Sql[13] = "SELECT 'affaire à suivre';";
+	
+// Quels sont les organismes impliqués dans ces jeux de données ?
+	$Sql[14] = "SELECT 'affaire à suivre';";
+	
+// Quel est le « chemin parcouru » par ces jeux de données ?
+	$Sql[15] = "SELECT 'affaire à suivre';";
+	
+
+	// récupération de la question d'intérêt
+	$reqSql = $Sql[$idObjet];
+	
 	}
 else {
 	$reqSql = "

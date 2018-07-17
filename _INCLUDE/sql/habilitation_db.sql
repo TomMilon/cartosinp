@@ -317,6 +317,7 @@ INSERT INTO nomenc.pj_type VALUES
 	(DEFAULT, 'ref_sensi', 'Référentiel de sensibilité'),
 	(DEFAULT, 'autre', 'Autre document');	
 
+---- LISTES -----
 CREATE TABLE nomenc.fct_outil_desc(id_nmc serial NOT NULL,lib_nmc character varying NOT NULL,	val_nmc character varying NOT NULL, PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
 ALTER TABLE nomenc.fct_outil_desc OWNER to postgres;
 INSERT INTO nomenc.fct_outil_desc VALUES
@@ -339,6 +340,29 @@ INSERT INTO nomenc.fct_outil_desc VALUES
 	(DEFAULT,'fct_outil_17','Téléchargement de métadonnées'),
 	(DEFAULT,'fct_outil_18','Gestion des demandes de communication'),
 	(DEFAULT,'fct_outil_19','Partage avec la plateforme nationale');
+	
+
+CREATE TABLE nomenc.carto_question(id_nmc serial NOT NULL,lib_nmc character varying NOT NULL,	val_nmc character varying NOT NULL, PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
+ALTER TABLE nomenc.carto_question OWNER to postgres;
+INSERT INTO nomenc.carto_question VALUES
+	(DEFAULT,'1','Quelles sont les plateformes en cours d’habilitation/habilitées SINP?'),
+	(DEFAULT,'2','Quelles sont les dynamiques des plateformes ainsi que leur pérennité ?'),
+	(DEFAULT,'3','Quelles sont les plateformes qui possèdent une charte SINP compatible avec le protocole SINP?'),
+	(DEFAULT,'4','Quelles sont les plateformes qui possèdent un standard de données régional?'),
+	(DEFAULT,'5','Quelles sont les plateformes qui échangent leurs données avec la plateforme nationale?'),
+	(DEFAULT,'6','Quelles sont les plateformes qui organisent la validation scientifique des données?'),
+	(DEFAULT,'7','Quelles sont les plateformes qui possèdent un référentiel régional de sensibilité?'),
+	(DEFAULT,'8','Quels sont les organismes qui participent au SINP? Quel est le rôle de ces organismes dans le SINP?'),
+	(DEFAULT,'9','Quels sont les organismes adhérents au protocole SINP?'),
+	(DEFAULT,'10','Quelles sont les données produites/gérées/financées par ces organismes?'),
+	(DEFAULT,'11','Quels sont les outils utilisés  par les plateformes dans le cadre du SINP? Quelle plateforme utilise/gère ces outils?'),
+	(DEFAULT,'12','Quelles sont les fonctionnalités remplies par ces outils?'),
+	(DEFAULT,'13','Quels sont les jeux de données disponibles dans le SINP ? Dans l’INPN ?'),
+	(DEFAULT,'14','Quels sont les organismes impliqués dans ces jeux de données ?'),
+	(DEFAULT,'15','Quel est le « chemin parcouru » par ces jeux de données ?')
+
+	
+	
 ----------------Schema temporaire -------------
 
 DROP SCHEMA IF EXISTS temp CASCADE;

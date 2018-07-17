@@ -21,10 +21,11 @@ if (!$db) fatal_error ("Impossible de se connecter au serveur PostgreSQL ".SQL_s
 html_header ("utf-8","","");
 
 //Récupération des données
-// $pgresult=pg_query ($db,sqlConst ("plateforme",$_GET["id"])) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
-// $tab = pg_fetch_all($pgresult);
-// $result = $tab[0];
-// var_dump($result);
+$req = sqlConst("question",$_GET["id"]);
+$pgresult=pg_query ($db,$req) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
+$tab = pg_fetch_all($pgresult);
+var_dump($tab);
+
 
 ?>
 Affaire à suivre
