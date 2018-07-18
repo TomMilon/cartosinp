@@ -361,7 +361,89 @@ INSERT INTO nomenc.carto_question VALUES
 	(DEFAULT,'14','Quels sont les organismes impliqués dans ces jeux de données ?'),
 	(DEFAULT,'15','Quel est le « chemin parcouru » par ces jeux de données ?')
 
+CREATE TABLE nomenc.type_organisme(id_nmc serial NOT NULL,lib_nmc character varying NOT NULL,	val_nmc character varying NOT NULL, PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
+ALTER TABLE nomenc.type_organisme OWNER to postgres;
+INSERT INTO nomenc.type_organisme VALUES
+	(DEFAULT,'1','Administration'),
+	(DEFAULT,'2','Association'),
+	(DEFAULT,'3','Entreprise privée'),
+	(DEFAULT,'4','Entreprise privée individuelle'),
+	(DEFAULT,'5','Etablissement public'),
+	(DEFAULT,'6','Structure interne'),
+	(DEFAULT,'7','Regroupement d''organismes');
+
+
+CREATE TABLE nomenc.statut_organisme(id_nmc serial NOT NULL,lib_nmc character varying NOT NULL,	val_nmc character varying NOT NULL, PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
+ALTER TABLE nomenc.statut_organisme OWNER to postgres;
+INSERT INTO nomenc.statut_organisme VALUES
+	(DEFAULT,'0','Inconnu'),
+	(DEFAULT,'1','Public'),
+	(DEFAULT,'2','Privé');
 	
+CREATE TABLE nomenc.perimetre_action(id_nmc serial NOT NULL,lib_nmc character varying NOT NULL,	val_nmc character varying NOT NULL, PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
+ALTER TABLE nomenc.perimetre_action OWNER to postgres;
+INSERT INTO nomenc.perimetre_action VALUES
+	(DEFAULT,'1','Européen'),
+	(DEFAULT,'2','National'),
+	(DEFAULT,'3','Suprarégional'),
+	(DEFAULT,'4','Régional'),
+	(DEFAULT,'5','Inconnu');
+
+
+CREATE TABLE nomenc.niveau_adhesion(id_nmc serial NOT NULL,lib_nmc character varying NOT NULL,	val_nmc character varying NOT NULL, PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
+ALTER TABLE nomenc.niveau_adhesion OWNER to postgres;
+INSERT INTO nomenc.niveau_adhesion VALUES
+	(DEFAULT,'0','NSP : ne sait pas'),
+	(DEFAULT,'1','Adhésion'),
+	(DEFAULT,'2','Préadhésion'),
+	(DEFAULT,'3','Non adhérent');
+	
+CREATE TABLE nomenc.domaine_connaissance(id_nmc serial NOT NULL,lib_nmc character varying NOT NULL,	val_nmc character varying NOT NULL, PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
+ALTER TABLE nomenc.domaine_connaissance OWNER to postgres;
+INSERT INTO nomenc.domaine_connaissance VALUES
+	(DEFAULT,'1','Faune'),
+	(DEFAULT,'2','Fonge'),
+	(DEFAULT,'3','Flore'),
+	(DEFAULT,'4','Habitats');
+
+CREATE TABLE nomenc.zone_geographique(id_nmc serial NOT NULL,lib_nmc character varying NOT NULL,	val_nmc character varying NOT NULL, PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
+ALTER TABLE nomenc.zone_geographique OWNER to postgres;
+INSERT INTO nomenc.zone_geographique VALUES
+	(DEFAULT,'1','Guadeloupe'),
+	(DEFAULT,'2','Martinique'),
+	(DEFAULT,'3','Guyane'),
+	(DEFAULT,'4','La Réunion'),
+	(DEFAULT,'6','Mayotte'),
+	(DEFAULT,'11','Île-de-France'),
+	(DEFAULT,'24','Centre-Val de Loire'),
+	(DEFAULT,'27','Bourgogne-Franche-Comté'),
+	(DEFAULT,'28','Normandie'),
+	(DEFAULT,'32','Nord-Pas-de-Calais-Picardie'),
+	(DEFAULT,'44','Alsace-Champagne-Ardenne-Lorraine'),
+	(DEFAULT,'52','Pays de la Loire'),
+	(DEFAULT,'53','Bretagne'),
+	(DEFAULT,'75','Aquitaine-Limousin-Poitou-Charentes'),
+	(DEFAULT,'76','Languedoc-Roussillon-Midi-Pyrénées'),
+	(DEFAULT,'84','Auvergne-Rhône-Alpes'),
+	(DEFAULT,'93','Provence-Alpes-Côte d''Azur'),
+	(DEFAULT,'94','Corse'),
+	(DEFAULT,'21','Champagne-Ardenne'),
+	(DEFAULT,'22','Picardie'),
+	(DEFAULT,'23','Haute-Normandie'),
+	(DEFAULT,'45','Basse-Normandie'),
+	(DEFAULT,'26','Bourgogne'),
+	(DEFAULT,'31','Nord-Pas-de-Calais'),
+	(DEFAULT,'41','Lorraine'),
+	(DEFAULT,'42','Alsace'),
+	(DEFAULT,'43','Franche-Comté'),
+	(DEFAULT,'54','Poitou-Charentes'),
+	(DEFAULT,'72','Aquitaine'),
+	(DEFAULT,'73','Midi-Pyrénées'),
+	(DEFAULT,'44','Limousin'),
+	(DEFAULT,'82','Rhône-Alpes'),
+	(DEFAULT,'83','Auvergne'),
+	(DEFAULT,'91','Languedoc-Roussillon');
+ 	
 	
 ----------------Schema temporaire -------------
 
