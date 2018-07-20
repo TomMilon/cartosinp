@@ -32,7 +32,8 @@ function html_header ($charset,$css) {
     echo ("<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />");
     echo ("<meta name=\"description\" content=\"Expérimentation de la cartograhie du SINP\">");
     
-    echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/global.css\" />");
+    // echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/global.css\" />");
+    echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/global_v2.css\" />");
 
     if ($css != "") echo ("<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"../_INCLUDE/css/".$css."\"  />");
     echo ("</head>");
