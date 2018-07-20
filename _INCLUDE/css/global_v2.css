@@ -129,9 +129,10 @@ div.outil {
 }
 
 div.jdd {
-	background: LemonChiffon ;
-	/* background: Plum  ; */
-	
+	/* background: LemonChiffon ; */
+	background: Plum  ;
+}
+
 div#question {
 	padding : 5px;
 	background: MediumAquaMarine ;

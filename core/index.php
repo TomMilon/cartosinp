@@ -68,7 +68,7 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 
 
 
-<BR><BR>";
+<BR><BR>
 <div id="question">
 	<h2>Les questions</h2>
 	<?php
@@ -77,5 +77,4 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 	while ($row = pg_fetch_row($result))
 		echo "<li>".$row[0]."</li>";
 		?>
-</div>;
-?>
+</div>
