@@ -78,11 +78,11 @@ if ($theme == "plateforme") {
 	";
 	
 	$reqSql[1] = "
-	WITH list_org as (SELECT pilote_org  as nom, 'pilote' as role FROM hab.pilote WHERE id_ptf = $idObjet
-		UNION SELECT outil_org as nom, 'porteur d''outil' as role FROM hab.outil WHERE id_ptf = $idObjet
-		UNION SELECT reseau_org  as nom, 'tête de réseau' as role FROM hab.reseau WHERE id_ptf = $idObjet
-		UNION SELECT interf_org  as nom, 'contact données' as role FROM hab.interface WHERE id_ptf = $idObjet)
-	SELECT nom, role FROM list_org ORDER BY nom, role
+	WITH list_org as (SELECT pilote_org_nom  as nom, pilote_org_id  as id, 1 as role FROM hab.pilote WHERE id_ptf = $idObjet
+		UNION SELECT outil_org_nom as nom, outil_org_id  as id, 2 as role FROM hab.outil WHERE id_ptf = $idObjet
+		UNION SELECT reseau_org_nom  as nom, reseau_org_id  as id, 3 as role FROM hab.reseau WHERE id_ptf = $idObjet
+		UNION SELECT interf_org_nom  as nom, interf_org_id  as id, 4 as role FROM hab.interface WHERE id_ptf = $idObjet)
+	SELECT nom, id, role FROM list_org ORDER BY nom, role
 	;
 	";
 	
@@ -230,4 +230,25 @@ else {
 return $reqSql;
 }
 
+
+function disp_org ($tab, $role)
+{
+include ("constants.inc.php");
+echo "<div id = ".$role["val_nmc"].">";
+foreach ($tab as $unit) 
+	{
+	if ($unit["role"] == $role["lib_nmc"])
+		{
+		if ($unit["id"]!= null) 
+			{
+			$json_nom = json_decode(file_get_contents($URLAPI_organisme."&q=codeOrganisme:".$unit["id"]),true);
+			$nom = ucfirst(strtolower($json_nom["response"]["docs"][0]["libelleLong"]));
+			// $role = ;
+			echo "<li><a href=\"organisme.php?id=".$unit["id"]."\">".$nom." (".$role["val_nmc"].")</a></li>";
+			}
+			else echo "<li>".$unit["nom"]." (".$role["val_nmc"].")</a></li>";
+		}
+	}
+echo "</div>";
+}
 ?>

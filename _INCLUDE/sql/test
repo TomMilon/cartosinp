@@ -1,0 +1,11 @@
+ALTER TABLE hab.pilote RENAME COLUMN pilote_org TO pilote_org_nom;
+ALTER TABLE hab.reseau RENAME COLUMN reseau_org TO reseau_org_nom;
+ALTER TABLE hab.outil RENAME COLUMN outil_org TO outil_org_nom;
+ALTER TABLE hab.interface RENAME COLUMN interf_org TO interf_org_nom;
+ALTER TABLE hab.interface RENAME COLUMN interf_contact_org TO interf_contact_org_nom;
+
+ALTER TABLE hab.pilote ADD COLUMN pilote_org_id character varying;
+ALTER TABLE hab.reseau ADD COLUMN reseau_org_id character varying;
+ALTER TABLE hab.outil ADD COLUMN outil_org_id character varying;
+ALTER TABLE hab.interface ADD COLUMN interf_org_id character varying;
+ALTER TABLE hab.interface ADD COLUMN interf_contact_org_id character varying;

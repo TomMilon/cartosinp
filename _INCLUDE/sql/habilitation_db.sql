@@ -91,7 +91,8 @@ CREATE TABLE hab.pilote
     id_ptf integer NOT NULL,
 	id_pilote serial NOT NULL,
 	pilote_nom character varying,
-	pilote_org character varying,
+	pilote_org_nom character varying,
+	pilote_org_id character varying,
     PRIMARY KEY (id_ptf,id_pilote)
 )
 WITH (OIDS = FALSE);
@@ -136,7 +137,8 @@ CREATE TABLE hab.reseau
     id_ptf integer NOT NULL,
 	id_reseau serial NOT NULL,
 	reseau_nom character varying,
-	reseau_org character varying,
+	reseau_org_nom character varying,
+	reseau_org_id character varying,
 	reseau_dynq character varying,
 	reseau_peri_geo character varying,
     PRIMARY KEY (id_ptf,id_reseau)
@@ -160,7 +162,8 @@ CREATE TABLE hab.outil
 	outil_nom character varying,
 	outil_dynq character varying,
 	outil_url character varying,
-	outil_org character varying,
+	outil_org_nom character varying,
+	outil_org_id character varying,
 	outil_desc character varying,	
 	fct_outil_1 character varying,
 	fct_outil_2 character varying,
@@ -191,8 +194,10 @@ CREATE TABLE hab.interface
     id_ptf integer NOT NULL,
 	id_interf serial NOT NULL,
 	interf_outil character varying,
-	interf_org character varying,
-	interf_contact_org character varying,
+	interf_org_nom character varying,
+	interf_org_id character varying,
+	interf_contact_org_nom character varying,
+	interf_contact_org_id character varying,
 	interf_contact_mail character varying,
 	interf_contact_tel character varying,
 	interf_teleservice character varying,
@@ -443,7 +448,16 @@ INSERT INTO nomenc.zone_geographique VALUES
 	(DEFAULT,'82','Rhône-Alpes'),
 	(DEFAULT,'83','Auvergne'),
 	(DEFAULT,'91','Languedoc-Roussillon');
- 	
+ 
+ 
+CREATE TABLE nomenc.role_org(id_nmc serial NOT NULL,lib_nmc character varying NOT NULL,	val_nmc character varying NOT NULL, PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
+ALTER TABLE nomenc.role_org OWNER to postgres;
+INSERT INTO nomenc.role_org VALUES
+	(DEFAULT,'1','pilote'),
+	(DEFAULT,'2','porteur d''outil'),
+	(DEFAULT,'3','tête de réseau'),
+	(DEFAULT,'4','contact données');
+
 	
 ----------------Schema temporaire -------------
 

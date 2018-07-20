@@ -94,28 +94,44 @@ a:hover, a:focus, a:active {
 /* --------------------------------------------------*/
 /* https://www.alsacreations.com/tuto/lire/588-trois-colonnes-float.html */
 
-div#ptf {
+div#c1 {
 	padding : 5px;
 	float: left;
 	width: 340px;
 	margin-right: 10px;
-	background: lightblue;
 }
-div#outil {
+
+div#c2 {
+	overflow: hidden;
+	padding : 5px;
+	margin-left: 350px;
+	margin-right: 350px;
+}
+
+div#c3 {
 	padding : 5px;
 	float: right;
 	width: 340px;
 	margin-left: 10px;
+}
+
+
+div.ptf {
+	background: lightblue;
+}
+
+div.organisme {
 	background: burlywood;
 }
 
-div#organisme {
-	padding : 5px;
-	margin-left: 350px;
-	margin-right: 350px;
+div.outil {
 	background: khaki;
 }
 
+div.jdd {
+	background: LemonChiffon ;
+	/* background: Plum  ; */
+	
 div#question {
 	padding : 5px;
 	background: MediumAquaMarine ;

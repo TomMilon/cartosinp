@@ -19,8 +19,10 @@ $req = sqlConst("plateforme",$_GET["id"]);
 //plateformes
 $pgresult=pg_query ($db,$req[0]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$tab = pg_fetch_all($pgresult);
 $ptf = $tab[0];
+
 //organismes
 $pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$org = pg_fetch_all($pgresult);
+
 //tool
 $pgresult=pg_query ($db,$req[2]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$tool = pg_fetch_all($pgresult);
 
@@ -42,13 +44,37 @@ $pgresult=pg_query ($db,$req[2]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 
 <BR><BR>
 
+<div id="c1" class="jdd">
 <b>Liste des jeux de données</b><BR>
 affaire à suivre<BR><BR>
+</div>
 
+
+<div id="c3" class="outil">
 <b>Liste des outils</b><BR>
 <?php foreach ($tool as $unit) echo "<li><a href=\"outil.php?id=".$unit["id_outil"]."\">".$unit["outil_nom"]."</a></li>";?>
 <BR><BR>
+</div>
 
+
+<div id="c2" class="organisme">
 <b>Liste des organismes</b><BR>
-<?php foreach ($org as $unit) echo "<li><a href=\"organisme.php?id=".$unit["nom"]."\">".$unit["nom"]." (".$unit["role"].")</a></li>";?>
+<?php 
+$sql = "SELECT lib_nmc, val_nmc FROM nomenc.role_org";
+$pgresult = pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$role_all = pg_fetch_all($pgresult);
+foreach ($role_all as $unit) {$ref_role[$unit["lib_nmc"]] = $unit["val_nmc"];}
+
+foreach ($org as $unit) 
+	{if ($unit["id"]!= null) 
+		{
+		$json_nom = json_decode(file_get_contents($URLAPI_organisme."&q=codeOrganisme:".$unit["id"]),true);
+		$nom = ucfirst(strtolower($json_nom["response"]["docs"][0]["libelleLong"]));
+		// $role = ;
+		echo "<li><a href=\"organisme.php?id=".$unit["id"]."\">".$nom." (".$ref_role[$unit["role"]].")</a></li>";
+		}
+	else echo "<li>".$unit["nom"]." (".$ref_role[$unit["role"]].")</a></li>";
+	}
+?>
+</div>
+
 
