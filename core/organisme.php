@@ -14,11 +14,22 @@ if (!$db) fatal_error ("Impossible de se connecter au serveur PostgreSQL ".SQL_s
 //------------------------------------------------------------------------------ MAIN
 html_header ("utf-8","","");
 
-//Récupération des données
-// $pgresult=pg_query ($db,sqlConst ("plateforme",$_GET["id"])) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
-// $tab = pg_fetch_all($pgresult);
-// $result = $tab[0];
-// var_dump($result);
+//---------------
+//-----Récupération des données
+$req = sqlConst("organisme",$_GET["id"]);
+//-----plateformes
+$pgresult=pg_query ($db,$req[0]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$ptf = pg_fetch_all($pgresult);
+//-----jdd
+// $pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$org = pg_fetch_all($pgresult);
+//-----tool
+$pgresult=pg_query ($db,$req[2]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$tool = pg_fetch_all($pgresult);
+
+//----- référentiels
+$ref["codePerimetreAction"] = recup_ref("perimetre_action");
+$ref["codeTypeOrganisme"] = recup_ref("type_organisme");
+$ref["codeStatutOrganisme"] = recup_ref("statut_organisme");
+$ref["codeNiveauAdhesion"] = recup_ref("niveau_adhesion");
+
 
 $json =file_get_contents( $URLAPI_organisme."&q=codeOrganisme:".$_GET["id"]);
 $jsondec = json_decode($json, true);
@@ -27,19 +38,31 @@ $org = $jsondec["response"]["docs"][0];
 <h2><?php echo $org["libelleLong"];?></h2>
 
 <b>Libellé court</b> : <?php echo $org["libelleCourt"];?><BR>
-<b>Périmètre d'action</b> : <?php echo $org["codePerimetreAction"];?><BR>
-<b>Type Organisme</b> : <?php echo $org["codeTypeOrganisme"];?><BR>
-<b>Statut Organisme</b> : <?php echo $org["codeStatutOrganisme"];?><BR>
-<b>Adhésion au SINP</b> : <?php echo $org["codeNiveauAdhesion"];?><BR>
+<b>Périmètre d'action</b> : <?php echo $ref["codePerimetreAction"][$org["codePerimetreAction"]];?><BR>
+<b>Type Organisme</b> : <?php echo $ref["codeTypeOrganisme"][$org["codeTypeOrganisme"]];?><BR>
+<b>Statut Organisme</b> : <?php echo $ref["codeStatutOrganisme"][$org["codeStatutOrganisme"]];?><BR>
+<b>Adhésion au SINP</b> : <?php echo $ref["codeNiveauAdhesion"][$org["codeNiveauAdhesion"]];?><BR>
 
 <BR><BR>
 
+<div id="c1" class="ptf">
 <b>Liste des plateformes</b><BR>
-affaire à suivre<BR><BR>
+<?php 
+if (empty($ptf)) echo $valeur_non_applicable; else foreach ($ptf as $unit) echo "<li><a href=\"plateforme.php?id=".$unit["id_ptf"]."\">".$unit["nom_region"]."</a></li>";?>
+</div>
 
+
+<div id="c3" class="outil">
 <b>Liste des outils</b><BR>
-affaire à suivre<BR><BR>
+<?php 
+if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) echo "<li><a href=\"outil.php?id=".$unit["id_outil"]."\">".$unit["outil_nom"]."</a></li>";?>
+<BR><BR>
+</div>
 
+
+<div id="c2" class="jdd">
 <b>Liste des jeux de données</b><BR>
-affaire à suivre<BR><BR>
+<?php 
+?>
+</div>
 
