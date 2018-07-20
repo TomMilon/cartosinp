@@ -48,7 +48,11 @@ if ($theme == "plateforme") {
 	$reqSql[0] = "
 	SELECT		
 		nom_region,
-		CASE WHEN hab_decision IS NULL THEN 'Habilitation en cours' ELSE hab_decision END as \"hab_decision\",
+		CASE 
+			WHEN hab_decision IS NOT NULL THEN habs.val_nmc 
+			WHEN date_depot IS NOT NULL THEN 'Processus d''habilitation en cours'
+			WHEN referent_nom IS NOT NULL THEN 'Test d''habilitation'
+			ELSE 'Processus non lancé' END as \"hab_decision\",
 		e.val_nmc as \"dynamique\",
 		c3.val_nmc \"perenne\",
 		crit3_desc \"perenne_desc\",
@@ -62,18 +66,19 @@ if ($theme == "plateforme") {
 		crit11_desc\"validation_desc\",
 		CASE WHEN ref_sensi.pj_nom IS NOT NULL THEN ref_sensi.pj_nom||' : '||ref_sensi.pj_ressource ELSE 'Pas de réféentiel de sensibilité SINP' END as \"ref_sensibilité\"
 	FROM hab.plateforme a
-	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
-	JOIN hab.reseau ON a.id_ptf = hab.reseau.id_ptf
-	JOIN nomenc.dynq_general e ON a.dynq_general = e.lib_nmc
-	JOIN nomenc.crit_rea c2 ON z.crit2_rea = c2.lib_nmc
-	JOIN nomenc.crit_rea c3 ON z.crit3_rea = c3.lib_nmc
-	JOIN nomenc.crit_rea c8 ON z.crit8_rea = c8.lib_nmc
-	JOIN nomenc.crit_rea c11 ON z.crit11_rea = c11.lib_nmc
+	LEFT JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	LEFT JOIN hab.reseau ON a.id_ptf = hab.reseau.id_ptf
+	LEFT JOIN nomenc.hab_decision habs ON z.hab_decision = habs.lib_nmc
+	LEFT JOIN nomenc.dynq_general e ON a.dynq_general = e.lib_nmc
+	LEFT JOIN nomenc.crit_rea c2 ON z.crit2_rea = c2.lib_nmc
+	LEFT JOIN nomenc.crit_rea c3 ON z.crit3_rea = c3.lib_nmc
+	LEFT JOIN nomenc.crit_rea c8 ON z.crit8_rea = c8.lib_nmc
+	LEFT JOIN nomenc.crit_rea c11 ON z.crit11_rea = c11.lib_nmc
 	LEFT JOIN hab.piece_jointe charte ON a.id_ptf = charte.id_ptf AND charte.pj_type = 'charte'
 	LEFT JOIN hab.piece_jointe std ON a.id_ptf = std.id_ptf AND std.pj_type = 'std'
 	LEFT JOIN hab.piece_jointe ref_sensi ON a.id_ptf = ref_sensi.id_ptf AND ref_sensi.pj_type = 'ref_sensi'
 	WHERE a.id_ptf = $idObjet
-	GROUP BY nom_region,hab_decision, e.val_nmc,c3.val_nmc, crit3_desc, c2.val_nmc,crit2_desc, charte.pj_nom, charte.pj_ressource, std.pj_nom, std.pj_ressource, ref_sensi.pj_nom, ref_sensi.pj_ressource,c8.val_nmc,crit8_desc, c11.val_nmc , crit11_desc, ref_sensi.pj_nom, ref_sensi.pj_ressource
+	GROUP BY nom_region,hab_decision, e.val_nmc,c3.val_nmc, crit3_desc, c2.val_nmc,crit2_desc, charte.pj_nom, charte.pj_ressource, std.pj_nom, std.pj_ressource, ref_sensi.pj_nom, ref_sensi.pj_ressource,c8.val_nmc,crit8_desc, c11.val_nmc , crit11_desc, ref_sensi.pj_nom, ref_sensi.pj_ressource, habs.val_nmc, z.date_depot, z.referent_nom
 	;
 	";
 	

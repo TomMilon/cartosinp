@@ -19,6 +19,9 @@ $req = sqlConst("plateforme",$_GET["id"]);
 //plateformes
 $pgresult=pg_query ($db,$req[0]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$tab = pg_fetch_all($pgresult);
 $ptf = $tab[0];
+// var_dump($ptf);
+if ($ptf["hab_decision"] == "Processus non lancé") $ptf["dynamique"] =  $ptf["perenne"] =  $ptf["perenne_desc"] =  $ptf["charte"] =  $ptf["charte_desc"] = $ptf["charte_pj"] =  $ptf["standard"] =  $ptf["echange"] =  $ptf["echange_desc"] =  $ptf["validation"] = $ptf["validation_desc"] = $ptf["ref_sensibilité"] = $valeur_non_renseigne;
+
 
 //organismes
 $pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$org = pg_fetch_all($pgresult);
@@ -52,7 +55,8 @@ affaire à suivre<BR><BR>
 
 <div id="c3" class="outil">
 <b>Liste des outils</b><BR>
-<?php foreach ($tool as $unit) echo "<li><a href=\"outil.php?id=".$unit["id_outil"]."\">".$unit["outil_nom"]."</a></li>";?>
+<?php 
+if (empty($tool)) echo $valeur_non_renseigne; else foreach ($tool as $unit) echo "<li><a href=\"outil.php?id=".$unit["id_outil"]."\">".$unit["outil_nom"]."</a></li>";?>
 <BR><BR>
 </div>
 
@@ -64,6 +68,7 @@ $sql = "SELECT lib_nmc, val_nmc FROM nomenc.role_org";
 $pgresult = pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$role_all = pg_fetch_all($pgresult);
 foreach ($role_all as $unit) {$ref_role[$unit["lib_nmc"]] = $unit["val_nmc"];}
 
+if (empty($org)) echo $valeur_non_renseigne; else
 foreach ($org as $unit) 
 	{if ($unit["id"]!= null) 
 		{
