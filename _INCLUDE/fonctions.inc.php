@@ -100,8 +100,17 @@ if ($theme == "plateforme") {
 	}
 elseif ($theme == "organisme") {
 	$reqSql[0] = "
+	WITH list_ptf as (SELECT a.id_ptf , nom_region FROM hab.pilote a JOIN hab.plateforme z ON a.id_ptf = z.id_ptf WHERE pilote_org_id = '$idObjet'
+		UNION SELECT a.id_ptf , nom_region FROM hab.outil a JOIN hab.plateforme z ON a.id_ptf = z.id_ptf WHERE outil_org_id = '$idObjet'
+		UNION SELECT a.id_ptf , nom_region FROM hab.reseau a JOIN hab.plateforme z ON a.id_ptf = z.id_ptf  WHERE reseau_org_id = '$idObjet'
+		UNION SELECT a.id_ptf , nom_region FROM hab.interface a JOIN hab.plateforme z ON a.id_ptf = z.id_ptf  WHERE interf_org_id = '$idObjet')
+	SELECT id_ptf, nom_region FROM list_ptf ORDER BY nom_region
 	;";
-
+	$reqSql[1] = "
+	;";
+	$reqSql[2] = "
+	SELECT id_outil, outil_nom FROM hab.outil WHERE outil_org_id = '$idObjet'
+	;";
 	}
 elseif ($theme == "outil") {
 	$reqSql[0] = "
@@ -113,10 +122,14 @@ elseif ($theme == "outil") {
 	$reqSql[1] = "
 	SELECT * FROM nomenc.fct_outil_desc
 	;";
+
+	$reqSql[2] = "
+	SELECT outil_org_nom, outil_org_id FROM hab.outil WHERE id_outil = '$idObjet'
+	;";
 	}
 elseif ($theme == "jdd") {
 	$reqSql = "
-	
+
 	;
 	";
 	}
@@ -238,7 +251,7 @@ return $reqSql;
 
 function disp_org ($tab, $role)
 {
-include ("constants.inc.php");
+global $URLAPI_organisme;
 echo "<div id = ".$role["val_nmc"].">";
 foreach ($tab as $unit) 
 	{
@@ -256,4 +269,14 @@ foreach ($tab as $unit)
 	}
 echo "</div>";
 }
+
+function recup_ref ($nom_ref)
+	{
+	global $db;
+	$sql = "SELECT lib_nmc, val_nmc FROM nomenc.$nom_ref";
+	$pgresult = pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$ref = pg_fetch_all($pgresult);
+	foreach ($ref as $unit) $referentiel[$unit["lib_nmc"]] = $unit["val_nmc"];
+	return $referentiel;
+	}
+	
 ?>
