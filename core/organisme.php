@@ -35,15 +35,25 @@ $json =file_get_contents($URLAPI_organisme."&q=codeOrganisme:".$_GET["id"]);
 $jsondec = json_decode($json, true);
 $org = $jsondec["response"]["docs"][0];
 // ------------API Geocode
-// $json =file_get_contents($URLAPI_geocode.$org["adresse"]." ".$org["ville"]);
-// $jsondec = json_decode($json, true);
-// var_dump($json);
-$adresse["name"]=$org["libelleCourt"];
-$adresse["postal"]=$org["adresse"]." ".$org["ville"];
-$adresse["x"]=rand(-1,6);
-// $adresse["x"]="0";
-$adresse["y"]=rand(44,48);
-// $adresse["y"]="45";
+if (isset($org["adresse"]) AND isset($org["codePostal"]) AND isset($org["ville"])) $adresse_postale = $org["adresse"]." ".$org["codePostal"]." ".$org["ville"];
+	elseif (isset($org["adresse"]) AND isset($org["ville"])) $adresse_postale = $org["adresse"]." ".$org["ville"];
+	elseif (isset($org["ville"])) $adresse_postale = $org["ville"];
+	else $adresse_postale = null;
+if (isset($adresse_postale)) 
+	{
+	$URL = str_replace(" ","+",$URLAPI_geocode.$adresse_postale);
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $URL);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER , TRUE);
+	$output = curl_exec($ch); 
+	$output = json_decode($output,true);
+
+	$adresse["name"]=$org["libelleCourt"];
+	$adresse["postal"]=$adresse_postale;
+	$adresse["x"]=$output["features"][0]["geometry"]["coordinates"][0];
+	$adresse["y"]=$output["features"][0]["geometry"]["coordinates"][1];
+	}
 
 ?>
 <h2><?php echo $org["libelleLong"];?></h2>
@@ -56,7 +66,9 @@ $adresse["y"]=rand(44,48);
 
 <BR><BR>
 
-<div id="mapid"></div>
+<?php if (isset($adresse_postale)) echo "<div id=\"mapid\"></div>";
+	else echo "Aucune d'information concernant l'adresse de l'organisme";
+	?>
 
 <BR><BR>
 
