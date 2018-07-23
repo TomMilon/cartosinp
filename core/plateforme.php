@@ -83,9 +83,78 @@ foreach ($org as $unit)
 ?>
 </div>
 
-<?php var_dump($list_org);?>
-<script>
-for (var i = 0; i < 9; i++) {
-  str = str + i;
+<?php 
+//featurecollection
+// $phpFeature = array(
+	// "type" => "FeatureCollection",
+	// "features" => array());
+// foreach ($list_org as $unit)
+	// {	
+	// $org = api_org($unit);
+	// $adresse=geocoder($org,$unit);
+	// $phpNewFeature = array(
+		// "type"  => "Feature",
+		// "properties"  => array(
+			// "name"  => $adresse["name"],
+			// "popupContent"  => $adresse["postal"]
+			// ),
+		// "geometry"  => array(
+			// "type"  => "Point",
+			// "coordinates"  => "[".$adresse["x"].",".$adresse["y"]."]"
+			// )
+		// );
+	// array_push($phpFeature["features"],$phpNewFeature);
+	// }
+// if (isset($phpNewFeature)) echo "<div id=\"mapid\"></div>";
+	// else echo "aucun organisme";
+// $geojsonFeature = json_encode($phpFeature);
+// var_dump($geojsonFeature);
+
+$phpFeature = array();$i=0;
+foreach ($list_org as $unit)
+	{	
+	$org = api_org($unit);
+	$adresse[$i]=geocoder($org,$unit);$i++;
+	}
+
+// var_dump($adresse);
+if (isset($adresse)) echo "<div id=\"mapid\"></div>";
+	else echo "aucun organisme";
+
+?>
+
+<script type="text/javascript">
+function onEachFeature(feature, layer) {
+    if (feature.properties && feature.properties.popupContent) {
+        layer.bindPopup(feature.properties.popupContent);
+    }
 }
+
+var geojsonFeature = {"type": "Feature","properties": {"name": "<?php echo $adresse[0]["name"];?>","popupContent": "<?php echo $adresse[0]["postal"];?>"},
+    "geometry": {"type": "Point","coordinates": [<?php echo $adresse[0]["x"];?>,<?php echo $adresse[0]["y"];?>]}};
+var geojsonFeature1 = {"type": "Feature","properties": {"name": "<?php echo $adresse[1]["name"];?>","popupContent": "<?php echo $adresse[1]["postal"];?>"},
+    "geometry": {"type": "Point","coordinates": [<?php echo $adresse[1]["x"];?>,<?php echo $adresse[1]["y"];?>]}};
+var geojsonFeature2 = {"type": "Feature","properties": {"name": "<?php echo $adresse[2]["name"];?>","popupContent": "<?php echo $adresse[2]["postal"];?>"},
+    "geometry": {"type": "Point","coordinates": [<?php echo $adresse[2]["x"];?>,<?php echo $adresse[2]["y"];?>]}};
+var geojsonFeature3 = {"type": "Feature","properties": {"name": "<?php echo $adresse[3]["name"];?>","popupContent": "<?php echo $adresse[3]["postal"];?>"},
+    "geometry": {"type": "Point","coordinates": [<?php echo $adresse[3]["x"];?>,<?php echo $adresse[3]["y"];?>]}};
+var geojsonFeature4 = {"type": "Feature","properties": {"name": "<?php echo $adresse[4]["name"];?>","popupContent": "<?php echo $adresse[4]["postal"];?>"},
+    "geometry": {"type": "Point","coordinates": [<?php echo $adresse[4]["x"];?>,<?php echo $adresse[4]["y"];?>]}};
+
+
+// document.write(geojsonFeature);
+
+var mymap = L.map('mapid').setView([46, 0], 4);
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+    minZoom: 0,
+    maxZoom: 12
+}).addTo(mymap);
+
+L.geoJSON(geojsonFeature, {onEachFeature: onEachFeature}).addTo(mymap);
+L.geoJSON(geojsonFeature1, {onEachFeature: onEachFeature}).addTo(mymap);
+L.geoJSON(geojsonFeature2, {onEachFeature: onEachFeature}).addTo(mymap);
+L.geoJSON(geojsonFeature3, {onEachFeature: onEachFeature}).addTo(mymap);
+L.geoJSON(geojsonFeature4, {onEachFeature: onEachFeature}).addTo(mymap);
+</script>
 

@@ -72,7 +72,7 @@ if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) ech
 </div>
 
 
-<script>
+<script type="text/javascript">
 function onEachFeature(feature, layer) {
     // does this feature have a property named popupContent?
     if (feature.properties && feature.properties.popupContent) {
@@ -83,7 +83,7 @@ var geojsonFeature = {
     "type": "Feature",
     "properties": {
         "name": "<?php echo $adresse["name"];?>",
-        "popupContent": "Ceci est un test. Le point n'est pas géocodé. Adresse dans le référentiel = <?php echo $adresse["postal"];?>"
+        "popupContent": "<?php echo $adresse["postal"];?>"
     },
     "geometry": {
         "type": "Point",
