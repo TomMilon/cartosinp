@@ -31,6 +31,9 @@ function html_header ($charset,$css) {
     echo ("<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\" />");
     echo ("<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />");
     echo ("<meta name=\"description\" content=\"Expérimentation de la cartograhie du SINP\">");
+
+	echo ("<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.3.3/dist/leaflet.css\"/>");
+	echo ("<script src=\"https://unpkg.com/leaflet@1.3.3/dist/leaflet.js\"></script>");
     
     // echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/global.css\" />");
     echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/global_v2.css\" />");

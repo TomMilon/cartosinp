@@ -137,3 +137,12 @@ div#question {
 	padding : 5px;
 	background: MediumAquaMarine ;
 }
+
+/* --------------------------------------------------*/
+/* Leaflet                            */
+/* --------------------------------------------------*/
+
+#mapid { 
+height: 200px; 
+width : 400px; 
+}

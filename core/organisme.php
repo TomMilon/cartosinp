@@ -30,10 +30,21 @@ $ref["codeTypeOrganisme"] = recup_ref("type_organisme");
 $ref["codeStatutOrganisme"] = recup_ref("statut_organisme");
 $ref["codeNiveauAdhesion"] = recup_ref("niveau_adhesion");
 
-
-$json =file_get_contents( $URLAPI_organisme."&q=codeOrganisme:".$_GET["id"]);
+// ------------API ref organisme
+$json =file_get_contents($URLAPI_organisme."&q=codeOrganisme:".$_GET["id"]);
 $jsondec = json_decode($json, true);
 $org = $jsondec["response"]["docs"][0];
+// ------------API Geocode
+// $json =file_get_contents($URLAPI_geocode.$org["adresse"]." ".$org["ville"]);
+// $jsondec = json_decode($json, true);
+// var_dump($json);
+$adresse["name"]=$org["libelleCourt"];
+$adresse["postal"]=$org["adresse"]." ".$org["ville"];
+$adresse["x"]=rand(-1,6);
+// $adresse["x"]="0";
+$adresse["y"]=rand(44,48);
+// $adresse["y"]="45";
+
 ?>
 <h2><?php echo $org["libelleLong"];?></h2>
 
@@ -44,6 +55,11 @@ $org = $jsondec["response"]["docs"][0];
 <b>Adhésion au SINP</b> : <?php echo $ref["codeNiveauAdhesion"][$org["codeNiveauAdhesion"]];?><BR>
 
 <BR><BR>
+
+<div id="mapid"></div>
+
+<BR><BR>
+
 
 <div id="c1" class="ptf">
 <b>Liste des plateformes</b><BR>
@@ -65,4 +81,41 @@ if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) ech
 <?php 
 ?>
 </div>
+
+
+<script>
+function onEachFeature(feature, layer) {
+    // does this feature have a property named popupContent?
+    if (feature.properties && feature.properties.popupContent) {
+        layer.bindPopup(feature.properties.popupContent);
+    }
+}
+var geojsonFeature = {
+    "type": "Feature",
+    "properties": {
+        "name": "<?php echo $adresse["name"];?>",
+        "popupContent": "Ceci est un test. Le point n'est pas géocodé. Adresse dans le référentiel = <?php echo $adresse["postal"];?>"
+    },
+    "geometry": {
+        "type": "Point",
+        "coordinates": [<?php echo $adresse["x"];?>,<?php echo $adresse["y"];?>]
+    }
+};
+
+// document.write(geojsonFeature.geometry.coordinates);
+
+var mymap = L.map('mapid').setView([46, 0], 4);
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+    minZoom: 0,
+    maxZoom: 12
+}).addTo(mymap);
+
+L.geoJSON(geojsonFeature, {
+    onEachFeature: onEachFeature
+}).addTo(mymap);
+
+</script>
+
+
 

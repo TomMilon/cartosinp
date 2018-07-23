@@ -54,8 +54,8 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 		$libelleCourt[$unit["codeOrganisme"]] = ucfirst(strtolower($unit["libelleCourt"]));
 	}
 	asort($libelleCourt);asort($libelleLong);
-	// for ($i = 1; $i < 18; $i++)
-	for ($i = 1; $i < 800; $i++)
+	for ($i = 1; $i < 18; $i++)
+	// for ($i = 1; $i < 800; $i++)
 		{
 		echo "<li><a href=\"organisme.php?id=".key($libelleLong)."\">".current($libelleLong)."<a></li>";
 		next($libelleLong);
