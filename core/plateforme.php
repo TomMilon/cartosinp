@@ -22,6 +22,7 @@ $pgresult=pg_query ($db,$req[0]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 $ptf = $tab[0];
 if ($ptf["hab_decision"] == "Processus non lancé") $ptf["dynamique"] =  $ptf["perenne"] =  $ptf["perenne_desc"] =  $ptf["charte"] =  $ptf["charte_desc"] = $ptf["charte_pj"] =  $ptf["standard"] =  $ptf["echange"] =  $ptf["echange_desc"] =  $ptf["validation"] = $ptf["validation_desc"] = $ptf["ref_sensibilité"] = $valeur_non_renseigne;
 //-----organismes
+$list_org = array();
 $pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$org = pg_fetch_all($pgresult);
 //-----tool
 $pgresult=pg_query ($db,$req[2]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$tool = pg_fetch_all($pgresult);
@@ -69,16 +70,22 @@ if (empty($tool)) echo $valeur_non_renseigne; else foreach ($tool as $unit) echo
 <?php 
 if (empty($org)) echo $valeur_non_renseigne; else
 foreach ($org as $unit) 
-	{if ($unit["id"]!= null) 
+	{
+	if ($unit["id"]!= null) 
 		{
 		$json_nom = json_decode(file_get_contents($URLAPI_organisme."&q=codeOrganisme:".$unit["id"]),true);
 		$nom = ucfirst(strtolower($json_nom["response"]["docs"][0]["libelleLong"]));
-		// $role = ;
 		echo "<li><a href=\"organisme.php?id=".$unit["id"]."\">".$nom." (".$ref_role[$unit["role"]].")</a></li>";
+		if (!in_array($unit["id"],$list_org)) array_push($list_org,$unit["id"]);
 		}
 	else echo "<li>".$unit["nom"]." (".$ref_role[$unit["role"]].")</a></li>";
 	}
 ?>
 </div>
 
+<?php var_dump($list_org);?>
+<script>
+for (var i = 0; i < 9; i++) {
+  str = str + i;
+}
 

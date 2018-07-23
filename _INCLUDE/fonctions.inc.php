@@ -274,12 +274,46 @@ echo "</div>";
 }
 
 function recup_ref ($nom_ref)
+{
+global $db;
+$sql = "SELECT lib_nmc, val_nmc FROM nomenc.$nom_ref";
+$pgresult = pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$ref = pg_fetch_all($pgresult);
+foreach ($ref as $unit) $referentiel[$unit["lib_nmc"]] = $unit["val_nmc"];
+return $referentiel;
+}
+
+// ------------API ref organisme
+function api_org($id_sinp)
+{
+	global $URLAPI_organisme;
+	$json =file_get_contents($URLAPI_organisme."&q=codeOrganisme:".$id_sinp);
+	$jsondec = json_decode($json, true);
+	$org = $jsondec["response"]["docs"][0];
+	return $org;
+}
+
+// ------------API Geocode
+function geocoder($org,$id_sinp)	
+{
+global $URLAPI_geocode;
+if (isset($org["adresse"]) AND isset($org["codePostal"]) AND isset($org["ville"])) $adresse["postal"] = $org["adresse"]." ".$org["codePostal"]." ".$org["ville"];
+	elseif (isset($org["adresse"]) AND isset($org["ville"])) $adresse["postal"] = $org["adresse"]." ".$org["ville"];
+	elseif (isset($org["ville"])) $adresse["postal"] = $org["ville"];
+	else $adresse["postal"] = null;
+if (isset($adresse)) 
 	{
-	global $db;
-	$sql = "SELECT lib_nmc, val_nmc FROM nomenc.$nom_ref";
-	$pgresult = pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$ref = pg_fetch_all($pgresult);
-	foreach ($ref as $unit) $referentiel[$unit["lib_nmc"]] = $unit["val_nmc"];
-	return $referentiel;
+	$URL = str_replace(" ","+",$URLAPI_geocode.$adresse["postal"]);
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $URL);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER , TRUE);
+	$output = curl_exec($ch); 
+	$output = json_decode($output,true);
+
+	$adresse["name"]=$org["libelleCourt"];
+	$adresse["x"]=$output["features"][0]["geometry"]["coordinates"][0];
+	$adresse["y"]=$output["features"][0]["geometry"]["coordinates"][1];
 	}
-	
+return 	$adresse;
+}
 ?>

@@ -29,32 +29,9 @@ $ref["codePerimetreAction"] = recup_ref("perimetre_action");
 $ref["codeTypeOrganisme"] = recup_ref("type_organisme");
 $ref["codeStatutOrganisme"] = recup_ref("statut_organisme");
 $ref["codeNiveauAdhesion"] = recup_ref("niveau_adhesion");
-
-// ------------API ref organisme
-$json =file_get_contents($URLAPI_organisme."&q=codeOrganisme:".$_GET["id"]);
-$jsondec = json_decode($json, true);
-$org = $jsondec["response"]["docs"][0];
-// ------------API Geocode
-if (isset($org["adresse"]) AND isset($org["codePostal"]) AND isset($org["ville"])) $adresse_postale = $org["adresse"]." ".$org["codePostal"]." ".$org["ville"];
-	elseif (isset($org["adresse"]) AND isset($org["ville"])) $adresse_postale = $org["adresse"]." ".$org["ville"];
-	elseif (isset($org["ville"])) $adresse_postale = $org["ville"];
-	else $adresse_postale = null;
-if (isset($adresse_postale)) 
-	{
-	$URL = str_replace(" ","+",$URLAPI_geocode.$adresse_postale);
-
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $URL);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER , TRUE);
-	$output = curl_exec($ch); 
-	$output = json_decode($output,true);
-
-	$adresse["name"]=$org["libelleCourt"];
-	$adresse["postal"]=$adresse_postale;
-	$adresse["x"]=$output["features"][0]["geometry"]["coordinates"][0];
-	$adresse["y"]=$output["features"][0]["geometry"]["coordinates"][1];
-	}
-
+// ---- API et geocoder
+$org = api_org($_GET["id"]);
+$adresse=geocoder($org,$_GET["id"]);
 ?>
 <h2><?php echo $org["libelleLong"];?></h2>
 
@@ -66,7 +43,7 @@ if (isset($adresse_postale))
 
 <BR><BR>
 
-<?php if (isset($adresse_postale)) echo "<div id=\"mapid\"></div>";
+<?php if (isset($adresse["postal"])) echo "<div id=\"mapid\"></div>";
 	else echo "Aucune d'information concernant l'adresse de l'organisme";
 	?>
 
