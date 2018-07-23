@@ -35,12 +35,20 @@ $pgresult=pg_query ($db,$req[2]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 <b><a href="./question.php?id=x">Dynamique de l'outil</a></b> : <?php echo $result["outil_dynq"];?><BR>
 <b>URL l'outil</a></b> : <a href="<?php echo $result["outil_url"];?>"><?php echo $result["outil_url"];?></a><BR>
 <b>Organisme </b> : <?php echo $result["outil_org_nom"];?><BR>
-<?php echo $result["outil_desc"];?><BR>
+<?php echo $result["outil_desc"];?>
+<BR>
+<TABLE>
 <?php 
 for ($i = 1; $i <= 19; $i++) {
-    echo "<li>".$fct_outil["fct_outil_".$i]." = ".$result["fct_outil_".$i]."<BR></li>";
+    // echo "<li>".$fct_outil["fct_outil_".$i]." = ".$result["fct_outil_".$i]."<BR></li>";
+		if ($result["fct_outil_".$i] == "ok") $picto = "observation_vert.png";
+		if ($result["fct_outil_".$i] == "part") $picto = "observation_orange.png";
+		if ($result["fct_outil_".$i] == "na") $picto = "observation_rouge.png";
+	   echo "<TR><TD>".$fct_outil["fct_outil_".$i]."</TD><TD><img src=\"../_GRAPH/icones/$picto\"></TD></TR>";
 	}
+
 ?>
+</TABLE>
 <BR><BR>
 
 <!-----LIEN avec les autres fiches------>
