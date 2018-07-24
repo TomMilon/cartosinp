@@ -45,7 +45,6 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 <div id="c2" class="organisme">
 	<h2>Organismes</h2>
 	<?php
-	$limit_json = "&rows=800";
 	$json = file_get_contents($URLAPI_organisme.$limit_json);
 	$jsondec = json_decode($json, true);
 	foreach ($jsondec["response"]["docs"] as $unit)

@@ -207,6 +207,36 @@ CREATE TABLE hab.interface
 WITH (OIDS = FALSE);
 ALTER TABLE hab.interface OWNER to postgres;
 
+DROP TABLE nomenc.ref_org;
+CREATE TABLE nomenc.ref_org
+(
+codeOrganisme character varying NOT NULL,
+siretSiege character varying,
+pays character varying,
+adresseMessagerie character varying,
+id character varying,
+ville character varying,
+adresse character varying,
+uRL character varying,
+libelleCourt character varying,
+dateAdhesion character varying,
+libelleLong character varying,
+gel character varying,
+dateCreationFiche character varying,
+dateModif character varying,
+codePostal character varying,
+codePerimetreAction character varying,
+codeTypeOrganisme character varying,
+codeStatutOrganisme character varying,
+codeNiveauAdhesion character varying,
+siret character varying,
+x numeric,
+y numeric,
+	PRIMARY KEY (codeOrganisme)
+)
+WITH (OIDS = FALSE);
+ALTER TABLE nomenc.ref_org OWNER to postgres;
+
 -------- Nomenclatures----------
 
 DROP SCHEMA IF EXISTS nomenc CASCADE;

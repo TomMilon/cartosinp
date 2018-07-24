@@ -293,27 +293,84 @@ function api_org($id_sinp)
 }
 
 // ------------API Geocode
-function geocoder($org,$id_sinp)	
+function geocoder($adresse)	
 {
 global $URLAPI_geocode;
-if (isset($org["adresse"]) AND isset($org["codePostal"]) AND isset($org["ville"])) $adresse["postal"] = $org["adresse"]." ".$org["codePostal"]." ".$org["ville"];
-	elseif (isset($org["adresse"]) AND isset($org["ville"])) $adresse["postal"] = $org["adresse"]." ".$org["ville"];
-	elseif (isset($org["ville"])) $adresse["postal"] = $org["ville"];
-	else $adresse["postal"] = null;
 if (isset($adresse)) 
 	{
-	$URL = str_replace(" ","+",$URLAPI_geocode.$adresse["postal"]);
+	$URL = str_replace(" ","+",$URLAPI_geocode.$adresse);
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_URL, $URL);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER , TRUE);
 	$output = curl_exec($ch); 
 	$output = json_decode($output,true);
-
-	$adresse["name"]=$org["libelleCourt"];
-	$adresse["x"]=$output["features"][0]["geometry"]["coordinates"][0];
-	$adresse["y"]=$output["features"][0]["geometry"]["coordinates"][1];
+	if(isset($output["features"][0]["geometry"]["coordinates"][0])) $localisation["x"]=$output["features"][0]["geometry"]["coordinates"][0];
+	if(isset($output["features"][1]["geometry"]["coordinates"][0])) $localisation["y"]=$output["features"][0]["geometry"]["coordinates"][1];
 	}
-return 	$adresse;
+if(!isset($localisation)) $localisation = null;
+return 	$localisation;
 }
+
+// ------------API ref organisme
+function api_to_pgsql($mode)
+{
+	global $URLAPI_organisme;global $db;global $limit_json;
+	switch ($mode) {
+		case "org" :
+			$json =file_get_contents($URLAPI_organisme.$limit_json);
+			$jsondec = json_decode($json, true);
+			$org = $jsondec["response"]["docs"];
+			$liste_id = array();
+			$sql = "TRUNCATE nomenc.ref_org CASCADE;";
+			$champ = array("codeOrganisme", "siretSiege", "pays", "adresseMessagerie", "id", "ville", "adresse", "uRL", "libelleCourt", "dateAdhesion", "libelleLong", "gel", "dateCreationFiche", "dateModif", "codePostal", "codePerimetreAction", "codeTypeOrganisme", "codeStatutOrganisme","codeNiveauAdhesion","siret", "x", "y");
+			$sql .= "INSERT INTO nomenc.ref_org(".implode(",", $champ).") VALUES ";
+			foreach ($org as $unit)
+			{	
+				if(!in_array($unit["codeOrganisme"],$liste_id))
+				{
+					// contre les doublons
+					array_push($liste_id,$unit["codeOrganisme"]);
+					//construction sql
+					foreach ($champ as $cle)	
+						$resp[$cle] = (isset($unit[$cle]) AND $unit[$cle] !="(null)") ? "'".str_replace("'","''",$unit[$cle])."'" : "null";
+					$sql .= "
+						(";
+					foreach ($champ as $cle) 
+						$sql .= $resp[$cle].",";
+					$sql = rtrim($sql,',');
+					$sql .= "),";
+				}
+		
+			}
+			$sql = rtrim($sql,',');
+			$sql .= ";";
+			$pgresult=pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
+			break;
+		case "geo" :
+			$ref = "SELECT codeOrganisme, adresse||' '||codepostal||'  '||ville as adresse FROM nomenc.ref_org;";
+			$sql = "";
+			$pgresult=pg_query ($db,$ref) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
+			while ($id = pg_fetch_row($pgresult))
+			{
+				if (!is_null($id[1])) 
+				{
+					$localisation = geocoder($id[1]);
+					if (!is_null($localisation))
+						$sql .= "
+						UPDATE nomenc.ref_org SET x=".$localisation["x"]." ,y=".$localisation["y"]." WHERE codeOrganisme='".$id[0]."';";
+				}
+				
+			}
+			$pgresult=pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
+		break;
+	}
+	
+			
+	// return $pgresult;
+	// return $sql;
+	return "Ok";
+}
+
+
 ?>
