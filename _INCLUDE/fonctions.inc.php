@@ -103,16 +103,19 @@ if ($theme == "plateforme") {
 	}
 elseif ($theme == "organisme") {
 	$reqSql[0] = "
+		SELECT *, adresse||' '||codepostal||'  '||ville as adresse FROM nomenc.ref_org WHERE codeorganisme = '$idObjet'
+	;";
+	$reqSql[1] = "
 	WITH list_ptf as (SELECT a.id_ptf , nom_region FROM hab.pilote a JOIN hab.plateforme z ON a.id_ptf = z.id_ptf WHERE pilote_org_id = '$idObjet'
 		UNION SELECT a.id_ptf , nom_region FROM hab.outil a JOIN hab.plateforme z ON a.id_ptf = z.id_ptf WHERE outil_org_id = '$idObjet'
 		UNION SELECT a.id_ptf , nom_region FROM hab.reseau a JOIN hab.plateforme z ON a.id_ptf = z.id_ptf  WHERE reseau_org_id = '$idObjet'
 		UNION SELECT a.id_ptf , nom_region FROM hab.interface a JOIN hab.plateforme z ON a.id_ptf = z.id_ptf  WHERE interf_org_id = '$idObjet')
 	SELECT id_ptf, nom_region FROM list_ptf ORDER BY nom_region
 	;";
-	$reqSql[1] = "
-	;";
 	$reqSql[2] = "
 	SELECT id_outil, outil_nom FROM hab.outil WHERE outil_org_id = '$idObjet'
+	;";
+	$reqSql[3] = "
 	;";
 	}
 elseif ($theme == "outil") {

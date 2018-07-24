@@ -17,33 +17,34 @@ html_header ("utf-8","","");
 //---------------
 //-----Récupération des données
 $req = sqlConst("organisme",$_GET["id"]);
+//-----organisme
+$pgresult=pg_query ($db,$req[0]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$org = pg_fetch_all($pgresult);$org=$org[0];
 //-----plateformes
-$pgresult=pg_query ($db,$req[0]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$ptf = pg_fetch_all($pgresult);
-//-----jdd
-// $pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$org = pg_fetch_all($pgresult);
+$pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$ptf = pg_fetch_all($pgresult);
 //-----tool
 $pgresult=pg_query ($db,$req[2]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$tool = pg_fetch_all($pgresult);
+//-----jdd
+// $pgresult=pg_query ($db,$req[3]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$org = pg_fetch_all($pgresult);
+
 
 //----- référentiels
-$ref["codePerimetreAction"] = recup_ref("perimetre_action");
-$ref["codeTypeOrganisme"] = recup_ref("type_organisme");
-$ref["codeStatutOrganisme"] = recup_ref("statut_organisme");
-$ref["codeNiveauAdhesion"] = recup_ref("niveau_adhesion");
-// ---- API et geocoder
-$org = api_org($_GET["id"]);
-$adresse=geocoder($org,$_GET["id"]);
-?>
-<h2><?php echo $org["libelleLong"];?></h2>
+$ref["codeperimetreaction"] = recup_ref("perimetre_action");
+$ref["codetypeorganisme"] = recup_ref("type_organisme");
+$ref["codestatutorganisme"] = recup_ref("statut_organisme");
+$ref["codeniveauadhesion"] = recup_ref("niveau_adhesion");
 
-<b>Libellé court</b> : <?php echo $org["libelleCourt"];?><BR>
-<b>Périmètre d'action</b> : <?php echo $ref["codePerimetreAction"][$org["codePerimetreAction"]];?><BR>
-<b>Type Organisme</b> : <?php echo $ref["codeTypeOrganisme"][$org["codeTypeOrganisme"]];?><BR>
-<b>Statut Organisme</b> : <?php echo $ref["codeStatutOrganisme"][$org["codeStatutOrganisme"]];?><BR>
-<b>Adhésion au SINP</b> : <?php echo $ref["codeNiveauAdhesion"][$org["codeNiveauAdhesion"]];?><BR>
+?>
+<h2><?php echo $org["libellelong"];?></h2>
+
+<b>Libellé court</b> : <?php echo $org["libellecourt"];?><BR>
+<b>Périmètre d'action</b> : <?php echo $ref["codeperimetreaction"][$org["codeperimetreaction"]];?><BR>
+<b>Type Organisme</b> : <?php echo $ref["codetypeorganisme"][$org["codetypeorganisme"]];?><BR>
+<b>Statut Organisme</b> : <?php echo $ref["codestatutorganisme"][$org["codestatutorganisme"]];?><BR>
+<b>Adhésion au SINP</b> : <?php echo $ref["codeniveauadhesion"][$org["codeniveauadhesion"]];?><BR>
 
 <BR><BR>
 
-<?php if (isset($adresse["postal"])) echo "<div id=\"mapid\"></div>";
+<?php if (isset($org["x"])) echo "<div id=\"mapid\"></div>";
 	else echo "Aucune d'information concernant l'adresse de l'organisme";
 	?>
 
@@ -82,12 +83,12 @@ function onEachFeature(feature, layer) {
 var geojsonFeature = {
     "type": "Feature",
     "properties": {
-        "name": "<?php echo $adresse["name"];?>",
-        "popupContent": "<?php echo $adresse["postal"];?>"
+        "name": "<?php echo $org["libellecourt"];?>",
+        "popupContent": "<?php echo $org["adresse"];?>"
     },
     "geometry": {
         "type": "Point",
-        "coordinates": [<?php echo $adresse["x"];?>,<?php echo $adresse["y"];?>]
+        "coordinates": [<?php echo $org["x"];?>,<?php echo $org["y"];?>]
     }
 };
 
