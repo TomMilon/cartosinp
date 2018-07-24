@@ -64,14 +64,11 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 </div>
 
 
-
-
-
 <BR><BR>
 <div id="question">
 	<h2>Les questions</h2>
 	<?php
-	$sqlList["question"] = "SELECT '<a href=\"question.php?id='||lib_nmc||'\">'||val_nmc||'</a>' FROM nomenc.carto_question ORDER BY lib_nmc;";
+	$sqlList["question"] = "SELECT '<a href=\"question.php?id='||lib_nmc||'\">'||val_nmc||'</a>' FROM nomenc.carto_question ORDER BY lib_nmc::integer;";
 	$result=pg_query ($db,$sqlList["question"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
 	while ($row = pg_fetch_row($result))
 		echo "<li>".$row[0]."</li>";

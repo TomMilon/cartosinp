@@ -21,6 +21,7 @@ CREATE SCHEMA hab AUTHORIZATION postgres;
 CREATE TABLE hab.plateforme
 (
     id_ptf serial NOT NULL,
+    insee_reg integer,
     nom_region character varying,
 	dynq_general  character varying,
 	dynq_desc  character varying,

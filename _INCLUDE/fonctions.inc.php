@@ -143,77 +143,63 @@ elseif ($theme == "question") {
 // Quelles sont les plateformes en cours d’habilitation/habilitées SINP?
 	$Sql[1] = "
 	SELECT
-		a.id_ptf,
-		nom_region,
+		insee_reg,
 		CASE WHEN z.id_ptf IS NULL THEN 'Dossier non déposé' WHEN hab_decision IS NULL THEN 'Habilitation en cours' ELSE hab_decision END as \"statut\"
 	FROM hab.plateforme a
 	LEFT JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
 	;";
-// Quelles sont les dynamiques des plateformes ainsi que leur pérennité ?
+// Quelles sont les dynamiques des plateformes ainsi que leur pérennité ? // CASE WHEN c3.val_nmc IS NULL THEN 'Dossier non déposé' ELSE c3.val_nmc END \"perenne\" + LEFT JOIN nomenc.crit_rea c3 ON z.crit3_rea = c3.lib_nmc
 	$Sql[2] = "
 	SELECT
-		a.id_ptf,
-		nom_region,
-		e.val_nmc as \"dynamique\",
-		c3.val_nmc \"perenne\"
+		insee_reg,
+		CASE WHEN z.id_ptf IS NULL THEN 'Dossier non déposé' WHEN e.val_nmc IS NULL THEN 'Dossier non déposé' ELSE e.val_nmc END as \"statut\"
 	FROM hab.plateforme a
-	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
-	JOIN nomenc.dynq_general e ON a.dynq_general = e.lib_nmc
-	JOIN nomenc.crit_rea c3 ON z.crit3_rea = c3.lib_nmc
+	LEFT JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	LEFT JOIN nomenc.dynq_general e ON a.dynq_general = e.lib_nmc
 	;";
 // Quelles sont les plateformes qui possèdent une charte SINP compatible avec le protocole SINP?
 	$Sql[3] = "
 	SELECT
-		a.id_ptf,
-		nom_region,
-		c2.val_nmc \"charte\",
-		crit2_desc \"charte_desc\",
-		CASE WHEN charte.pj_nom IS NOT NULL THEN charte.pj_nom||' : '||charte.pj_ressource ELSE 'Pas de lien vers la charte disponible' END as \"charte_pj\"
+		insee_reg,
+		CASE WHEN z.id_ptf IS NULL THEN 'Dossier non déposé' WHEN c2.val_nmc IS NULL THEN 'Dossier non déposé' ELSE c2.val_nmc END as \"statut\"
 	FROM hab.plateforme a
-	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
-	JOIN nomenc.crit_rea c2 ON z.crit2_rea = c2.lib_nmc
-	LEFT JOIN hab.piece_jointe charte ON a.id_ptf = charte.id_ptf AND charte.pj_type = 'charte'
+	LEFT JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	LEFT JOIN nomenc.crit_rea c2 ON z.crit2_rea = c2.lib_nmc
 	;";
 // Quelles sont les plateformes qui possèdent un standard de données régional? 
 	$Sql[4] = "
 	SELECT
-		a.id_ptf,
-		nom_region,
-		CASE WHEN std.pj_nom IS NOT NULL THEN std.pj_nom||' : '||std.pj_ressource ELSE 'Pas standard régional' END as \"standard\"
+		insee_reg,
+		CASE WHEN z.id_ptf IS NULL THEN 'Dossier non déposé' WHEN std.pj_nom IS NOT NULL THEN 'oui' ELSE 'non' END as \"statut\"
 	FROM hab.plateforme a
-	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	LEFT JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
 	LEFT JOIN hab.piece_jointe std ON a.id_ptf = std.id_ptf AND std.pj_type = 'std'
 	;";
 // Quelles sont les plateformes qui échangent leurs données avec la plateforme nationale?
 	$Sql[5] = "
 	SELECT
-		a.id_ptf,
-		nom_region,
-		c8.val_nmc \"echange\",
-		crit8_desc \"echange_desc\"
+		insee_reg,
+		CASE WHEN z.id_ptf IS NULL THEN 'Dossier non déposé' WHEN c8.val_nmc IS NOT NULL THEN c8.val_nmc ELSE 'Dossier non déposé' END as \"statut\"
 	FROM hab.plateforme a
-	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
-	JOIN nomenc.crit_rea c8 ON z.crit8_rea = c8.lib_nmc
+	LEFT JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	LEFT JOIN nomenc.crit_rea c8 ON z.crit8_rea = c8.lib_nmc
 	;";
 // Quelles sont les plateformes qui organisent la validation scientifique des données?
 	$Sql[6] = "
 	SELECT
-		a.id_ptf,
-		nom_region,
-		c11.val_nmc \"validation\",
-		crit11_desc\"validation_desc\"
+		insee_reg,
+		CASE WHEN z.id_ptf IS NULL THEN 'Dossier non déposé' WHEN c11.val_nmc IS NOT NULL THEN c11.val_nmc ELSE 'Dossier non déposé' END as \"statut\"
 	FROM hab.plateforme a
-	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
-	JOIN nomenc.crit_rea c11 ON z.crit11_rea = c11.lib_nmc
+	LEFT JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	LEFT JOIN nomenc.crit_rea c11 ON z.crit11_rea = c11.lib_nmc
 	;";
 // Quelles sont les plateformes qui possèdent un référentiel régional de sensibilité?
 	$Sql[7] = "
 	SELECT
-		a.id_ptf,
-		nom_region,
-		CASE WHEN ref_sensi.pj_nom IS NOT NULL THEN ref_sensi.pj_nom||' : '||ref_sensi.pj_ressource ELSE 'Pas de réféentiel de sensibilité SINP' END as \"ref_sensibilité\"
+		insee_reg,
+		CASE WHEN z.id_ptf IS NULL THEN 'Dossier non déposé' WHEN ref_sensi.pj_nom IS NOT NULL THEN 'oui' ELSE 'non' END as \"statut\"
 	FROM hab.plateforme a
-	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	LEFT JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
 	LEFT JOIN hab.piece_jointe ref_sensi ON a.id_ptf = ref_sensi.id_ptf AND ref_sensi.pj_type = 'ref_sensi'
 	;";
 // Quels sont les organismes qui participent au SINP? Quel est le rôle de ces organismes dans le SINP?
