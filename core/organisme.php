@@ -37,6 +37,7 @@ $ref["codeniveauadhesion"] = recup_ref("niveau_adhesion");
 <h2><?php echo $org["libellelong"];?></h2>
 
 <b>Libellé court</b> : <?php echo $org["libellecourt"];?><BR>
+<b>Adresse</b> : <?php echo $org["adresse"];?><BR>
 <b>Périmètre d'action</b> : <?php echo $ref["codeperimetreaction"][$org["codeperimetreaction"]];?><BR>
 <b>Type Organisme</b> : <?php echo $ref["codetypeorganisme"][$org["codetypeorganisme"]];?><BR>
 <b>Statut Organisme</b> : <?php echo $ref["codestatutorganisme"][$org["codestatutorganisme"]];?><BR>

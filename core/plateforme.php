@@ -141,16 +141,18 @@ foreach ($new_tab as $unit)
 {	
 	if (!is_null($unit["id"]))
 	{
-		$adresse[$i]["name"]=$unit["libellelong"];
-		$adresse[$i]["postal"]=$unit["libellelong"];
-		$adresse[$i]["x"]=$unit["x"];
-		$adresse[$i]["y"]=$unit["y"];
-		$i++;
+		if (!is_null($unit["x"]))
+		{
+			$adresse[$i]["name"]=$unit["libellelong"];
+			$adresse[$i]["postal"]=$unit["libellelong"];
+			$adresse[$i]["x"]=$unit["x"];
+			$adresse[$i]["y"]=$unit["y"];
+			$i++;
+		}
 	}
 }
 
-// var_dump($adresse);
-if (isset($adresse)) echo "<div id=\"mapid_big\" style=\"margin-left: 360px;margin-top: 10px;\"></div>";
+if (isset($adresse)) echo "<div id=\"mapid_big\"></div>";
 	else echo "aucun organisme";
 
 ?>
