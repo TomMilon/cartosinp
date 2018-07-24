@@ -86,11 +86,11 @@ if ($theme == "plateforme") {
 	";
 	
 	$reqSql[1] = "
-	WITH list_org as (SELECT pilote_org_nom  as nom, pilote_org_id  as id, 1 as role FROM hab.pilote WHERE id_ptf = $idObjet
-		UNION SELECT outil_org_nom as nom, outil_org_id  as id, 2 as role FROM hab.outil WHERE id_ptf = $idObjet
-		UNION SELECT reseau_org_nom  as nom, reseau_org_id  as id, 3 as role FROM hab.reseau WHERE id_ptf = $idObjet
-		UNION SELECT interf_org_nom  as nom, interf_org_id  as id, 4 as role FROM hab.interface WHERE id_ptf = $idObjet)
-	SELECT nom, id, role FROM list_org ORDER BY nom, role
+	WITH list_org as (SELECT pilote_org_nom as nom, pilote_org_id  as id, 'Pilote' as role FROM hab.pilote WHERE id_ptf = $idObjet
+		UNION SELECT outil_org_nom as nom, outil_org_id  as id, 'Porteur d''outil' as role FROM hab.outil WHERE id_ptf = $idObjet
+		UNION SELECT reseau_org_nom  as nom, reseau_org_id  as id, 'Tête de réseau' as role FROM hab.reseau WHERE id_ptf = $idObjet
+		UNION SELECT interf_org_nom  as nom, interf_org_id  as id, 'Contact données' as role FROM hab.interface WHERE id_ptf = $idObjet)
+	SELECT id,nom,role FROM list_org ORDER BY nom
 	;
 	";
 	

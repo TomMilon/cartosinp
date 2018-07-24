@@ -146,3 +146,11 @@ div#question {
 height: 200px; 
 width : 400px; 
 }
+
+#mapid_big { 
+	height: 400px; 
+	overflow: hidden;
+	padding : 5px;
+	margin-left: 350px;
+	margin-right: 350px;
+}

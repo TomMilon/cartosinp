@@ -32,7 +32,6 @@ $sql = "SELECT lib_nmc, val_nmc FROM nomenc.role_org";
 $pgresult = pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$role_all = pg_fetch_all($pgresult);
 foreach ($role_all as $unit) {$ref_role[$unit["lib_nmc"]] = $unit["val_nmc"];}
 
-
 ?>
 <h2><?php echo $ptf["nom_region"];?></h2>
 <b><a href="./question.php?id=1">Statut de la plateforme</a></b> : <?php echo $ptf["hab_decision"];?><BR><BR>
@@ -69,17 +68,44 @@ if (empty($tool)) echo $valeur_non_renseigne; else foreach ($tool as $unit) echo
 <b>Liste des organismes</b><BR>
 <?php 
 if (empty($org)) echo $valeur_non_renseigne; else
+// reconstruction du tableau
+$i = 0;$list_org=array();
 foreach ($org as $unit) 
 	{
-	if ($unit["id"]!= null) 
+	if ($unit["id"]!= null)
 		{
-		$json_nom = json_decode(file_get_contents($URLAPI_organisme."&q=codeOrganisme:".$unit["id"]),true);
-		$nom = ucfirst(strtolower($json_nom["response"]["docs"][0]["libelleLong"]));
-		echo "<li><a href=\"organisme.php?id=".$unit["id"]."\">".$nom." (".$ref_role[$unit["role"]].")</a></li>";
-		if (!in_array($unit["id"],$list_org)) array_push($list_org,$unit["id"]);
+			if (in_array($unit["id"],$list_org)) $new_tab[$unit["id"]]["role"] .= ", ".$unit["role"];
+			else 
+			{
+				$sql = "SELECT * FROM nomenc.ref_org WHERE codeorganisme = '".$unit["id"]."';";
+				$pgresult = pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$ref_org = pg_fetch_all($pgresult);$ref_org = $ref_org[0];
+				$new_tab[$unit["id"]]["id"] = $unit["id"];
+				$new_tab[$unit["id"]]["role"] = $unit["role"];
+				$new_tab[$unit["id"]]["libellelong"] = ucfirst(strtolower($ref_org["libellelong"]));
+				$new_tab[$unit["id"]]["x"] = $ref_org["x"];
+				$new_tab[$unit["id"]]["y"] = $ref_org["y"];
+				array_push($list_org,$unit["id"]);
+			}
 		}
-	else echo "<li>".$unit["nom"]." (".$ref_role[$unit["role"]].")</a></li>";
+		else
+		{
+			if (in_array($i,$list_org)) $new_tab[$i]["role"] .= ", ".$unit["role"];
+			else 
+			{
+				$new_tab[$i]["id"] = null;
+				$new_tab[$i]["libellelong"] = ucfirst(strtolower($unit["nom"]));
+				$new_tab[$i]["role"] = $unit["role"];
+				array_push($list_org,$i);
+				$i++;
+			}
+		}
 	}
+foreach ($new_tab as $unit)
+{
+	if ($unit["id"]!= null) echo "<li><a href=\"organisme.php?id=".$unit["id"]."\">".$unit["libellelong"]." (".$unit["role"].")</a></li>";
+	else echo "<li>".$unit["libellelong"]." (".$unit["role"].")</a></li>";
+}
+
 ?>
 </div>
 
@@ -110,15 +136,21 @@ foreach ($org as $unit)
 // $geojsonFeature = json_encode($phpFeature);
 // var_dump($geojsonFeature);
 
-$phpFeature = array();$i=0;
-foreach ($list_org as $unit)
-	{	
-	$org = api_org($unit);
-	$adresse[$i]=geocoder($org,$unit);$i++;
+$i=0;
+foreach ($new_tab as $unit)
+{	
+	if (!is_null($unit["id"]))
+	{
+		$adresse[$i]["name"]=$unit["libellelong"];
+		$adresse[$i]["postal"]=$unit["libellelong"];
+		$adresse[$i]["x"]=$unit["x"];
+		$adresse[$i]["y"]=$unit["y"];
+		$i++;
 	}
+}
 
 // var_dump($adresse);
-if (isset($adresse)) echo "<div id=\"mapid\"></div>";
+if (isset($adresse)) echo "<div id=\"mapid_big\" style=\"margin-left: 360px;margin-top: 10px;\"></div>";
 	else echo "aucun organisme";
 
 ?>
@@ -144,7 +176,7 @@ var geojsonFeature4 = {"type": "Feature","properties": {"name": "<?php echo $adr
 
 // document.write(geojsonFeature);
 
-var mymap = L.map('mapid').setView([46, 0], 4);
+var mymap = L.map('mapid_big').setView([46, 0], 4);
 L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
     minZoom: 0,
