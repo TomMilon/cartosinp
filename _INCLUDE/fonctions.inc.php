@@ -145,9 +145,9 @@ elseif ($theme == "question") {
 	SELECT
 		a.id_ptf,
 		nom_region,
-		CASE WHEN hab_decision IS NULL THEN 'Habilitation en cours' ELSE hab_decision END as \"statut\"
+		CASE WHEN z.id_ptf IS NULL THEN 'Dossier non déposé' WHEN hab_decision IS NULL THEN 'Habilitation en cours' ELSE hab_decision END as \"statut\"
 	FROM hab.plateforme a
-	JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
+	LEFT JOIN hab.habilitation z ON a.id_ptf = z.id_ptf
 	;";
 // Quelles sont les dynamiques des plateformes ainsi que leur pérennité ?
 	$Sql[2] = "
