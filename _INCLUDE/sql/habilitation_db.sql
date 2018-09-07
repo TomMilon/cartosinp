@@ -238,6 +238,33 @@ y numeric,
 WITH (OIDS = FALSE);
 ALTER TABLE nomenc.ref_org OWNER to postgres;
 
+DROP TABLE nomenc.ref_jdd;
+CREATE TABLE nomenc.ref_jdd
+(
+id_jdd integer NOT NULL,
+lib_jdd character varying,
+description character varying,
+mots_cles character varying,
+date_premiere_diff character varying,
+date_derniere_maj character varying,
+PRIMARY KEY (id_jdd)
+)
+WITH (OIDS = FALSE);
+ALTER TABLE nomenc.ref_jdd OWNER to postgres;
+
+DROP TABLE nomenc.ref_org_jdd;
+CREATE TABLE nomenc.ref_org_jdd
+(
+id_jdd integer NOT NULL,
+typ_org character varying,
+id_org character varying,
+lib_org character varying,
+nom_contact character varying,
+PRIMARY KEY (id_jdd,id_org,nom_contact)
+)
+WITH (OIDS = FALSE);
+ALTER TABLE nomenc.ref_org_jdd OWNER to postgres;
+
 -------- Nomenclatures----------
 
 DROP SCHEMA IF EXISTS nomenc CASCADE;

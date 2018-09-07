@@ -134,10 +134,15 @@ elseif ($theme == "outil") {
 	;";
 	}
 elseif ($theme == "jdd") {
-	$reqSql = "
-
+	$reqSql[0] = "
+		SELECT * FROM nomenc.ref_jdd WHERE id_jdd = $idObjet
 	;
 	";
+	$reqSql[1] = "
+	SELECT * FROM nomenc.ref_org_jdd WHERE id_jdd = $idObjet
+	;
+	";
+	
 	}
 elseif ($theme == "question") {
 // Quelles sont les plateformes en cours d’habilitation/habilitées SINP?
