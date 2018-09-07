@@ -116,6 +116,9 @@ elseif ($theme == "organisme") {
 	SELECT id_outil, outil_nom FROM hab.outil WHERE outil_org_id = '$idObjet'
 	;";
 	$reqSql[3] = "
+	SELECT * FROM nomenc.ref_org_jdd a
+	JOIN nomenc.ref_jdd z ON a.id_jdd = z.id_jdd
+	WHERE a.id_org = '$idObjet'
 	;";
 	}
 elseif ($theme == "outil") {

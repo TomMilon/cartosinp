@@ -46,7 +46,6 @@ $pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 <BR><BR>
 
 
-
 <div id="c1" class="ptf">
 <b>Liste des organismes</b><BR>
 <?php 

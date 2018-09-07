@@ -24,7 +24,7 @@ $pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 //-----tool
 $pgresult=pg_query ($db,$req[2]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$tool = pg_fetch_all($pgresult);
 //-----jdd
-// $pgresult=pg_query ($db,$req[3]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$org = pg_fetch_all($pgresult);
+$pgresult=pg_query ($db,$req[3]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$jdd = pg_fetch_all($pgresult);
 
 
 //----- référentiels
@@ -71,7 +71,7 @@ if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) ech
 <div id="c2" class="jdd">
 <b>Liste des jeux de données</b><BR>
 <?php 
-?>
+if (empty($jdd)) echo $valeur_non_applicable; else foreach ($jdd as $unit) echo "<li><a href=\"jdd.php?id=".$unit["id_jdd"]."\">".$unit["lib_jdd"]."</a></li>";?>
 </div>
 
 
