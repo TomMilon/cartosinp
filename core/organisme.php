@@ -32,10 +32,11 @@ $ref["codeperimetreaction"] = recup_ref("perimetre_action");
 $ref["codetypeorganisme"] = recup_ref("type_organisme");
 $ref["codestatutorganisme"] = recup_ref("statut_organisme");
 $ref["codeniveauadhesion"] = recup_ref("niveau_adhesion");
-
 ?>
-<h2><?php echo $org["libellelong"];?></h2>
 
+<!-- FICHE-->
+<h2><?php echo $org["libellelong"];?></h2>
+<i> Les informations présentées sur cette page proviennent de l'outil Organisme (utilisation de la l'API)</i><BR><BR>
 <b>Libellé court</b> : <?php echo $org["libellecourt"];?><BR>
 <b>Adresse</b> : <?php echo $org["adresse"];?><BR>
 <b>Périmètre d'action</b> : <?php echo $ref["codeperimetreaction"][$org["codeperimetreaction"]];?><BR>

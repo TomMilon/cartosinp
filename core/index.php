@@ -16,7 +16,11 @@ html_header ("utf-8","","");
 
 ?>
 <div id=\"en-tete\" style="text-align: center;">
-Ce site propose une expérimentation en terme de visualisation de la cartographie du SINP<BR><BR>
+Ce site propose une expérimentation en terme de visualisation de la cartographie du SINP.
+<BR><BR> <b>Sources</b> : <BR>
+<li> - dossiers d'habilitations des plateformes régionales
+<li> - référentiel organisme
+<BR><BR>
 <input type="search"  size="75" placeholder="Filtrer les résultats" name="champ recherche" onkeyup="filtre()">
 <BR><BR>
 </div>
