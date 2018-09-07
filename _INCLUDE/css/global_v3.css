@@ -1,0 +1,179 @@
+﻿/* -----------------------------------------------------------------------------*/
+/*    _INCLUDE/css/atlas.css                                                    */
+/*                                                                              */
+/*    CSS principal                                                             */
+/*                                                                              */
+/*  Application WEB 'EVAL'                                                      */
+/*  Outil d'aide à l'évaluation de la flore                                     */
+/*                                                                              */
+/*  Version 1.00  10/08/14 - DariaNet                                           */
+/*  Version 1.01  15/08/14 - Aj 'titre2'                                        */
+/*  Version 1.02  20/08/14 - Aj Couleurs cotations UICN                         */
+/* -----------------------------------------------------------------------------*/
+                                                                          
+
+body{
+/*    background-color:#585858; 
+    font-family: Arial, Helvetica, sans-serif; */
+    font:12px arial,sans-serif;    
+    margin:10px;
+    padding:0;
+    color:#333333;
+    background-color:#E8E2D1;
+}         
+
+/* --------------------------------------------------*/
+/* Styles globaux                                    */
+/* --------------------------------------------------*/
+body {
+    font-size: 80%;
+	font-family: OCR A Std;
+	list-style-type: none;	
+}
+
+
+
+h1 {
+	color: DarkSlateGray ;
+	font-size: 25px;
+	font-weight: normal;
+	font-family: Noto Sans;
+    text-align: center; 
+}
+
+h2 {
+	text-transform: uppercase;
+	color: DarkSlateGray ;
+	font-family: Noto Sans;
+	margin : 5px;
+	font-size: 22px;
+	font-weight: normal;
+	text-align:center
+}
+
+h3 {
+    font-size: 14px;
+	color: #008C8E;
+	text-align: center;
+    background-color: #fff;
+}
+
+h4 {
+    font-size: 14px;
+	color: #008C8E;
+    text-align: left;
+    background-color: #fff;
+}
+
+h5 {
+	color: #008C8E;
+	font-size: 25px;
+	font-weight: normal;
+    text-align: center; 
+    font-style: italic;
+}
+
+/* --------------------------------------------------*/
+/* hyperlien                     */
+/* --------------------------------------------------*/
+
+
+a, a:visited {
+  text-decoration:none; 
+  color: DarkSlateGray ;
+}
+
+a:hover, a:focus, a:active {
+  text-decoration: none;
+  color: white;
+  background: #800;
+}
+
+/* --------------------------------------------------*/
+/* Mise en page des divs                                 */
+/* --------------------------------------------------*/
+/* https://www.alsacreations.com/tuto/lire/588-trois-colonnes-float.html */
+
+div {
+	display: block;
+}
+
+div#c1 {
+	padding : 5px;
+	float: left;
+	width: 340px;
+	height: 300px;
+	margin: 10px;
+}
+
+div#c2 {
+	/* overflow: hidden; */
+	float: left;
+	padding : 5px;
+	width: 340px;
+	height: 300px;
+	margin: 10px;
+	/* margin-right: 350px; */
+}
+
+div#c3 {
+	padding : 5px;
+	float: left;
+	width: 340px;
+	height: 300px;
+	margin: 10px;
+	/* margin-left: 10px; */
+}
+
+div#c4 {
+	padding : 5px;
+	float: left;
+	width: 340px;
+	height: 300px;
+	margin: 10px;	/* margin-left: 10px; */
+}
+
+	
+div#question {
+	padding : 5px;
+	width: 710px;
+	background: MediumAquaMarine ;
+	margin: 10px;
+	float: left;
+}
+
+div.ptf {
+	background: lightblue;
+}
+
+div.organisme {
+	background: burlywood;
+}
+
+div.outil {
+	background: khaki;
+}
+
+div.jdd {
+	/* background: LemonChiffon ; */
+	background: Plum  ;
+}
+
+
+
+/* --------------------------------------------------*/
+/* Leaflet                            */
+/* --------------------------------------------------*/
+
+#mapid { 
+height: 200px; 
+width : 400px; 
+}
+
+#mapid_big { 
+	height: 400px; 
+	overflow: hidden;
+	padding : 5px;
+	margin-left: 350px;
+	margin-right: 350px;
+}

@@ -46,7 +46,7 @@ $pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 <BR><BR>
 
 
-<div id="c1" class="ptf">
+<div id="c1" class="organisme">
 <b>Liste des organismes</b><BR>
 <?php 
 if (empty($org)) echo $valeur_non_applicable; else foreach ($org as $unit) echo "<li><a href=\"organisme.php?id=".$unit["id_org"]."\">".$unit["lib_org"]."</a></li>";?>
@@ -62,7 +62,7 @@ Affaire à suivre
 </div>
 
 
-<div id="c2" class="jdd">
+<div id="c2" class="ptf">
 <b>Liste des plateformes</b><BR>
 <?php 
 ?>

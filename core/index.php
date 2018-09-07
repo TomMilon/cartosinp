@@ -36,16 +36,6 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 	?>
 </div>
 
-<div id="c3" class="outil">
-	<h2>Outils</h2>
-	<?php
-	$sqlList["outil"] = "SELECT '<a href=\"outil.php?id='||id_outil||'\">'||outil_nom||'</a>' FROM hab.outil ORDER BY outil_nom;";
-	$result=pg_query ($db,$sqlList["outil"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
-	while ($row = pg_fetch_row($result))
-		echo "<li>".$row[0]."</li>";
-		?>
-</div>
-
 <div id="c2" class="organisme">
 	<h2>Organismes</h2>
 	<?php
@@ -67,7 +57,31 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 		?>
 </div>
 
+<div id="c3" class="outil">
+	<h2>Outils</h2>
+	<?php
+	$sqlList["outil"] = "SELECT '<a href=\"outil.php?id='||id_outil||'\">'||outil_nom||'</a>' FROM hab.outil ORDER BY outil_nom;";
+	$result=pg_query ($db,$sqlList["outil"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
+	while ($row = pg_fetch_row($result))
+		echo "<li>".$row[0]."</li>";
+		?>
+</div>
 
+
+<div id="c4" class="jdd">
+	<h2>Jeux de données</h2>
+	<?php
+	$sqlList["jdd"] = "SELECT '<a href=\"jdd.php?id='||id_jdd||'\">'||lib_jdd||'</a>' FROM nomenc.ref_jdd ORDER BY lib_jdd LIMIT 12;";
+	$result=pg_query ($db,$sqlList["jdd"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
+	while ($row = pg_fetch_row($result))
+		echo "<li>".$row[0]."</li>";
+		?>
+</div>
+
+
+
+<BR><BR>
+<BR><BR>
 <BR><BR>
 <div id="question">
 	<h2>Les questions</h2>

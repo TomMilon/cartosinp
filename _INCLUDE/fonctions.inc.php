@@ -36,7 +36,8 @@ function html_header ($charset,$css) {
 	echo ("<script src=\"https://unpkg.com/leaflet@1.3.3/dist/leaflet.js\"></script>");
     
     // echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/global.css\" />");
-    echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/global_v2.css\" />");
+    // echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/global_v2.css\" />");
+    echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/global_v3.css\" />");
 
     if ($css != "") echo ("<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"../_INCLUDE/css/".$css."\"  />");
     echo ("</head>");
