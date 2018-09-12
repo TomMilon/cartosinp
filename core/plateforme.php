@@ -35,7 +35,7 @@ foreach ($role_all as $unit) {$ref_role[$unit["lib_nmc"]] = $unit["val_nmc"];}
 ?>
 
 <!-- FICHE-->
-<h2><?php echo $ptf["nom_region"];?></h2>
+<h2><?php echo "<div class=\"ptf\">Plateforme : ".$ptf["nom_region"]."</div>";?></h2>
 <i> Les informations présentées sur cette page proviennent des dossiers d'habilitations mis à disposition par les correspondants SINP régionaux</i><BR><BR>
 <b><a href="./question.php?id=1">Statut de la plateforme</a></b> : <?php echo $ptf["hab_decision"];?><BR><BR>
 <b><a href="./question.php?id=2">Dynamique de la plateforme</a></b> : <?php echo $ptf["dynamique"];?><BR><BR>

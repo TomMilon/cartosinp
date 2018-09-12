@@ -35,7 +35,7 @@ $ref["codeniveauadhesion"] = recup_ref("niveau_adhesion");
 ?>
 
 <!-- FICHE-->
-<h2><?php echo $org["libellelong"];?></h2>
+<h2><?php echo "<div class=\"organisme\">Organisme : ".$org["libellelong"]."</div>";?></h2>
 <i> Les informations présentées sur cette page proviennent de l'outil Organisme (utilisation de la l'API)</i><BR><BR>
 <b>Libellé court</b> : <?php echo $org["libellecourt"];?><BR>
 <b>Adresse</b> : <?php echo $org["adresse"];?><BR>
@@ -50,7 +50,7 @@ $ref["codeniveauadhesion"] = recup_ref("niveau_adhesion");
 	else echo "Aucune d'information concernant l'adresse de l'organisme";
 	?>
 
-<BR><BR>
+
 
 
 <div id="c1" class="ptf">

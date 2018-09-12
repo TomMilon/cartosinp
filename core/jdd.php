@@ -35,7 +35,7 @@ $pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 ?>
 
 <!-- FICHE-->
-<h2><?php echo $jdd["lib_jdd"];?></h2>
+<h2><?php echo "<div class=\"jdd\">Jeu de données : ".$jdd["lib_jdd"]."</div>";?></h2>
 <i> Les informations présentées sur cette page proviennent de l'outil Métadonnées </i><BR><BR>
 <b>Identifiant</b> : <?php echo $jdd["id_jdd"];?><BR>
 <b>Libellé</b> : <?php echo $jdd["lib_jdd"];?><BR>

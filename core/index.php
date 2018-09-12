@@ -20,6 +20,7 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 <BR><BR> <b>Sources</b> : <BR>
 <li> - dossiers d'habilitations des plateformes régionales
 <li> - référentiel organisme
+<li> - INPN métadonnées
 <BR><BR>
 <input type="search"  size="75" placeholder="Filtrer les résultats" name="champ recherche" onkeyup="filtre()">
 <BR><BR>
