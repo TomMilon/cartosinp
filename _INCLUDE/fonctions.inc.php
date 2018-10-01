@@ -34,9 +34,12 @@ function html_header ($charset,$css) {
 
 	echo ("<link rel=\"stylesheet\" href=\"https://unpkg.com/leaflet@1.3.3/dist/leaflet.css\"/>");
 	echo ("<script src=\"https://unpkg.com/leaflet@1.3.3/dist/leaflet.js\"></script>");
+	echo ("<script src=\"../_INCLUDE/js/jquery-3.3.1.min.js\"></script>");
+	echo ("<script src=\"../_INCLUDE/js/jquery.filtertable.min.js\"></script>");
     
     // echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/global.css\" />");
     // echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/global_v2.css\" />");
+    echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/filtertable.css\" />");
     echo ("<link rel=\"stylesheet\" type=\"text/css\" href=\"../_INCLUDE/css/global_v3.css\" />");
 
     if ($css != "") echo ("<link rel=\"stylesheet\" type=\"text/css\" media=\"screen\" href=\"../_INCLUDE/css/".$css."\"  />");

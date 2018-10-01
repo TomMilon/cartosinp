@@ -1,0 +1,11 @@
+table { 
+	font-size: 100%;
+	font-family: OCR A Std;
+	list-style-type: none;
+	text-decoration:none;
+	display: block;
+	height: 330px;
+	overflow:hidden }
+.filter-table .quick { margin-left: 0.5em; font-size: 0.8em; text-decoration: none; }
+.fitler-table .quick:hover { text-decoration: underline; }
+td.alt { background-color: #ffc; background-color: rgba(255, 255, 0, 0.2); }
