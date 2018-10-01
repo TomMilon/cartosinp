@@ -55,6 +55,7 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!---sources = http://sunnywalker.github.io/jQuery.FilterTable/ -->
 <script src="../_INCLUDE/js/jquery.filtertable.min.js"></script>
 <script>
 $(document).ready(function() {
