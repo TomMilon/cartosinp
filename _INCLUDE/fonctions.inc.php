@@ -103,7 +103,12 @@ if ($theme == "plateforme") {
 	ORDER BY outil_nom
 	;
 	";
-	
+
+	$reqSql[3] = "
+	SELECT * FROM nomenc.ref_jdd WHERE id_ptf = $idObjet
+	ORDER BY lib_jdd
+	;
+	";	
 	}
 elseif ($theme == "organisme") {
 	$reqSql[0] = "
@@ -142,7 +147,9 @@ elseif ($theme == "outil") {
 	}
 elseif ($theme == "jdd") {
 	$reqSql[0] = "
-		SELECT * FROM nomenc.ref_jdd WHERE id_jdd = $idObjet
+		SELECT a.*, z.nom_region FROM nomenc.ref_jdd a
+			LEFT JOIN hab.plateforme z ON a.id_ptf = z.id_ptf
+			WHERE id_jdd = $idObjet
 	;
 	";
 	$reqSql[1] = "

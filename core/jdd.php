@@ -22,9 +22,9 @@ $pgresult=pg_query ($db,$req[0]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 //-----organisme
 $pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$org = pg_fetch_all($pgresult);
 //-----tool
-// $pgresult=pg_query ($db,$req[2]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$tool = pg_fetch_all($pgresult);
+if (!empty($jdd["id_outil"])) {$tool["id"] = $jdd["id_outil"];$tool["lib"]= $jdd["lib_outil_origine"];}
 //-----ptf
-// $pgresult=pg_query ($db,$req[3]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$ptf = pg_fetch_all($pgresult);
+if (!empty($jdd["id_ptf"])) {$ptf["id"] = $jdd["id_ptf"];$ptf["lib"]= $jdd["nom_region"];}
 
 
 //----- référentiels
@@ -37,12 +37,12 @@ $pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 <!-- FICHE-->
 <h2><?php echo "<div class=\"jdd\">Jeu de données : ".$jdd["lib_jdd"]."</div>";?></h2>
 <i> Les informations présentées sur cette page proviennent de l'outil Métadonnées </i><BR><BR>
-<b>Identifiant</b> : <?php echo $jdd["id_jdd"];?><BR>
+<b>Identifiant base métadonnées</b> : <?php echo $jdd["id_jdd"];?><BR>
+<b>Identifiant SINP</b> : <?php echo $jdd["id_sinp_jdd"];?><BR>
+<b>Identifiant INPN</b> : <?php echo $jdd["cd_jdd"];?><BR>
 <b>Libellé</b> : <?php echo $jdd["lib_jdd"];?><BR>
-<b>description</b> : <?php echo $jdd["description"];?><BR>
-<b>Mots-clés</b> : <?php echo $jdd["mots_cles"];?><BR>
-<b>Date de première diffusion</b> : <?php echo $jdd["date_premiere_diff"];?><BR>
-<b>Date de dernière mise à jour</b> : <?php echo $jdd["date_derniere_maj"];?><BR>
+<b>URL Charte</b> : <?php echo $jdd["url_charte"];?><BR>
+<b>Floutage de la données source</b> : <?php echo $jdd["floutage_ds"];?><BR>
 <BR><BR>
 
 
@@ -56,8 +56,7 @@ if (empty($org)) echo $valeur_non_applicable; else foreach ($org as $unit) echo 
 <div id="c3" class="outil">
 <b>Liste des outils</b><BR>
 <?php 
-// if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) echo "<li><a href=\"outil.php?id=".$unit["id_outil"]."\">".$unit["outil_nom"]."</a></li>";?>
-Affaire à suivre
+if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) echo "<li><a href=\"outil.php?id=".$unit["id"]."\">".$unit["lib"]."</a></li>";?>
 <BR><BR>
 </div>
 
@@ -65,8 +64,8 @@ Affaire à suivre
 <div id="c2" class="ptf">
 <b>Liste des plateformes</b><BR>
 <?php 
+if (empty($ptf)) echo $valeur_non_applicable; else echo "<li><a href=\"plateforme.php?id=".$ptf["id"]."\">".$ptf["lib"]."</a></li>";
 ?>
-Affaire à suivre
 </div>
 
 

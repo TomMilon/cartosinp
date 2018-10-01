@@ -27,6 +27,9 @@ $pgresult=pg_query ($db,$req[1]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 //-----tool
 $pgresult=pg_query ($db,$req[2]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$tool = pg_fetch_all($pgresult);
 
+//-----jdd
+$pgresult=pg_query ($db,$req[3]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$jdd = pg_fetch_all($pgresult);
+
 //----- référentiels
 $sql = "SELECT lib_nmc, val_nmc FROM nomenc.role_org";
 $pgresult = pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$role_all = pg_fetch_all($pgresult);
@@ -57,6 +60,10 @@ foreach ($role_all as $unit) {$ref_role[$unit["lib_nmc"]] = $unit["val_nmc"];}
 <!-----LIEN avec les autres fiches------>
 <div id="c1" class="jdd">
 <b>Liste des jeux de données</b><BR>
+<?php
+if (empty($jdd)) echo $valeur_non_renseigne; else foreach ($jdd as $unit) echo "<li><a href=\"jdd.php?id=".$unit["id_jdd"]."\">".$unit["lib_jdd"]."</a></li>";
+?>
+<BR><BR>
 
 </div>
 

@@ -69,7 +69,7 @@ Production des tableaux des différents compartiments
 <h2>Jeux de données...done</h2>
 	<?php
 	$file = "<table><tbody>";
-	$sqlList["jdd"] = "SELECT '<a href=\"jdd.php?id='||id_jdd||'\">'||lib_jdd||'</a>' FROM nomenc.ref_jdd ORDER BY lib_jdd LIMIT 12;";
+	$sqlList["jdd"] = "SELECT '<a href=\"jdd.php?id='||id_jdd||'\">'||lib_jdd||'</a>' FROM nomenc.ref_jdd ORDER BY lib_jdd;";
 	$result=pg_query ($db,$sqlList["jdd"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
 	while ($row = pg_fetch_row($result))
 		$file .= "<tr><td>".$row[0]."</td></tr>";

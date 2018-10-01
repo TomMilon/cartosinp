@@ -242,11 +242,15 @@ DROP TABLE nomenc.ref_jdd;
 CREATE TABLE nomenc.ref_jdd
 (
 id_jdd integer NOT NULL,
+id_sinp_jdd character varying,
+cd_jdd character varying,
 lib_jdd character varying,
-description character varying,
-mots_cles character varying,
-date_premiere_diff character varying,
-date_derniere_maj character varying,
+url_charte character varying,
+id_ptf integer,
+lib_ptf_origine character varying,
+id_outil integer,
+lib_outil_origine character varying,
+floutage_ds character varying,
 PRIMARY KEY (id_jdd)
 )
 WITH (OIDS = FALSE);
