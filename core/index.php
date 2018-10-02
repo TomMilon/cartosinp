@@ -40,19 +40,26 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 	<h2>Organismes</h2>
 	<table><tbody>
 	<?php
-	$json = file_get_contents($URLAPI_organisme.$limit_json);
-	$jsondec = json_decode($json, true);
-	foreach ($jsondec["response"]["docs"] as $unit)
-		{
-		$libelleLong[$unit["codeOrganisme"]] = ucfirst(strtolower($unit["libelleLong"]));
-		$libelleCourt[$unit["codeOrganisme"]] = ucfirst(strtolower($unit["libelleCourt"]));
-	}
-	asort($libelleCourt);asort($libelleLong);
-	for ($i = 1; $i < count($libelleCourt) ; $i++)
-		{
-		echo "<tr><td><a href=\"organisme.php?id=".key($libelleLong)."\">".current($libelleLong)."<a><p hidden>".current($libelleCourt)."</p></td></tr>";
-		next($libelleLong);next($libelleCourt);
-		}
+	// Version API
+	// $json = file_get_contents($URLAPI_organisme.$limit_json);
+	// $jsondec = json_decode($json, true);
+	// foreach ($jsondec["response"]["docs"] as $unit)
+		// {
+		// $libelleLong[$unit["codeOrganisme"]] = ucfirst(strtolower($unit["libelleLong"]));
+		// $libelleCourt[$unit["codeOrganisme"]] = ucfirst(strtolower($unit["libelleCourt"]));
+	// }
+	// asort($libelleCourt);asort($libelleLong);
+	// for ($i = 1; $i < count($libelleCourt) ; $i++)
+		// {
+		// echo "<tr><td><a href=\"organisme.php?id=".key($libelleLong)."\">".current($libelleLong)."<a><p hidden>".current($libelleCourt)."</p></td></tr>";
+		// next($libelleLong);next($libelleCourt);
+		// }
+		
+	// Version BDD
+	$sqlList["organisme"] = " SELECT '<a href=\"organisme.php?id='||codeorganisme||'\">'||initcap(libellelong)||'</a><p hidden>'||libellecourt||'</p>' FROM nomenc.ref_org ORDER BY libellelong;";
+	$result=pg_query ($db,$sqlList["organisme"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
+	while ($row = pg_fetch_row($result))
+		echo "<tr><td>".$row[0]."</td></tr>";
 	?>
 </tbody></table>
 </div>
