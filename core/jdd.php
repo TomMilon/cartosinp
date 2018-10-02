@@ -48,24 +48,39 @@ if (!empty($jdd["id_ptf"])) {$ptf["id"] = $jdd["id_ptf"];$ptf["lib"]= $jdd["nom_
 
 <div id="c1" class="organisme">
 <b>Liste des organismes</b><BR>
+<table><tbody>
 <?php 
-if (empty($org)) echo $valeur_non_applicable; else foreach ($org as $unit) echo "<li><a href=\"organisme.php?id=".$unit["id_org"]."\">".$unit["lib_org"]."</a></li>";?>
+if (empty($org)) echo $valeur_non_applicable; else foreach ($org as $unit) echo "<tr><td><a href=\"organisme.php?id=".$unit["id_org"]."\">".$unit["lib_org"]."</a></td></tr>";
+?>
+</tbody></table>
 </div>
 
 
 <div id="c3" class="outil">
 <b>Liste des outils</b><BR>
+<table><tbody>
 <?php 
-if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) echo "<li><a href=\"outil.php?id=".$unit["id"]."\">".$unit["lib"]."</a></li>";?>
-<BR><BR>
+if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) echo "<tr><td><a href=\"outil.php?id=".$unit["id"]."\">".$unit["lib"]."</a></td></tr>";?>
+</tbody></table>
 </div>
 
 
 <div id="c2" class="ptf">
 <b>Liste des plateformes</b><BR>
+<table><tbody>
 <?php 
-if (empty($ptf)) echo $valeur_non_applicable; else echo "<li><a href=\"plateforme.php?id=".$ptf["id"]."\">".$ptf["lib"]."</a></li>";
+if (empty($ptf)) echo $valeur_non_applicable; else echo "<tr><td><a href=\"plateforme.php?id=".$ptf["id"]."\">".$ptf["lib"]."</a></td></tr>";
 ?>
+</tbody></table>
 </div>
 
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!---sources = http://sunnywalker.github.io/jQuery.FilterTable/ -->
+<script src="../_INCLUDE/js/jquery.filtertable.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('table').filterTable(	
+	); // apply filterTable to all tables on this page
+});
+</script>

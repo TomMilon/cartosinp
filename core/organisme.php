@@ -51,27 +51,30 @@ $ref["codeniveauadhesion"] = recup_ref("niveau_adhesion");
 	?>
 
 
-
-
 <div id="c1" class="ptf">
 <b>Liste des plateformes</b><BR>
+<table><tbody>
 <?php 
-if (empty($ptf)) echo $valeur_non_applicable; else foreach ($ptf as $unit) echo "<li><a href=\"plateforme.php?id=".$unit["id_ptf"]."\">".$unit["nom_region"]."</a></li>";?>
+if (empty($ptf)) echo $valeur_non_applicable; else foreach ($ptf as $unit) echo "<tr><td><a href=\"plateforme.php?id=".$unit["id_ptf"]."\">".$unit["nom_region"]."</a></td></tr>";?>
+</tbody></table>
 </div>
 
 
 <div id="c3" class="outil">
 <b>Liste des outils</b><BR>
+<table><tbody>
 <?php 
-if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) echo "<li><a href=\"outil.php?id=".$unit["id_outil"]."\">".$unit["outil_nom"]."</a></li>";?>
-<BR><BR>
+if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) echo "<tr><td><a href=\"outil.php?id=".$unit["id_outil"]."\">".$unit["outil_nom"]."</a></td></tr>";?>
+</tbody></table>
 </div>
 
 
 <div id="c2" class="jdd">
 <b>Liste des jeux de données</b><BR>
+<table><tbody>
 <?php 
-if (empty($jdd)) echo $valeur_non_applicable; else foreach ($jdd as $unit) echo "<li><a href=\"jdd.php?id=".$unit["id_jdd"]."\">".$unit["lib_jdd"]."</a></li>";?>
+if (empty($jdd)) echo $valeur_non_applicable; else foreach ($jdd as $unit) echo "<tr><td><a href=\"jdd.php?id=".$unit["id_jdd"]."\">".$unit["lib_jdd"]."</a></td></tr>";?>
+</tbody></table>
 </div>
 
 
@@ -109,5 +112,12 @@ L.geoJSON(geojsonFeature, {
 
 </script>
 
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!---sources = http://sunnywalker.github.io/jQuery.FilterTable/ -->
+<script src="../_INCLUDE/js/jquery.filtertable.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('table').filterTable(	
+	); // apply filterTable to all tables on this page
+});
+</script>

@@ -60,22 +60,28 @@ foreach ($role_all as $unit) {$ref_role[$unit["lib_nmc"]] = $unit["val_nmc"];}
 <!-----LIEN avec les autres fiches------>
 <div id="c1" class="jdd">
 <b>Liste des jeux de données</b><BR>
-<?php
-if (empty($jdd)) echo $valeur_non_renseigne; else foreach ($jdd as $unit) echo "<li><a href=\"jdd.php?id=".$unit["id_jdd"]."\">".$unit["lib_jdd"]."</a></li>";
+<table><tbody>
+<?php 
+if (empty($jdd)) echo $valeur_non_renseigne; else foreach ($jdd as $unit) echo "<tr><td><a href=\"jdd.php?id=".$unit["id_jdd"]."\">".$unit["lib_jdd"]."</a></td></tr>"; 
 ?>
+</tbody></table>
 <BR><BR>
 
 </div>
 
 <div id="c3" class="outil">
 <b>Liste des outils</b><BR>
-<?php 
-if (empty($tool)) echo $valeur_non_renseigne; else foreach ($tool as $unit) echo "<li><a href=\"outil.php?id=".$unit["id_outil"]."\">".$unit["outil_nom"]."</a></li>";?>
+<table><tbody>
+<?php  
+if (empty($tool)) echo $valeur_non_renseigne; else foreach ($tool as $unit) echo "<tr><td><a href=\"outil.php?id=".$unit["id_outil"]."\">".$unit["outil_nom"]."</a></td></tr>";
+?>
+</tbody></table>
 <BR><BR>
 </div>
 
 <div id="c2" class="organisme">
 <b>Liste des organismes</b><BR>
+<table><tbody>
 <?php 
 if (empty($org)) echo $valeur_non_renseigne; 
 else
@@ -114,8 +120,8 @@ else
 		}
 	foreach ($new_tab as $unit)
 	{
-		if ($unit["id"]!= null) echo "<li><a href=\"organisme.php?id=".$unit["id"]."\">".$unit["libellelong"]." (".$unit["role"].")</a></li>";
-		else echo "<li>".$unit["libellelong"]." (".$unit["role"].")</a></li>";
+		if ($unit["id"]!= null) echo "<tr><td><a href=\"organisme.php?id=".$unit["id"]."\">".$unit["libellelong"]." (".$unit["role"].")</a></td></tr>";
+		else echo "<tr><td>".$unit["libellelong"]." (".$unit["role"].")</a></td></tr>";
 	}
 	$i=0;
 	foreach ($new_tab as $unit)
@@ -135,6 +141,7 @@ else
 }
 
 ?>
+</tbody></table>
 </div>
 
 <?php 
@@ -205,3 +212,13 @@ L.geoJSON(geojsonFeature3, {onEachFeature: onEachFeature}).addTo(mymap);
 L.geoJSON(geojsonFeature4, {onEachFeature: onEachFeature}).addTo(mymap);
 </script>
 
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!---sources = http://sunnywalker.github.io/jQuery.FilterTable/ -->
+<script src="../_INCLUDE/js/jquery.filtertable.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('table').filterTable(	
+	); // apply filterTable to all tables on this page
+});
+</script>

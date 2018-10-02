@@ -38,7 +38,7 @@ $pgresult=pg_query ($db,$req[2]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 <b>Organisme </b> : <?php echo $result["outil_org_nom"];?><BR>
 <?php echo $result["outil_desc"];?>
 <BR>
-<TABLE>
+<TABLE style="height : 400px;">
 <?php 
 for ($i = 1; $i <= 19; $i++) {
     // echo "<li>".$fct_outil["fct_outil_".$i]." = ".$result["fct_outil_".$i]."<BR></li>";
@@ -55,22 +55,39 @@ for ($i = 1; $i <= 19; $i++) {
 <!-----LIEN avec les autres fiches------>
 <div id="c1" class="ptf">
 <b>Liste des plateformes</b><BR>
-<?php echo "<li><a href=\"plateforme.php?id=".$result["id_ptf"]."\">".$result["nom_region"]."</a></li>";?>
+<table><tbody>
+<?php 
+echo "<tr><td><a href=\"plateforme.php?id=".$result["id_ptf"]."\">".$result["nom_region"]."</a></td></tr>";
+?>
+</tbody></table>
 </div>
 
 <div id="c3" class="organisme">
 <b>Liste des organismes</b><BR>
+<table><tbody>
 <?php 
-if (empty($org)) echo $valeur_non_applicable; else foreach ($org as $unit) echo "<li><a href=\"organisme.php?id=".$unit["outil_org_id"]."\">".$unit["outil_org_nom"]."</a></li>";
+if (empty($org)) echo $valeur_non_applicable; else foreach ($org as $unit) echo "<tr><td><a href=\"organisme.php?id=".$unit["outil_org_id"]."\">".$unit["outil_org_nom"]."</a></td></tr>";
 ?>
+</tbody></table>
 </div>
 
 <div id="c2" class="jdd">
 <b>Liste des jeux de données</b><BR>
+<table><tbody>
 <?php 
 ?>
+</tbody></table>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<!---sources = http://sunnywalker.github.io/jQuery.FilterTable/ -->
+<script src="../_INCLUDE/js/jquery.filtertable.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('table').filterTable(	
+	); // apply filterTable to all tables on this page
+});
+</script>
 
 
 
