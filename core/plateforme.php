@@ -37,23 +37,59 @@ foreach ($role_all as $unit) {$ref_role[$unit["lib_nmc"]] = $unit["val_nmc"];}
 
 ?>
 
+
 <!-- FICHE-->
 <h2><?php echo "<div class=\"ptf\">Plateforme : ".$ptf["nom_region"]."</div>";?></h2>
 <i> Les informations présentées sur cette page proviennent des dossiers d'habilitations mis à disposition par les correspondants SINP régionaux</i><BR><BR>
-<b><a href="./question.php?id=1">Statut de la plateforme</a></b> : <?php echo $ptf["hab_decision"];?><BR><BR>
-<b><a href="./question.php?id=2">Dynamique de la plateforme</a></b> : <?php echo $ptf["dynamique"];?><BR><BR>
-<b><a href="./question.php?id=3">Plateforme pérène?</a></b> : <?php echo $ptf["perenne"];?><BR>
-<?php echo $ptf["perenne_desc"];?><BR><BR>
-<b><a href="./question.php?id=4">Charte SINP?</a></b> : <?php echo $ptf["charte"];?><BR>
-<?php echo $ptf["charte_desc"];?><BR>
-<?php echo $ptf["charte_pj"];?><BR><BR>
-<b><a href="./question.php?id=5">Standard de données régional SINP</a></b> : <?php echo $ptf["standard"];?><BR><BR>
-<b><a href="./question.php?id=6">Échange avec la plateforme nationale?</a></b> : <?php echo $ptf["echange"];?><BR>
-<?php echo $ptf["echange_desc"];?><BR><BR>
-<b><a href="./question.php?id=7">validation scientifique des données?</a></b> : <?php echo $ptf["validation"];?><BR>
-<?php echo $ptf["validation_desc"];?><BR><BR>
-<b><a href="./question.php?id=8">Référentiel de sensibilité</a></b> : <?php echo $ptf["ref_sensibilité"];?>
-
+<table class="tbptf">
+<thead>
+	<tr>
+		<th>Caractéristique</th>
+		<th>Valeur</th>
+		<th>Description</th>
+</thead>
+<tbody>
+<tr class="block1">
+	<td><b><a href="./question.php?id=1">Statut de la plateforme</a></b></td>
+	<td> <?php echo $ptf["hab_decision"];?></td>
+	<td></td>
+</tr>
+<tr class="block2">
+	<td><b><a href="./question.php?id=2">Dynamique de la plateforme</a></b></td>
+	<td> <?php echo $ptf["dynamique"];?></td>
+	<td></td>
+</tr>
+<tr class="block1">
+	<td><b><a href="./question.php?id=3">Plateforme pérène?</a></b></td>
+	<td> <?php echo $ptf["perenne"];?></td>
+	<td><button class="btn1">?</button><p class="p1" style="display: none;"><?php echo $ptf["perenne_desc"];?></p></td>
+</tr>
+<tr class="block2">
+	<td><b><a href="./question.php?id=4">Charte SINP?</a></b></td>
+	<td> <?php echo $ptf["charte"];?></td>
+	<td><button class="btn2">?</button><p class="p2" style="display: none;"><?php echo $ptf["charte_desc"];?><BR> <?php echo $ptf["charte_pj"];?></p></td>
+</tr>
+<tr class="block1">
+	<td><b><a href="./question.php?id=5">Standard de données régional SINP</a></b></td>
+	<td> <?php echo $ptf["standard"];?></td>
+	<td></td>
+</tr>
+<tr class="block2">
+	<td><b><a href="./question.php?id=6">Échange avec la plateforme nationale?</a></b></td>
+	<td> <?php echo $ptf["echange"];?></td>
+	<td><button class="btn3">?</button><p class="p3" style="display: none;"> <?php echo $ptf["echange_desc"];?></p></td>
+</tr>
+<tr class="block1">
+	<td><b><a href="./question.php?id=7">Validation scientifique des données?</a></b></td>
+	<td> <?php echo $ptf["validation"];?></td>
+	<td><button class="btn4">?</button><p class="p4" style="display: none;"> <?php echo $ptf["validation_desc"];?></p></td>
+</tr>
+<tr class="block2">
+	<td><b><a href="./question.php?id=8">Référentiel de sensibilité</a></b></td>
+	<td> <?php echo $ptf["ref_sensibilité"];?></td>
+	<td></td>
+</tr>
+</tbody></table>
 <BR><BR>
 
 
@@ -220,5 +256,22 @@ L.geoJSON(geojsonFeature4, {onEachFeature: onEachFeature}).addTo(mymap);
 $(document).ready(function() {
 	$('table').filterTable(	
 	); // apply filterTable to all tables on this page
+});
+</script>
+
+<script>
+$(document).ready(function(){
+    $(".btn1").click(function(){
+        $(".p1").slideToggle();
+    });
+    $(".btn2").click(function(){
+        $(".p2").slideToggle();
+    });
+    $(".btn3").click(function(){
+        $(".p3").slideToggle();
+    });
+    $(".btn4").click(function(){
+        $(".p4").slideToggle();
+    });
 });
 </script>

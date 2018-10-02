@@ -114,9 +114,6 @@ div#question {
 	float: left;
 }
 
-div.block1 {
-	background: Bisque  ;
-}
 
 div.ptf {
 	background: lightblue;
@@ -135,3 +132,10 @@ div.jdd {
 	background: Plum  ;
 }
 
+.tbptf td {
+	padding:5px;
+}
+
+.block1 {
+	background: Cornsilk   ;
+}
