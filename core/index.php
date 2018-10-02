@@ -50,8 +50,8 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 	asort($libelleCourt);asort($libelleLong);
 	for ($i = 1; $i < count($libelleCourt) ; $i++)
 		{
-		echo "<tr><td><a href=\"organisme.php?id=".key($libelleLong)."\">".current($libelleLong)."<a></td></tr>";
-		next($libelleLong);
+		echo "<tr><td><a href=\"organisme.php?id=".key($libelleLong)."\">".current($libelleLong)."<a><p hidden>".current($libelleCourt)."</p></td></tr>";
+		next($libelleLong);next($libelleCourt);
 		}
 	?>
 </tbody></table>

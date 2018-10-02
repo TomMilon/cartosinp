@@ -32,6 +32,25 @@ if (!empty($jdd["id_ptf"])) {$ptf["id"] = $jdd["id_ptf"];$ptf["lib"]= $jdd["nom_
 // $ref["codetypeorganisme"] = recup_ref("type_organisme");
 // $ref["codestatutorganisme"] = recup_ref("statut_organisme");
 // $ref["codeniveauadhesion"] = recup_ref("niveau_adhesion");
+
+
+// à reprendre totalement
+// $xml =file_get_contents($URLAPI_metadata.$jdd["id_sinp_jdd"]);
+// $parser = xml_parser_create();
+// xml_parse($parser, $xml);
+// var_dump($json);
+// $liste_id = array();
+// foreach ($apijdd as $unit)
+// {	
+	// if(!in_array($unit["jdd:organisme"],$liste_id))
+	// {
+		// contre les doublons
+		// array_push($liste_id,$unit["jdd:organisme"]);
+	// }
+// }
+// var_dump($liste_id);
+
+
 ?>
 
 <!-- FICHE-->
