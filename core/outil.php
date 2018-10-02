@@ -28,6 +28,9 @@ foreach ($list as $unit) $fct_outil[$unit["lib_nmc"]] = $unit["val_nmc"];
 // $pgresult=pg_query ($db,$req[0]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$ptf = pg_fetch_all($pgresult);
 //-----organismes
 $pgresult=pg_query ($db,$req[2]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$org = pg_fetch_all($pgresult);
+//-----jdd
+$pgresult=pg_query ($db,$req[3]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$jdd = pg_fetch_all($pgresult);
+
 ?>
 
 <!-- FICHE-->
@@ -75,8 +78,9 @@ if (empty($org)) echo $valeur_non_applicable; else foreach ($org as $unit) echo 
 <b>Liste des jeux de données</b><BR>
 <table><tbody>
 <?php 
-?>
+if (empty($jdd)) echo $valeur_non_applicable; else foreach ($jdd as $unit) echo "<tr><td><a href=\"jdd.php?id=".$unit["id_jdd"]."\">".$unit["lib_jdd"]."</a></td></tr>";?>
 </tbody></table>
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

@@ -133,7 +133,7 @@ elseif ($theme == "organisme") {
 elseif ($theme == "outil") {
 	$reqSql[0] = "
 	SELECT a.*, z.nom_region FROM hab.outil a
-	JOIN hab.plateforme z ON a.id_ptf = z.id_ptf
+	LEFT JOIN hab.plateforme z ON a.id_ptf = z.id_ptf
 	WHERE id_outil = $idObjet
 	;";
 	
@@ -143,6 +143,11 @@ elseif ($theme == "outil") {
 
 	$reqSql[2] = "
 	SELECT outil_org_nom, outil_org_id FROM hab.outil WHERE id_outil = '$idObjet'
+	;";
+	$reqSql[3] = "
+	SELECT z.* FROM hab.outil a
+	JOIN nomenc.ref_jdd z ON a.id_outil = z.id_outil
+	WHERE a.id_outil = '$idObjet'
 	;";
 	}
 elseif ($theme == "jdd") {

@@ -26,7 +26,6 @@ if (!empty($jdd["id_outil"])) {$tool["id"] = $jdd["id_outil"];$tool["lib"]= $jdd
 //-----ptf
 if (!empty($jdd["id_ptf"])) {$ptf["id"] = $jdd["id_ptf"];$ptf["lib"]= $jdd["nom_region"];}
 
-
 //----- référentiels
 // $ref["codeperimetreaction"] = recup_ref("perimetre_action");
 // $ref["codetypeorganisme"] = recup_ref("type_organisme");
@@ -79,7 +78,9 @@ if (empty($org)) echo $valeur_non_applicable; else foreach ($org as $unit) echo 
 <b>Liste des outils</b><BR>
 <table><tbody>
 <?php 
-if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) echo "<tr><td><a href=\"outil.php?id=".$unit["id"]."\">".$unit["lib"]."</a></td></tr>";?>
+// if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) echo "<tr><td><a href=\"outil.php?id=".$unit["id"]."\">".$unit["lib"]."</a></td></tr>";
+if (empty($tool)) echo $valeur_non_applicable; else echo "<tr><td><a href=\"outil.php?id=".$tool["id"]."\">".$tool["lib"]."</a></td></tr>";
+?>
 </tbody></table>
 </div>
 
