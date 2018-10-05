@@ -270,7 +270,8 @@ ALTER TABLE nomenc.ref_jdd OWNER to postgres;
 DROP TABLE nomenc.ref_org_jdd;
 CREATE TABLE nomenc.ref_org_jdd
 (
-	id_jdd integer NOT NULL,
+	id_jdd_sinp character varying NOT NULL,
+	id_jdd integer,
 	typ_org character varying,
 	id_org character varying,
 	lib_org character varying,
@@ -531,6 +532,15 @@ INSERT INTO nomenc.role_org VALUES
 	(DEFAULT,'2','porteur d''outil'),
 	(DEFAULT,'3','tête de réseau'),
 	(DEFAULT,'4','contact données');
+	
+	
+DROP TABLE nomenc.type_donnees;
+DROP TABLE nomenc.obj_jdd;
+DROP TABLE nomenc.role_acteur;
+
+CREATE TABLE nomenc.type_donnees(id_nmc character varying NOT NULL, mnemonique_nmc character varying,lib_nmc character varying NOT NULL, val_nmc character varying NOT NULL,  PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
+CREATE TABLE nomenc.obj_jdd(id_nmc character varying NOT NULL, mnemonique_nmc character varying,lib_nmc character varying NOT NULL, val_nmc character varying NOT NULL,  PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
+CREATE TABLE nomenc.role_acteur(id_nmc character varying NOT NULL, mnemonique_nmc character varying,lib_nmc character varying NOT NULL, val_nmc character varying NOT NULL,  PRIMARY KEY (id_nmc)) WITH (OIDS = FALSE);
 
 	
 ----------------Schema temporaire -------------

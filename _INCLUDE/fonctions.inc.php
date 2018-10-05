@@ -126,7 +126,7 @@ elseif ($theme == "organisme") {
 	;";
 	$reqSql[3] = "
 	SELECT * FROM nomenc.ref_org_jdd a
-	JOIN nomenc.ref_jdd z ON a.id_jdd = z.id_jdd
+	JOIN nomenc.ref_jdd z ON a.id_sinp_jdd = z.id_sinp_jdd
 	WHERE a.id_org = '$idObjet'
 	;";
 	}
@@ -154,11 +154,11 @@ elseif ($theme == "jdd") {
 	$reqSql[0] = "
 		SELECT a.*, z.nom_region FROM nomenc.ref_jdd a
 			LEFT JOIN hab.plateforme z ON a.id_ptf = z.id_ptf
-			WHERE id_jdd = $idObjet
+			WHERE id_sinp_jdd = '$idObjet'
 	;
 	";
 	$reqSql[1] = "
-	SELECT * FROM nomenc.ref_org_jdd WHERE id_jdd = $idObjet
+	SELECT * FROM nomenc.ref_org_jdd WHERE id_sinp_jdd = '$idObjet'
 	;
 	";
 	
@@ -377,11 +377,10 @@ function api_to_pgsql($mode)
 			}
 			$pgresult=pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
 		break;
-		case "jdd" :
-			// à reprendre totalement
+		case "jdd-desc" :
 			$ref = "SELECT id_sinp_jdd FROM nomenc.ref_jdd;";
 			$pgresult=pg_query ($db,$ref) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
-			$sql = "";
+			// $sql = "";
 			
 			foreach (pg_fetch_all($pgresult) as $item)
 				{
@@ -422,22 +421,13 @@ function api_to_pgsql($mode)
 						else $val[$o] = null;
 					}
 
-
 					foreach ($x->getElementsByTagName('motCle') as $item) {
 						  $motcle .= ",".$item->nodeValue;
 						}			
 					$motcle = ltrim($motcle,',');
 
-					foreach ($x->getElementsByTagName('ActeurType') as $item) {
-						$acteur['mail'][$i] = $x->getElementsByTagName('mail')->item(0)->nodeValue; 
-						$acteur['nomPrenom'][$i] = $x->getElementsByTagName('mail')->item(0)->nodeValue; 
-						$acteur['roleActeur'][$i] = $x->getElementsByTagName('roleActeur')->item(0)->nodeValue; 
-						$acteur['organisme'][$i] = $x->getElementsByTagName('organisme')->item(0)->nodeValue;
-						$i++;
-					}	
-
 					/* Mise à jour SQL - JDD */
-					$sql .= "UPDATE nomenc.ref_jdd SET 
+					$sql = "UPDATE nomenc.ref_jdd SET 
 						libelleCourt = '".str_replace("'","''",$val["libelleCourt"])."',
 						description = '".str_replace("'","''",$val["description"])."',
 						typeDonnees = '".$val["typeDonnees"]."',
@@ -450,28 +440,92 @@ function api_to_pgsql($mode)
 						dateRevision = '".$val["dateRevision"]."'
 						WHERE id_sinp_jdd = '$id';
 						";
-					$sql .= "<BR><BR>";
-					// pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
+					// $sql .= "<BR><BR>";
+					pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
 					}
-					
-					/* Mise à jour SQL - Acteur */
-					/* Vérification de l'existant à partir de la PK */
-					$sql = "SELECT 1 FROM nomenc.ref_org_jdd WHERE id_jdd = ".$val["objectifJdd"]." AND id_org = '".$acteur['organisme'][$i]."';";
-					
-					/* Si non existant = INSERT */
-					// INSERT INTO nomenc.ref_org_jdd(
-					// id_jdd, typ_org, id_org, lib_org, nom_contact)
-					// VALUES (?, ?, ?, ?, ?);
-					
-					/* Si existant = UPDATE */
-					// UPDATE nomenc.ref_org_jdd
-					// SET id_jdd=?, typ_org=?, id_org=?, lib_org=?, nom_contact=?
-					// WHERE <condition>;
-					
-					
 				}
-					
 		break;
+		case "jdd-org" :
+			/* ref role acteur*/
+			$sql = "SELECT id_nmc, lib_nmc FROM nomenc.role_acteur";
+			$pgresult = pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$ref = pg_fetch_all($pgresult);
+			foreach ($ref as $unit) $ref_role_acteur[$unit["id_nmc"]] = $unit["lib_nmc"];
+			// return $ref_role_acteur;
+			
+			/* Liste des jdd*/
+			$ref = "SELECT id_sinp_jdd FROM nomenc.ref_jdd;";
+			$pgresult=pg_query ($db,$ref) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
+			
+			/* var */	
+			$sql = null;
+			
+			foreach (pg_fetch_all($pgresult) as $item)
+				{
+				$id = $item['id_sinp_jdd'];
+				// $id = '4AC7434B-F9F4-2CB1-E053-2614A8C05366';
+				// $id = '4A9DDA1F-B79F-3E13-E053-2614A8C02B7C';
+				$url = $URLAPI_metadata.$id;
+				$xmlDoc = new DOMDocument();
+				
+				/* test l'URL*/
+				$file_headers = @get_headers($url);
+				if($file_headers[0] != 'HTTP/1.1 404 Introuvable')			
+					{
+					$xmlDoc->load($url);
+					$x = $xmlDoc->documentElement;
+		
+					/* Initialisation */
+					$i = 0;
+					$acteur = null;
+					
+					foreach ($x->getElementsByTagName('pointContactJdd') as $item3) {
+						
+						foreach ($item3->getElementsByTagName('ActeurType') as $item2) {
+							$test =  $item2->getElementsByTagName('mail')->item(0); if (empty($test->nodeValue)) $acteur['mail'] = 'N/A'; else $acteur['mail'] = $test->nodeValue;
+							$test =  $item2->getElementsByTagName('nomPrenom')->item(0);if (empty($test->nodeValue)) $acteur['nomPrenom'] = 'N/A'; else $acteur['nomPrenom'] = $test->nodeValue;
+							$test =  $item2->getElementsByTagName('roleActeur')->item(0); if (empty($test->nodeValue)) $acteur['roleActeur'] = 'N/A'; else $acteur['roleActeur'] = $ref_role_acteur[$test->nodeValue];
+							$test =  $item2->getElementsByTagName('organisme')->item(0); if (empty($test->nodeValue)) $acteur['organisme'] = 'N/A'; else $acteur['organisme'] = $test->nodeValue;
+
+						
+							/* Mise à jour SQL - Acteur */
+							/* Vérification de l'existant à partir de la PK */
+							$sql0 = "SELECT 1 FROM nomenc.ref_org_jdd WHERE id_sinp_jdd = '$id' AND lib_org = '".str_replace("'"," ",$acteur['nomPrenom'])."';";
+							$pgresult = pg_query ($db,$sql0) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
+							
+							/* Si non existant = INSERT */
+							if (empty(pg_fetch_all($pgresult)))
+							{
+								$sql .= "INSERT INTO nomenc.ref_org_jdd(id_sinp_jdd, typ_org, lib_org, nom_contact, mail_contact) 
+								VALUES (
+								'$id', 
+								'".$acteur['roleActeur']."', 
+								'".str_replace("'"," ",$acteur['organisme'])."', 
+								'".str_replace("'"," ",$acteur['nomPrenom'])."',
+								'".$acteur['mail']."');
+								";
+							}
+								// else
+							// /* Si existant = UPDATE */
+							// {
+								// $sql .= "UPDATE nomenc.ref_org_jdd
+									// SET  
+									// typ_org = '".$acteur['roleActeur']."', 
+									// mail_contact = '".$acteur['mail']."', 
+									// nom_contact= '".str_replace("'"," ",$acteur['nomPrenom'])."',
+									// WHERE id_sinp_jdd = '$id' AND lib_org = '".str_replace("'"," ",$acteur['nomPrenom'])."';
+									// ";
+							// }
+											
+							$sql .= "<BR>";
+							
+										
+							}			
+						}
+					}
+				}	
+			$sql .= "UPDATE nomenc.ref_org_jdd a SET id_org = codeorganisme FROM nomenc.ref_org z WHERE lower(z.libellelong) = lower(a.lib_org);
+			UPDATE nomenc.ref_org_jdd a SET id_org = codeorganisme FROM nomenc.ref_org z WHERE lower(z.libellecourt) = lower(a.lib_org);";	
+		break;	
 	}	
 	// return $pgresult;
 	return $sql;

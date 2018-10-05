@@ -82,7 +82,7 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 	<h2>Jeux de données</h2>
 <table><tbody>
 	<?php
-	$sqlList["jdd"] = "SELECT '<a href=\"jdd.php?id='||id_jdd||'\">'||lib_jdd||'</a>' FROM nomenc.ref_jdd ORDER BY lib_jdd;";
+	$sqlList["jdd"] = "SELECT '<a href=\"jdd.php?id='||id_sinp_jdd||'\">'||lib_jdd||'</a>' FROM nomenc.ref_jdd ORDER BY lib_jdd;";
 	$result=pg_query ($db,$sqlList["jdd"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
 	while ($row = pg_fetch_row($result))
 		echo "<tr><td>".$row[0]."</td></tr>";

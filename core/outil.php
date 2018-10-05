@@ -78,7 +78,7 @@ if (empty($org)) echo $valeur_non_applicable; else foreach ($org as $unit) echo 
 <b>Liste des jeux de données</b><BR>
 <table><tbody>
 <?php 
-if (empty($jdd)) echo $valeur_non_applicable; else foreach ($jdd as $unit) echo "<tr><td><a href=\"jdd.php?id=".$unit["id_jdd"]."\">".$unit["lib_jdd"]."</a></td></tr>";?>
+if (empty($jdd)) echo $valeur_non_applicable; else foreach ($jdd as $unit) echo "<tr><td><a href=\"jdd.php?id=".$unit["id_sinp_jdd"]."\">".$unit["lib_jdd"]."</a></td></tr>";?>
 </tbody></table>
 
 </div>

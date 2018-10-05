@@ -31,8 +31,8 @@ if (!empty($jdd["id_ptf"])) {$ptf["id"] = $jdd["id_ptf"];$ptf["lib"]= $jdd["nom_
 // $ref["codetypeorganisme"] = recup_ref("type_organisme");
 // $ref["codestatutorganisme"] = recup_ref("statut_organisme");
 // $ref["codeniveauadhesion"] = recup_ref("niveau_adhesion");
-$date_crea = new DateTime($org["dateCreation"]);
-$date_modif = new DateTime($org["dateRevision"]);
+$date_crea = new DateTime($jdd["datecreation"]);
+$date_modif = new DateTime($jdd["daterevision"]);
 
 ?>
 
@@ -66,7 +66,7 @@ if ($date_crea < $date_modif) echo " - modidiée le ".date_format($date_modif, '
 <b>Liste des organismes</b><BR>
 <table><tbody>
 <?php 
-if (empty($org)) echo $valeur_non_applicable; else foreach ($org as $unit) echo "<tr><td><a href=\"organisme.php?id=".$unit["id_org"]."\">".$unit["lib_org"]."</a></td></tr>";
+if (empty($org)) echo $valeur_non_applicable; else foreach ($org as $unit) echo "<tr><td><a href=\"organisme.php?id=".$unit["id_org"]."\">".$unit["lib_org"]." - ".$unit["nom_contact"]." (".$unit["typ_org"].") </a></td></tr>";
 ?>
 </tbody></table>
 </div>

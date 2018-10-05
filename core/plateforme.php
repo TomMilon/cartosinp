@@ -98,7 +98,7 @@ foreach ($role_all as $unit) {$ref_role[$unit["lib_nmc"]] = $unit["val_nmc"];}
 <b>Liste des jeux de données</b><BR>
 <table><tbody>
 <?php 
-if (empty($jdd)) echo $valeur_non_renseigne; else foreach ($jdd as $unit) echo "<tr><td><a href=\"jdd.php?id=".$unit["id_jdd"]."\">".$unit["lib_jdd"]."</a></td></tr>"; 
+if (empty($jdd)) echo $valeur_non_renseigne; else foreach ($jdd as $unit) echo "<tr><td><a href=\"jdd.php?id=".$unit["id_sinp_jdd"]."\">".$unit["lib_jdd"]."</a></td></tr>"; 
 ?>
 </tbody></table>
 <BR><BR>
