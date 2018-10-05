@@ -59,8 +59,6 @@ if (!empty($jdd["id_ptf"])) {$ptf["id"] = $jdd["id_ptf"];$ptf["lib"]= $jdd["nom_
 <b>Identifiant SINP</b> : <?php echo $jdd["id_sinp_jdd"];?><BR>
 <b>Identifiant INPN</b> : <?php echo $jdd["cd_jdd"];?><BR>
 <b>Libellé</b> : <?php echo $jdd["lib_jdd"];?><BR>
-<b>URL Charte</b> : <?php echo $jdd["url_charte"];?><BR>
-<b>Floutage de la données source</b> : <?php echo $jdd["floutage_ds"];?><BR>
 <BR><BR>
 
 

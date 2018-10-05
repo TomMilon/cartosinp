@@ -32,22 +32,31 @@ $ref["codeperimetreaction"] = recup_ref("perimetre_action");
 $ref["codetypeorganisme"] = recup_ref("type_organisme");
 $ref["codestatutorganisme"] = recup_ref("statut_organisme");
 $ref["codeniveauadhesion"] = recup_ref("niveau_adhesion");
+$date_crea = new DateTime($org["datecreationfiche"]);
+$date_modif = new DateTime($org["datemodif"]);
 ?>
 
 <!-- FICHE-->
 <h2><?php echo "<div class=\"organisme\">Organisme : ".$org["libellelong"]."</div>";?></h2>
 <i> Les informations présentées sur cette page proviennent de l'outil Organisme (utilisation de la l'API)</i><BR><BR>
+<b>Fiche créée le </b> <?php echo date_format($date_crea, 'd/m/Y à H:i:s');
+if ($date_crea < $date_modif) echo " - modidiée le ".date_format($date_modif, 'd/m/Y à H:i:s')." (dernière modification)";?><BR>
+<b>Identifiant unique organisme</b> : <?php echo $org["codeorganisme"];?><BR>
+<b>Identifiant INPN</b> : <?php echo $org["id"];?><BR>
+
 <b>Libellé court</b> : <?php echo $org["libellecourt"];?><BR>
+<BR>
 <b>Adresse</b> : <?php echo $org["adresse"];?><BR>
 <b>Périmètre d'action</b> : <?php echo $ref["codeperimetreaction"][$org["codeperimetreaction"]];?><BR>
 <b>Type Organisme</b> : <?php echo $ref["codetypeorganisme"][$org["codetypeorganisme"]];?><BR>
 <b>Statut Organisme</b> : <?php echo $ref["codestatutorganisme"][$org["codestatutorganisme"]];?><BR>
 <b>Adhésion au SINP</b> : <?php echo $ref["codeniveauadhesion"][$org["codeniveauadhesion"]];?><BR>
+<b>Date d'adhésion</b> : <?php echo $org["dateadhesion"];?><BR>
+<b>URL du site internet de l'organisme</b> : <?php echo "<a href=\"".$org["url"]."\">".$org["url"]."</a>";?><BR>
 
 <BR><BR>
 
 <?php if (isset($org["x"])) echo "<div id=\"mapid\"></div>";
-	else echo "Aucune d'information concernant l'adresse de l'organisme";
 	?>
 
 
