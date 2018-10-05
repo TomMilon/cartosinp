@@ -50,8 +50,8 @@ if ($date_crea < $date_modif) echo " - modidiée le ".date_format($date_modif, '
 <b>Périmètre d'action</b> : <?php echo $ref["codeperimetreaction"][$org["codeperimetreaction"]];?><BR>
 <b>Type Organisme</b> : <?php echo $ref["codetypeorganisme"][$org["codetypeorganisme"]];?><BR>
 <b>Statut Organisme</b> : <?php echo $ref["codestatutorganisme"][$org["codestatutorganisme"]];?><BR>
-<b>Adhésion au SINP</b> : <?php echo $ref["codeniveauadhesion"][$org["codeniveauadhesion"]];?><BR>
-<b>Date d'adhésion</b> : <?php echo $org["dateadhesion"];?><BR>
+<b>Adhésion au SINP</b> : <?php echo $ref["codeniveauadhesion"][$org["codeniveauadhesion"]];
+if (!empty($org["dateadhesion"])) echo "<b> - date d'adhésion</b> : ".$org["dateadhesion"];?><BR>
 <b>URL du site internet de l'organisme</b> : <?php echo "<a href=\"".$org["url"]."\">".$org["url"]."</a>";?><BR>
 
 <BR><BR>

@@ -7,6 +7,7 @@ global $URLAPI_organisme;
 $URLAPI_organisme = "https://odata-inpn.mnhn.fr/solr-ws/organismes/records?wt=json";
 $URLAPI_metadata = "https://inpn.mnhn.fr/mtd/cadre/jdd/export/xml/GetRecordById?id=";
 $URLAPI_geocode = "https://api-adresse.data.gouv.fr/search/?q=";
+$URL_appli_metadonnee = "https://inpn.mnhn.fr/mtd/cadre/jdd/contact/";
 $valeur_non_renseigne = "<i>non renseigné</i>";
 $valeur_non_applicable = "<i>N/A</i>";
 global $limit_json;

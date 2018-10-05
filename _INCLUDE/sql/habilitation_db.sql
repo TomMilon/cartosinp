@@ -211,28 +211,28 @@ ALTER TABLE hab.interface OWNER to postgres;
 DROP TABLE nomenc.ref_org;
 CREATE TABLE nomenc.ref_org
 (
-codeOrganisme character varying NOT NULL,
-siretSiege character varying,
-pays character varying,
-adresseMessagerie character varying,
-id character varying,
-ville character varying,
-adresse character varying,
-uRL character varying,
-libelleCourt character varying,
-dateAdhesion character varying,
-libelleLong character varying,
-gel character varying,
-dateCreationFiche character varying,
-dateModif character varying,
-codePostal character varying,
-codePerimetreAction character varying,
-codeTypeOrganisme character varying,
-codeStatutOrganisme character varying,
-codeNiveauAdhesion character varying,
-siret character varying,
-x numeric,
-y numeric,
+	codeOrganisme character varying NOT NULL,
+	siretSiege character varying,
+	pays character varying,
+	adresseMessagerie character varying,
+	id character varying,
+	ville character varying,
+	adresse character varying,
+	uRL character varying,
+	libelleCourt character varying,
+	dateAdhesion character varying,
+	libelleLong character varying,
+	gel character varying,
+	dateCreationFiche character varying,
+	dateModif character varying,
+	codePostal character varying,
+	codePerimetreAction character varying,
+	codeTypeOrganisme character varying,
+	codeStatutOrganisme character varying,
+	codeNiveauAdhesion character varying,
+	siret character varying,
+	x numeric,
+	y numeric,
 	PRIMARY KEY (codeOrganisme)
 )
 WITH (OIDS = FALSE);
@@ -241,17 +241,28 @@ ALTER TABLE nomenc.ref_org OWNER to postgres;
 DROP TABLE nomenc.ref_jdd;
 CREATE TABLE nomenc.ref_jdd
 (
-id_jdd integer NOT NULL,
-id_sinp_jdd character varying,
-cd_jdd character varying,
-lib_jdd character varying,
-url_charte character varying,
-id_ptf integer,
-lib_ptf_origine character varying,
-id_outil integer,
-lib_outil_origine character varying,
-floutage_ds character varying,
-PRIMARY KEY (id_jdd)
+	id_jdd integer NOT NULL,
+	id_sinp_jdd character varying,
+	cd_jdd character varying,
+	lib_jdd character varying,
+	url_charte character varying,
+	id_ptf integer,
+	lib_ptf_origine character varying,
+	id_outil integer,
+	lib_outil_origine character varying,
+	floutage_ds character varying,
+	libelleCourt character varying,
+	description character varying,
+	typeDonnees character varying,
+	objectifJdd character varying,
+	domaineMarin character varying,
+	domaineTerrestre  character varying,
+	territoire  character varying,
+	protocoles character varying,
+	dateCreation  character varying,
+	dateRevision character varying,
+	motcle character varying,
+	PRIMARY KEY (id_jdd)
 )
 WITH (OIDS = FALSE);
 ALTER TABLE nomenc.ref_jdd OWNER to postgres;
@@ -259,12 +270,13 @@ ALTER TABLE nomenc.ref_jdd OWNER to postgres;
 DROP TABLE nomenc.ref_org_jdd;
 CREATE TABLE nomenc.ref_org_jdd
 (
-id_jdd integer NOT NULL,
-typ_org character varying,
-id_org character varying,
-lib_org character varying,
-nom_contact character varying,
-PRIMARY KEY (id_jdd,id_org,nom_contact)
+	id_jdd integer NOT NULL,
+	typ_org character varying,
+	id_org character varying,
+	lib_org character varying,
+	nom_contact character varying,
+	mail_contact character varying,
+	PRIMARY KEY (id_jdd,id_org,nom_contact)
 )
 WITH (OIDS = FALSE);
 ALTER TABLE nomenc.ref_org_jdd OWNER to postgres;

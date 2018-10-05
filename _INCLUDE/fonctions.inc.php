@@ -328,7 +328,7 @@ return 	$localisation;
 // ------------API ref organisme
 function api_to_pgsql($mode)
 {
-	global $URLAPI_organisme;global $db;global $limit_json;
+	global $URLAPI_organisme;global $URLAPI_metadata;global $db;global $limit_json;
 	switch ($mode) {
 		case "org" :
 			$json =file_get_contents($URLAPI_organisme.$limit_json);
@@ -377,12 +377,105 @@ function api_to_pgsql($mode)
 			}
 			$pgresult=pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
 		break;
-	}
-	
+		case "jdd" :
+			// à reprendre totalement
+			$ref = "SELECT id_sinp_jdd FROM nomenc.ref_jdd;";
+			$pgresult=pg_query ($db,$ref) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
+			$sql = "";
 			
+			foreach (pg_fetch_all($pgresult) as $item)
+				{
+				$id = $item['id_sinp_jdd'];
+				// $id = '4A9DDA1F-B8E4-3E13-E053-2614A8C02B7C';
+				$url = $URLAPI_metadata.$id;
+				$xmlDoc = new DOMDocument();
+				
+				/* test l'URL*/
+				$file_headers = @get_headers($url);
+				if($file_headers[0] != 'HTTP/1.1 404 Introuvable')			
+					{
+					$xmlDoc->load($url);
+					$x = $xmlDoc->documentElement;
+		
+					/* Initialisation */
+					$motcle = "";
+					$i = 0;
+					$acteur = null;
+					$var = array(
+						"libelleCourt",
+						"description",
+						"typeDonnees",
+						"objectifJdd",
+						"domaineMarin",
+						"domaineTerrestre",
+						"territoire",
+						"protocoles",
+						"dateCreation",
+						"dateRevision"
+						);
+					
+					/* Récupération des données*/
+					foreach ($var as $o)
+					{
+						$tag = $x->getElementsByTagName($o)->item(0);
+						if (!empty($tag)) $val[$o] = $tag->nodeValue;
+						else $val[$o] = null;
+					}
+
+
+					foreach ($x->getElementsByTagName('motCle') as $item) {
+						  $motcle .= ",".$item->nodeValue;
+						}			
+					$motcle = ltrim($motcle,',');
+
+					foreach ($x->getElementsByTagName('ActeurType') as $item) {
+						$acteur['mail'][$i] = $x->getElementsByTagName('mail')->item(0)->nodeValue; 
+						$acteur['nomPrenom'][$i] = $x->getElementsByTagName('mail')->item(0)->nodeValue; 
+						$acteur['roleActeur'][$i] = $x->getElementsByTagName('roleActeur')->item(0)->nodeValue; 
+						$acteur['organisme'][$i] = $x->getElementsByTagName('organisme')->item(0)->nodeValue;
+						$i++;
+					}	
+
+					/* Mise à jour SQL - JDD */
+					$sql .= "UPDATE nomenc.ref_jdd SET 
+						libelleCourt = '".str_replace("'","''",$val["libelleCourt"])."',
+						description = '".str_replace("'","''",$val["description"])."',
+						typeDonnees = '".$val["typeDonnees"]."',
+						objectifJdd = '".$val["objectifJdd"]."',
+						domaineMarin = '".$val["domaineMarin"]."',
+						domaineTerrestre  = '".$val["domaineTerrestre"]."',
+						territoire  = '".$val["territoire"]."',
+						protocoles = '".str_replace("'","''",$val["protocoles"])."',
+						dateCreation  = '".$val["dateCreation"]."',
+						dateRevision = '".$val["dateRevision"]."'
+						WHERE id_sinp_jdd = '$id';
+						";
+					$sql .= "<BR><BR>";
+					// pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);
+					}
+					
+					/* Mise à jour SQL - Acteur */
+					/* Vérification de l'existant à partir de la PK */
+					$sql = "SELECT 1 FROM nomenc.ref_org_jdd WHERE id_jdd = ".$val["objectifJdd"]." AND id_org = '".$acteur['organisme'][$i]."';";
+					
+					/* Si non existant = INSERT */
+					// INSERT INTO nomenc.ref_org_jdd(
+					// id_jdd, typ_org, id_org, lib_org, nom_contact)
+					// VALUES (?, ?, ?, ?, ?);
+					
+					/* Si existant = UPDATE */
+					// UPDATE nomenc.ref_org_jdd
+					// SET id_jdd=?, typ_org=?, id_org=?, lib_org=?, nom_contact=?
+					// WHERE <condition>;
+					
+					
+				}
+					
+		break;
+	}	
 	// return $pgresult;
-	// return $sql;
-	return "Ok";
+	return $sql;
+	// return "Ok";
 }
 
 

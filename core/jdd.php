@@ -31,35 +31,35 @@ if (!empty($jdd["id_ptf"])) {$ptf["id"] = $jdd["id_ptf"];$ptf["lib"]= $jdd["nom_
 // $ref["codetypeorganisme"] = recup_ref("type_organisme");
 // $ref["codestatutorganisme"] = recup_ref("statut_organisme");
 // $ref["codeniveauadhesion"] = recup_ref("niveau_adhesion");
-
-
-// à reprendre totalement
-// $xml =file_get_contents($URLAPI_metadata.$jdd["id_sinp_jdd"]);
-// $parser = xml_parser_create();
-// xml_parse($parser, $xml);
-// var_dump($json);
-// $liste_id = array();
-// foreach ($apijdd as $unit)
-// {	
-	// if(!in_array($unit["jdd:organisme"],$liste_id))
-	// {
-		// contre les doublons
-		// array_push($liste_id,$unit["jdd:organisme"]);
-	// }
-// }
-// var_dump($liste_id);
-
+$date_crea = new DateTime($org["dateCreation"]);
+$date_modif = new DateTime($org["dateRevision"]);
 
 ?>
 
 <!-- FICHE-->
 <h2><?php echo "<div class=\"jdd\">Jeu de données : ".$jdd["lib_jdd"]."</div>";?></h2>
 <i> Les informations présentées sur cette page proviennent de l'outil Métadonnées </i><BR><BR>
-<b>Identifiant base métadonnées</b> : <?php echo $jdd["id_jdd"];?><BR>
+<b>Fiche créée le </b> <?php echo date_format($date_crea, 'd/m/Y à H:i:s');
+if ($date_crea < $date_modif) echo " - modidiée le ".date_format($date_modif, 'd/m/Y à H:i:s')." (dernière modification)";?><BR>
+<b>Lien vers la fiche métadonnées sur l'INPN </b> : <?php echo "<a href=\"".$URL_appli_metadonnee.$jdd["id_jdd"]."\">Fiche ".$jdd["id_jdd"]."</a>";?><BR>
 <b>Identifiant SINP</b> : <?php echo $jdd["id_sinp_jdd"];?><BR>
 <b>Identifiant INPN</b> : <?php echo $jdd["cd_jdd"];?><BR>
-<b>Libellé</b> : <?php echo $jdd["lib_jdd"];?><BR>
-<BR><BR>
+<b>Libellé court</b> : <?php echo str_replace("''","'",$jdd["libellecourt"]);?><BR>
+<b>Libellé long</b> : <?php echo $jdd["lib_jdd"];?><BR>
+<BR>
+
+<b> Objectif Jdd</b> : <?php echo $jdd["objectifjdd"];?><BR>
+<b> Protocoles</b> : <?php echo $jdd["protocoles"];?><BR>
+<b>Description</b> : <?php echo str_replace("''","'",$jdd["description"]);?><BR>
+<BR>
+
+<b> TypeDonnees </b> : <?php echo $jdd["typedonnees"];?><BR>
+<b> Lien vers les données sur le requêteur</b> : à venir <BR>
+<b> Domaine Marin</b> : <?php echo $jdd["domainemarin"];?><BR>
+<b> Domaine Terrestre</b> : <?php echo $jdd["domaineterrestre"];?><BR>
+<b> Territoire</b> : <?php echo $jdd["territoire"];?><BR>
+
+
 
 
 <div id="c1" class="organisme">

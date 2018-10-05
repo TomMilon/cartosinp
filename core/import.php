@@ -14,7 +14,8 @@ if (!$db) fatal_error ("Impossible de se connecter au serveur PostgreSQL ".SQL_s
 //------------------------------------------------------------------------------ MAIN
 html_header ("utf-8","","");
 
-echo "non paramétré";
+// echo "non paramétré";
 // echo api_to_pgsql("org");
 // echo(api_to_pgsql("geo"));
+echo(api_to_pgsql("jdd"));
 ?>
