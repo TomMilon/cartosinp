@@ -122,12 +122,15 @@ elseif ($theme == "organisme") {
 	SELECT id_ptf, nom_region FROM list_ptf ORDER BY nom_region
 	;";
 	$reqSql[2] = "
-	SELECT id_outil, outil_nom FROM hab.outil WHERE outil_org_id = '$idObjet'
+	SELECT id_outil, outil_nom FROM hab.outil WHERE outil_org_id = '$idObjet' ORDER BY outil_nom
 	;";
 	$reqSql[3] = "
-	SELECT * FROM nomenc.ref_org_jdd a
+	SELECT lib_jdd, a.id_sinp_jdd	
+	FROM nomenc.ref_org_jdd a
 	JOIN nomenc.ref_jdd z ON a.id_sinp_jdd = z.id_sinp_jdd
 	WHERE a.id_org = '$idObjet'
+	GROUP BY lib_jdd, a.id_sinp_jdd
+	ORDER BY lib_jdd
 	;";
 	}
 elseif ($theme == "outil") {
@@ -155,6 +158,7 @@ elseif ($theme == "jdd") {
 		SELECT a.*, z.nom_region FROM nomenc.ref_jdd a
 			LEFT JOIN hab.plateforme z ON a.id_ptf = z.id_ptf
 			WHERE id_sinp_jdd = '$idObjet'
+			ORDER BY  z.nom_region
 	;
 	";
 	$reqSql[1] = "
@@ -164,7 +168,8 @@ WITH list_org as (SELECT id_jdd, typ_org, id_org, lib_org,  id_sinp_jdd
 SELECT id_jdd, string_agg(typ_org,', ') as typ_org, id_org, lib_org,  id_sinp_jdd
 	FROM list_org
 	WHERE id_sinp_jdd = '$idObjet'
-	GROUP BY id_jdd, id_org, lib_org,  id_sinp_jdd;
+	GROUP BY id_jdd, id_org, lib_org,  id_sinp_jdd
+	ORDER BY lib_org;
 	";
 	
 	}
