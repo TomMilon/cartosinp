@@ -66,7 +66,13 @@ if ($date_crea < $date_modif) echo " - modidiée le ".date_format($date_modif, '
 <b>Liste des organismes</b><BR>
 <table><tbody>
 <?php 
-if (empty($org)) echo $valeur_non_applicable; else foreach ($org as $unit) echo "<tr><td><a href=\"organisme.php?id=".$unit["id_org"]."\">".$unit["lib_org"]." - ".$unit["nom_contact"]." (".$unit["typ_org"].") </a></td></tr>";
+<?php 
+if (empty($org)) echo $valeur_non_applicable; 
+
+else foreach ($org as $unit) {
+	if ($unit["id_org"] == 'N/A' OR empty($unit["id_org"])) echo "<tr><td>".$unit["lib_org"]." - ".$unit["nom_contact"]." (".$unit["typ_org"].")</td></tr>"; 
+	else echo "<tr><td><a href=\"organisme.php?id=".$unit["id_org"]."\">".$unit["lib_org"]." - ".$unit["nom_contact"]." (".$unit["typ_org"].") </a></td></tr>";
+}
 ?>
 </tbody></table>
 </div>
