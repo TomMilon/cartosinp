@@ -27,10 +27,15 @@ if (!empty($jdd["id_outil"])) {$tool["id"] = $jdd["id_outil"];$tool["lib"]= $jdd
 if (!empty($jdd["id_ptf"])) {$ptf["id"] = $jdd["id_ptf"];$ptf["lib"]= $jdd["nom_region"];}
 
 //----- référentiels
-// $ref["codeperimetreaction"] = recup_ref("perimetre_action");
-// $ref["codetypeorganisme"] = recup_ref("type_organisme");
-// $ref["codestatutorganisme"] = recup_ref("statut_organisme");
-// $ref["codeniveauadhesion"] = recup_ref("niveau_adhesion");
+
+$nom_ref = array('type_donnees','obj_jdd');
+foreach ($nom_ref as $unit)
+{
+	$sql = "SELECT lib_nmc, id_nmc FROM nomenc.$unit";
+	$pgresult = pg_query ($db,$sql) or fatal_error ("Erreur pgSQL : ".pg_result_error ($pgresult),false);$ref = pg_fetch_all($pgresult);
+	foreach ($ref as $unit2) $referentiel[$unit][$unit2["id_nmc"]] = $unit2["lib_nmc"];
+}
+
 $date_crea = new DateTime($jdd["datecreation"]);
 $date_modif = new DateTime($jdd["daterevision"]);
 
@@ -48,17 +53,18 @@ if ($date_crea < $date_modif) echo " - modidiée le ".date_format($date_modif, '
 <b>Libellé long</b> : <?php echo $jdd["lib_jdd"];?><BR>
 <BR>
 
-<b> Objectif Jdd</b> : <?php echo $jdd["objectifjdd"];?><BR>
+<b> Objectif Jdd</b> : <?php if(!empty($jdd["objectifjdd"])) echo  $referentiel['obj_jdd'][$jdd["objectifjdd"]];?><BR>
+<b> TypeDonnees </b> : <?php if(!empty($jdd["typedonnees"])) echo $referentiel['type_donnees'][$jdd["typedonnees"]];?><BR>
 <b> Protocoles</b> : <?php echo $jdd["protocoles"];?><BR>
 <b>Description</b> : <?php echo str_replace("''","'",$jdd["description"]);?><BR>
 <BR>
 
-<b> TypeDonnees </b> : <?php echo $jdd["typedonnees"];?><BR>
-<b> Lien vers les données sur le requêteur</b> : à venir <BR>
 <b> Domaine Marin</b> : <?php echo $jdd["domainemarin"];?><BR>
 <b> Domaine Terrestre</b> : <?php echo $jdd["domaineterrestre"];?><BR>
 <b> Territoire</b> : <?php echo $jdd["territoire"];?><BR>
+<BR>
 
+<b> Lien vers les données sur le requêteur</b> : à venir <BR>
 
 
 
@@ -67,7 +73,6 @@ if ($date_crea < $date_modif) echo " - modidiée le ".date_format($date_modif, '
 <table><tbody>
 <?php 
 if (empty($org)) echo $valeur_non_applicable; 
-
 else foreach ($org as $unit) {
 	if ($unit["id_org"] == 'N/A' OR empty($unit["id_org"])) echo "<tr><td>".$unit["lib_org"]."  (".$unit["typ_org"].")</td></tr>"; 
 	else echo "<tr><td><a href=\"organisme.php?id=".$unit["id_org"]."\">".$unit["lib_org"]."  (".$unit["typ_org"].") </a></td></tr>";
