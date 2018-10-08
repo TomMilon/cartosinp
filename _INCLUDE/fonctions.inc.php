@@ -158,8 +158,13 @@ elseif ($theme == "jdd") {
 	;
 	";
 	$reqSql[1] = "
-	SELECT * FROM nomenc.ref_org_jdd WHERE id_sinp_jdd = '$idObjet'
-	;
+WITH list_org as (SELECT id_jdd, typ_org, id_org, lib_org,  id_sinp_jdd
+	FROM nomenc.ref_org_jdd
+	GROUP BY id_jdd, id_org,  typ_org, lib_org,  id_sinp_jdd)
+SELECT id_jdd, string_agg(typ_org,', ') as typ_org, id_org, lib_org,  id_sinp_jdd
+	FROM list_org
+	WHERE id_sinp_jdd = '$idObjet'
+	GROUP BY id_jdd, id_org, lib_org,  id_sinp_jdd;
 	";
 	
 	}
