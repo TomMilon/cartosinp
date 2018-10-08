@@ -43,29 +43,33 @@ $date_modif = new DateTime($jdd["daterevision"]);
 
 <!-- FICHE-->
 <h2><?php echo "<div class=\"jdd\">Jeu de données : ".$jdd["lib_jdd"]."</div>";?></h2>
-<i> Les informations présentées sur cette page proviennent de l'outil Métadonnées </i><BR><BR>
-<b>Fiche créée le </b> <?php echo date_format($date_crea, 'd/m/Y à H:i:s');
-if ($date_crea < $date_modif) echo " - modidiée le ".date_format($date_modif, 'd/m/Y à H:i:s')." (dernière modification)";?><BR>
-<b>Lien vers la fiche métadonnées sur l'INPN </b> : <?php echo "<a href=\"".$URL_appli_metadonnee.$jdd["id_jdd"]."\">Fiche ".$jdd["id_jdd"]."</a>";?><BR>
-<b>Identifiant SINP</b> : <?php echo $jdd["id_sinp_jdd"];?><BR>
-<b>Identifiant INPN</b> : <?php echo $jdd["cd_jdd"];?><BR>
-<b>Libellé court</b> : <?php echo str_replace("''","'",$jdd["libellecourt"]);?><BR>
-<b>Libellé long</b> : <?php echo $jdd["lib_jdd"];?><BR>
-<BR>
 
-<b> Objectif Jdd</b> : <?php if(!empty($jdd["objectifjdd"])) echo  $referentiel['obj_jdd'][$jdd["objectifjdd"]];?><BR>
-<b> TypeDonnees </b> : <?php if(!empty($jdd["typedonnees"])) echo $referentiel['type_donnees'][$jdd["typedonnees"]];?><BR>
-<b> Protocoles</b> : <?php echo $jdd["protocoles"];?><BR>
-<b>Description</b> : <?php echo str_replace("''","'",$jdd["description"]);?><BR>
-<BR>
+<div class="sources"><b>Précaution</b> : Les informations présentées sur cette page proviennent de <b>l'application métadonnées</b>. La liste des jeux de données n'est pas complète. Dans le cadre de cette expérimentation, un rattachement des jeux de données aux organismes a été testé <b>dans le cas de correspondant exacte</b> entre le nom de l'organisme dans l'application organisme et le nom de l'organisme dans le JDD. Tous les jeux de données pour lesquels les organismes contribuent <b>ne sont donc PAS décrits</b> sur cette page. Ce travail de consolidation entre organisme et jeux de données est, par ailleur, en cours et pourra, à terme, alimenter la cartographie. Il en est de même concernant le lien entre plateforme et jeux de données.</div>
 
-<b> Domaine Marin</b> : <?php echo $jdd["domainemarin"];?><BR>
-<b> Domaine Terrestre</b> : <?php echo $jdd["domaineterrestre"];?><BR>
-<b> Territoire</b> : <?php echo $jdd["territoire"];?><BR>
-<BR>
 
-<b> Lien vers les données sur le requêteur</b> : à venir <BR>
+<div class="fiche">
+	<b>Fiche créée le </b> <?php echo date_format($date_crea, 'd/m/Y à H:i:s');
+	if ($date_crea < $date_modif) echo " - modidiée le ".date_format($date_modif, 'd/m/Y à H:i:s')." (dernière modification)";?><BR>
+	<b>Lien vers la fiche métadonnées sur l'INPN </b> : <?php echo "<a href=\"".$URL_appli_metadonnee.$jdd["id_jdd"]."\">Fiche ".$jdd["id_jdd"]."</a>";?><BR>
+	<b>Identifiant SINP</b> : <?php echo $jdd["id_sinp_jdd"];?><BR>
+	<b>Identifiant INPN</b> : <?php echo $jdd["cd_jdd"];?><BR>
+	<b>Libellé court</b> : <?php echo str_replace("''","'",$jdd["libellecourt"]);?><BR>
+	<b>Libellé long</b> : <?php echo $jdd["lib_jdd"];?><BR>
+	<BR>
 
+	<b> Objectif Jdd</b> : <?php if(!empty($jdd["objectifjdd"])) echo  $referentiel['obj_jdd'][$jdd["objectifjdd"]];?><BR>
+	<b> TypeDonnees </b> : <?php if(!empty($jdd["typedonnees"])) echo $referentiel['type_donnees'][$jdd["typedonnees"]];?><BR>
+	<b> Protocoles</b> : <?php echo $jdd["protocoles"];?><BR>
+	<b>Description</b> : <?php echo str_replace("''","'",$jdd["description"]);?><BR>
+	<BR>
+
+	<b> Domaine Marin</b> : <?php echo $jdd["domainemarin"];?><BR>
+	<b> Domaine Terrestre</b> : <?php echo $jdd["domaineterrestre"];?><BR>
+	<b> Territoire</b> : <?php echo $jdd["territoire"];?><BR>
+	<BR>
+
+	<b> Lien vers les données sur le requêteur</b> : à venir <BR>
+</div>
 
 
 <div id="c1" class="organisme">

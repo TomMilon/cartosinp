@@ -40,7 +40,10 @@ foreach ($role_all as $unit) {$ref_role[$unit["lib_nmc"]] = $unit["val_nmc"];}
 
 <!-- FICHE-->
 <h2><?php echo "<div class=\"ptf\">Plateforme : ".$ptf["nom_region"]."</div>";?></h2>
-<i> Les informations présentées sur cette page proviennent des dossiers d'habilitations mis à disposition par les correspondants SINP régionaux</i><BR><BR>
+
+<div class="sources"><b>Précaution</b> : Les informations présentées sur cette page proviennent des <b>dossiers d'habilitations mis à disposition</b> par les correspondants SINP régionaux. Seules les informations disponibles dans ces dossiers ont été repris ici. Dans le cadre de l'expérimentation, <b>seulement 2 dossiers non validés ont été utilisés dans la cartographie</b> : le dossier PACA et Centre Val de Loire. Des rattachements manuels ont été réalisé avec le référentiel organisme et les jeux du données (par le biais de l'application métadonnées et son API).</div>
+
+<div class="fiche">
 <table class="tbptf">
 <thead>
 	<tr>
@@ -50,47 +53,47 @@ foreach ($role_all as $unit) {$ref_role[$unit["lib_nmc"]] = $unit["val_nmc"];}
 </thead>
 <tbody>
 <tr class="block1">
-	<td><b><a href="./question.php?id=1">Statut de la plateforme</a></b></td>
+	<td><b><a href="./question.php?id=1">Stade d'habilitation de la plateforme</a></b></td>
 	<td> <?php echo $ptf["hab_decision"];?></td>
 	<td></td>
 </tr>
 <tr class="block2">
-	<td><b><a href="./question.php?id=2">Dynamique de la plateforme</a></b></td>
+	<td><b><a href="./question.php?id=2">Dynamique générale de la plateforme SINP</a></b></td>
 	<td> <?php echo $ptf["dynamique"];?></td>
 	<td></td>
 </tr>
 <tr class="block1">
-	<td><b><a href="./question.php?id=2">Plateforme pérène?</a></b></td>
+	<td><b><a href="./question.php?id=2">Pérénité de la plateforme</a></b></td>
 	<td> <?php echo $ptf["perenne"];?></td>
 	<td><button class="btn1">?</button><p class="p1" style="display: none;"><?php echo $ptf["perenne_desc"];?></p></td>
 </tr>
 <tr class="block2">
-	<td><b><a href="./question.php?id=3">Charte SINP?</a></b></td>
+	<td><b><a href="./question.php?id=3">Existence d'une charte SINP</a></b></td>
 	<td> <?php echo $ptf["charte"];?></td>
 	<td><button class="btn2">?</button><p class="p2" style="display: none;"><?php echo $ptf["charte_desc"];?><BR> <?php echo $ptf["charte_pj"];?></p></td>
 </tr>
 <tr class="block1">
-	<td><b><a href="./question.php?id=4">Standard de données régional SINP</a></b></td>
+	<td><b><a href="./question.php?id=4">Existence d'un standard de données régional SINP</a></b></td>
 	<td> <?php echo $ptf["standard"];?></td>
 	<td></td>
 </tr>
 <tr class="block2">
-	<td><b><a href="./question.php?id=5">Échange avec la plateforme nationale?</a></b></td>
+	<td><b><a href="./question.php?id=5">Réalisation d'échange avec la plateforme nationale</a></b></td>
 	<td> <?php echo $ptf["echange"];?></td>
 	<td><button class="btn3">?</button><p class="p3" style="display: none;"> <?php echo $ptf["echange_desc"];?></p></td>
 </tr>
 <tr class="block1">
-	<td><b><a href="./question.php?id=6">Validation scientifique des données?</a></b></td>
+	<td><b><a href="./question.php?id=6">Processus de validation scientifique des données</a></b></td>
 	<td> <?php echo $ptf["validation"];?></td>
 	<td><button class="btn4">?</button><p class="p4" style="display: none;"> <?php echo $ptf["validation_desc"];?></p></td>
 </tr>
 <tr class="block2">
-	<td><b><a href="./question.php?id=7">Référentiel de sensibilité</a></b></td>
+	<td><b><a href="./question.php?id=7">Existence d'un référentiel de sensibilité</a></b></td>
 	<td> <?php echo $ptf["ref_sensibilité"];?></td>
 	<td></td>
 </tr>
 </tbody></table>
-<BR><BR>
+</div>
 
 
 <!-----LIEN avec les autres fiches------>

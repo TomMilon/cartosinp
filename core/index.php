@@ -15,12 +15,14 @@ if (!$db) fatal_error ("Impossible de se connecter au serveur PostgreSQL ".SQL_s
 html_header ("utf-8","","");
 
 ?>
-<div id=\"en-tete\" style="text-align: center;">
-Ce site propose une expérimentation en terme de visualisation de la cartographie du SINP.
-<BR><BR> <b>Sources</b> : <BR>
+<div id="en-tete" style="text-align: center;" class="sources">
+Ce site propose une <b>expérimentation</b> en terme de visualisation de la cartographie du SINP.
+<BR><BR> <b>Sources de données</b> : <BR>
 <li> - dossiers d'habilitations des plateformes régionales
 <li> - référentiel organisme
 <li> - INPN métadonnées
+<BR><BR> 
+Les informations exposées sur ce site ne sont pas vérifiés. Cette expérimentation a vocation de <b>proposer un test concret</b> pour la cartographie et <b>faciliter la formulation de besoins</b> sur les questions de cartographie du SINP.
 </div>
 
 
@@ -40,21 +42,24 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 	<h2>Organismes</h2>
 	<table><tbody>
 	<?php
-	// Version API
-	// $json = file_get_contents($URLAPI_organisme.$limit_json);
-	// $jsondec = json_decode($json, true);
-	// foreach ($jsondec["response"]["docs"] as $unit)
-		// {
-		// $libelleLong[$unit["codeOrganisme"]] = ucfirst(strtolower($unit["libelleLong"]));
-		// $libelleCourt[$unit["codeOrganisme"]] = ucfirst(strtolower($unit["libelleCourt"]));
-	// }
-	// asort($libelleCourt);asort($libelleLong);
-	// for ($i = 1; $i < count($libelleCourt) ; $i++)
-		// {
-		// echo "<tr><td><a href=\"organisme.php?id=".key($libelleLong)."\">".current($libelleLong)."<a><p hidden>".current($libelleCourt)."</p></td></tr>";
-		// next($libelleLong);next($libelleCourt);
-		// }
-		
+	/*
+	Version API
+	$json = file_get_contents($URLAPI_organisme.$limit_json);
+	$jsondec = json_decode($json, true);
+	foreach ($jsondec["response"]["docs"] as $unit)
+		{
+		$libelleLong[$unit["codeOrganisme"]] = ucfirst(strtolower($unit["libelleLong"]));
+		$libelleCourt[$unit["codeOrganisme"]] = ucfirst(strtolower($unit["libelleCourt"]));
+	}
+	asort($libelleCourt);asort($libelleLong);
+	for ($i = 1; $i < count($libelleCourt) ; $i++)
+		{
+		echo "<tr><td><a href=\"organisme.php?id=".key($libelleLong)."\">".current($libelleLong)."<a><p hidden>".current($libelleCourt)."</p></td></tr>";
+		next($libelleLong);next($libelleCourt);
+		}
+	*/
+
+	
 	// Version BDD
 	$sqlList["organisme"] = " SELECT '<a href=\"organisme.php?id='||codeorganisme||'\">'||initcap(libellelong)||'</a><p hidden>'||libellecourt||'</p>' FROM nomenc.ref_org ORDER BY libellelong;";
 	$result=pg_query ($db,$sqlList["organisme"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
@@ -95,15 +100,15 @@ Ce site propose une expérimentation en terme de visualisation de la cartographi
 <BR><BR>
 <div id="question">
 	<h2>Les questions</h2>
-<table><tbody>
+	<table><thead>
 	<?php
 	$sqlList["question"] = "SELECT '<a href=\"question.php?id='||lib_nmc||'\">'||val_nmc||'</a>' FROM nomenc.carto_question ORDER BY lib_nmc::integer;";
 	$result=pg_query ($db,$sqlList["question"]) or fatal_error ("Erreur pgSQL : ".pg_result_error ($result),false);
 	while ($row = pg_fetch_row($result))
 		echo "<tr><td>".$row[0]."</td></tr>";
 	?>
-	</tbody></table>
-	</div>
+	</thead></table>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <!---sources = http://sunnywalker.github.io/jQuery.FilterTable/ -->

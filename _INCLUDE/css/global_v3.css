@@ -123,6 +123,20 @@ div.organisme {
 	background: burlywood;
 }
 
+div.sources {
+	padding : 5px;
+	margin : 5px;
+	font-style : italic;
+	background: LightGrey;
+}
+
+div.fiche {
+	padding : 5px;
+	margin : 5px;
+	background: Cornsilk  ;
+}
+
+
 div.outil {
 	background: khaki;
 }
@@ -137,5 +151,5 @@ div.jdd {
 }
 
 .block1 {
-	background: Cornsilk   ;
+	background: Bisque;
 }

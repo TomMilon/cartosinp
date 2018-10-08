@@ -125,12 +125,15 @@ elseif ($theme == "organisme") {
 	SELECT id_outil, outil_nom FROM hab.outil WHERE outil_org_id = '$idObjet' ORDER BY outil_nom
 	;";
 	$reqSql[3] = "
-	SELECT lib_jdd, a.id_sinp_jdd	
+WITH list_jdd as (SELECT lib_jdd, a.id_sinp_jdd, typ_org	
 	FROM nomenc.ref_org_jdd a
 	JOIN nomenc.ref_jdd z ON a.id_sinp_jdd = z.id_sinp_jdd
 	WHERE a.id_org = '$idObjet'
-	GROUP BY lib_jdd, a.id_sinp_jdd
-	ORDER BY lib_jdd
+	GROUP BY lib_jdd, a.id_sinp_jdd, typ_org)
+SELECT lib_jdd, id_sinp_jdd, string_agg(typ_org,', ') as typ_org
+	FROM list_jdd
+	GROUP BY lib_jdd, id_sinp_jdd
+	ORDER BY lib_jdd;
 	;";
 	}
 elseif ($theme == "outil") {

@@ -38,13 +38,17 @@ $date_modif = new DateTime($org["datemodif"]);
 
 <!-- FICHE-->
 <h2><?php echo "<div class=\"organisme\">Organisme : ".$org["libellelong"]."</div>";?></h2>
-<i> Les informations présentées sur cette page proviennent de l'outil Organisme (utilisation de la l'API)</i><BR><BR>
+
+<div class="sources"><b>Précaution</b> : Les informations présentées sur cette page proviennent de <b>outil Organisme (utilisation de la l'API)</b>. La liste des organismes SINP est en cours de constitution. Tous les organismes participants au SINP <b>ne sont pas encore dans cette liste</b>. Dans le cadre de cette expérimentation, un rattachement aux organismes a été testé <b>dans le cas de correspondant exacte</b> entre le nom de l'organisme dans l'application organisme et le nom de l'organisme dans le JDD. Tous les jeux de données pour lesquels les organismes contribuent <b>ne sont donc PAS décrits</b> sur cette page. Ce travail de consolidation entre organisme et jeux de données est, par ailleur, en cours et pourra, à terme, alimenter la cartographie. Il en est de même concernant le lien entre plateforme et jeux de données.</div>
+
+
+<div class="fiche">
 <b>Fiche créée le </b> <?php echo date_format($date_crea, 'd/m/Y à H:i:s');
 if ($date_crea < $date_modif) echo " - modidiée le ".date_format($date_modif, 'd/m/Y à H:i:s')." (dernière modification)";?><BR>
 <b>Identifiant unique organisme</b> : <?php echo $org["codeorganisme"];?><BR>
 <b>Identifiant INPN</b> : <?php echo $org["id"];?><BR>
-
 <b>Libellé court</b> : <?php echo $org["libellecourt"];?><BR>
+<b>Description</b> : <?php echo "<i>à venir</i>"?><BR>
 <BR>
 <b>Adresse</b> : <?php echo $org["adresse"];?><BR>
 <b>Périmètre d'action</b> : <?php echo $ref["codeperimetreaction"][$org["codeperimetreaction"]];?><BR>
@@ -53,12 +57,11 @@ if ($date_crea < $date_modif) echo " - modidiée le ".date_format($date_modif, '
 <b>Adhésion au SINP</b> : <?php echo $ref["codeniveauadhesion"][$org["codeniveauadhesion"]];
 if (!empty($org["dateadhesion"])) echo "<b> - date d'adhésion</b> : ".$org["dateadhesion"];?><BR>
 <b>URL du site internet de l'organisme</b> : <?php echo "<a href=\"".$org["url"]."\">".$org["url"]."</a>";?><BR>
+</div>
 
-<BR><BR>
 
 <?php if (isset($org["x"])) echo "<div id=\"mapid\"></div>";
 	?>
-
 
 <div id="c1" class="ptf">
 <b>Liste des plateformes</b><BR>
@@ -82,7 +85,7 @@ if (empty($tool)) echo $valeur_non_applicable; else foreach ($tool as $unit) ech
 <b>Liste des jeux de données</b><BR>
 <table><tbody>
 <?php 
-if (empty($jdd)) echo $valeur_non_applicable; else foreach ($jdd as $unit) echo "<tr><td><a href=\"jdd.php?id=".$unit["id_sinp_jdd"]."\">".$unit["lib_jdd"]."</a></td></tr>";?>
+if (empty($jdd)) echo $valeur_non_applicable; else foreach ($jdd as $unit) echo "<tr><td><a href=\"jdd.php?id=".$unit["id_sinp_jdd"]."\">".$unit["lib_jdd"]." - (".$unit["typ_org"].")</a></td></tr>";?>
 </tbody></table>
 </div>
 

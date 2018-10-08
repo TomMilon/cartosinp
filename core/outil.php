@@ -35,25 +35,29 @@ $pgresult=pg_query ($db,$req[3]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 
 <!-- FICHE-->
 <h2><?php echo "<div class=\"outil\">Outil : ".$result["outil_nom"]."</div>";?></h2>
-<i> Les informations présentées sur cette page proviennent des dossiers d'habilitations mis à disposition par les correspondants SINP régionaux</i><BR><BR>
-<b><a href="./question.php?id=x">Dynamique de l'outil</a></b> : <?php echo $result["outil_dynq"];?><BR>
-<b>URL l'outil</a></b> : <a href="<?php echo $result["outil_url"];?>"><?php echo $result["outil_url"];?></a><BR>
-<b>Organisme </b> : <?php echo $result["outil_org_nom"];?><BR>
-<?php echo $result["outil_desc"];?>
-<BR>
-<TABLE style="height : 400px;">
-<?php 
-for ($i = 1; $i <= 19; $i++) {
-    // echo "<li>".$fct_outil["fct_outil_".$i]." = ".$result["fct_outil_".$i]."<BR></li>";
-		if ($result["fct_outil_".$i] == "ok") $picto = "observation_vert.png";
-		if ($result["fct_outil_".$i] == "part") $picto = "observation_orange.png";
-		if ($result["fct_outil_".$i] == "na") $picto = "observation_rouge.png";
-	   echo "<TR><TD>".$fct_outil["fct_outil_".$i]."</TD><TD><img src=\"../_GRAPH/icones/$picto\"></TD></TR>";
-	}
 
-?>
-</TABLE>
-<BR><BR>
+<div class="sources"><b>Précaution</b> :Les informations présentées sur cette page proviennent des <b>dossiers d'habilitations mis à disposition par les correspondants SINP régionaux</b>. Seules les informations disponibles dans ces dossiers ont été repris ici. Dans le cadre de l'expérimentation, <b>seulement 2 dossiers non validés ont été utilisés dans la cartographie</b> : le dossier PACA et Centre Val de Loire. Le lien entre Cardobs et les jeux de données a été possible grace à l'API métadonnées.</div>
+
+
+<div class="fiche">
+	<b><a href="./question.php?id=x">Dynamique de l'outil</a></b> : <?php echo $result["outil_dynq"];?><BR>
+	<b>URL l'outil</a></b> : <a href="<?php echo $result["outil_url"];?>"><?php echo $result["outil_url"];?></a><BR>
+	<b>Organisme </b> : <?php echo $result["outil_org_nom"];?><BR>
+	<?php echo $result["outil_desc"];?>
+	<BR>
+	<table style="height : 400px;">
+	<?php 
+	for ($i = 1; $i <= 19; $i++) {
+		// echo "<li>".$fct_outil["fct_outil_".$i]." = ".$result["fct_outil_".$i]."<BR></li>";
+			if ($result["fct_outil_".$i] == "ok") $picto = "observation_vert.png";
+			if ($result["fct_outil_".$i] == "part") $picto = "observation_orange.png";
+			if ($result["fct_outil_".$i] == "na") $picto = "observation_rouge.png";
+		   echo "<TR><TD>".$fct_outil["fct_outil_".$i]."</TD><TD><img src=\"../_GRAPH/icones/$picto\"></TD></TR>";
+		}
+
+	?>
+	</table>
+</div>
 
 <!-----LIEN avec les autres fiches------>
 <div id="c1" class="ptf">
