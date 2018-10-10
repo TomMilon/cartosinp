@@ -36,7 +36,7 @@ $pgresult=pg_query ($db,$req[3]) or fatal_error ("Erreur pgSQL : ".pg_result_err
 <!-- FICHE-->
 <h2><?php echo "<div class=\"outil\">Outil : ".$result["outil_nom"]."</div>";?></h2>
 
-<div class="sources"><b>Précaution</b> :Les informations présentées sur cette page proviennent des <b>dossiers d'habilitations mis à disposition par les correspondants SINP régionaux</b>. Seules les informations disponibles dans ces dossiers ont été repris ici. Dans le cadre de l'expérimentation, <b>seulement 2 dossiers non validés ont été utilisés dans la cartographie</b> : le dossier PACA et Centre Val de Loire. Le lien entre Cardobs et les jeux de données a été possible grace à l'API métadonnées.</div>
+<div class="sources"><b>Précaution</b> :Les informations présentées sur cette page proviennent des <b>dossiers d'habilitations mis à disposition par les correspondants SINP régionaux</b>. Seules les informations disponibles dans ces dossiers ont été reprises ici. Dans le cadre de l'expérimentation, <b>seulement 2 dossiers non validés ont été utilisés dans la cartographie</b> : le dossier PACA et Centre-Val de Loire. Le lien entre Cardobs et les jeux de données a été possible grâce à l'API métadonnées.</div>
 
 
 <div class="fiche">

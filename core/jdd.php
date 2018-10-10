@@ -44,7 +44,7 @@ $date_modif = new DateTime($jdd["daterevision"]);
 <!-- FICHE-->
 <h2><?php echo "<div class=\"jdd\">Jeu de données : ".$jdd["lib_jdd"]."</div>";?></h2>
 
-<div class="sources"><b>Précaution</b> : Les informations présentées sur cette page proviennent de <b>l'application métadonnées</b>. La liste des jeux de données n'est pas complète. Dans le cadre de cette expérimentation, un rattachement des jeux de données aux organismes a été testé <b>dans le cas de correspondant exacte</b> entre le nom de l'organisme dans l'application organisme et le nom de l'organisme dans le JDD. Tous les jeux de données pour lesquels les organismes contribuent <b>ne sont donc PAS décrits</b> sur cette page. Ce travail de consolidation entre organisme et jeux de données est, par ailleur, en cours et pourra, à terme, alimenter la cartographie. Il en est de même concernant le lien entre plateforme et jeux de données.</div>
+<div class="sources"><b>Précaution</b> : Les informations présentées sur cette page proviennent de <b>l'application métadonnées</b>. La liste des jeux de données n'est pas complète. Dans le cadre de cette expérimentation, un rattachement des jeux de données aux organismes a été testé <b>dans le cas de correspondance exacte</b> entre le nom de l'organisme dans l'application organisme et le nom de l'organisme dans le JDD. Tous les jeux de données pour lesquels les organismes contribuent <b>ne sont donc PAS décrits</b> sur cette page. Ce travail de consolidation entre organisme et jeux de données est, par ailleurs, en cours et pourra, à terme, alimenter la cartographie. Il en est de même concernant le lien entre plateforme et jeux de données.</div>
 
 
 <div class="fiche">

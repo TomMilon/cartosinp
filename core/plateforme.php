@@ -41,7 +41,7 @@ foreach ($role_all as $unit) {$ref_role[$unit["lib_nmc"]] = $unit["val_nmc"];}
 <!-- FICHE-->
 <h2><?php echo "<div class=\"ptf\">Plateforme : ".$ptf["nom_region"]."</div>";?></h2>
 
-<div class="sources"><b>Précaution</b> : Les informations présentées sur cette page proviennent des <b>dossiers d'habilitations mis à disposition</b> par les correspondants SINP régionaux. Seules les informations disponibles dans ces dossiers ont été repris ici. Dans le cadre de l'expérimentation, <b>seulement 2 dossiers non validés ont été utilisés dans la cartographie</b> : le dossier PACA et Centre Val de Loire. Des rattachements manuels ont été réalisé avec le référentiel organisme et les jeux du données (par le biais de l'application métadonnées et son API).</div>
+<div class="sources"><b>Précaution</b> : Les informations présentées sur cette page proviennent des <b>dossiers d'habilitations mis à disposition</b> par les correspondants SINP régionaux. Seules les informations disponibles dans ces dossiers ont été reprises ici. Dans le cadre de l'expérimentation, <b>seulement 2 dossiers non validés ont été utilisés dans la cartographie</b> : le dossier PACA et Centre-Val de Loire. Des rattachements manuels ont été réalisés avec le référentiel organisme et les jeux de données (par le biais de l'application métadonnées et son API).</div>
 
 <div class="fiche">
 <table class="tbptf">
